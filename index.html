@@ -21,12 +21,12 @@
     </head>
 
 <body>
+<div class="site-wrapper">
+    <!-- Верхняя панель с логотипом и бургером -->
     <div class="top-bar">
         <div class="container">
-            <!-- Логотип слева (SVG + текст) -->
             <div class="logo-area">
                 <div class="logo-icon">
-                    <!-- красивый абстрактный логотип (компас/звезда) -->
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2L15 8.5L22 9.5L17 14L18.5 21L12 17.5L5.5 21L7 14L2 9.5L9 8.5L12 2Z" fill="white" stroke="#2c7da0" stroke-width="1.2" stroke-linejoin="round"/>
                         <circle cx="12" cy="12" r="2.5" fill="#FFD966" stroke="#b97f10" stroke-width="0.8"/>
@@ -34,8 +34,6 @@
                 </div>
                 <span class="logo-text">NORTHWIND</span>
             </div>
-
-            <!-- Бургер кнопка (внутри top-bar, справа) -->
             <div class="burger-btn" id="burgerBtn">
                 <div class="burger-line"></div>
                 <div class="burger-line"></div>
@@ -44,13 +42,248 @@
         </div>
     </div>
 
-    <script>
-        // JavaScript для бургер-меню
-        const burgerBtn = document.getElementById('burgerBtn');
+    <!-- ПРИВЕТСТВЕННЫЙ БЛОК НА ВЕСЬ ЭКРАН -->
+    <section class="hero-fullscreen">
+        <div class="hero-container">
+            <div class="hero-text">
+                <h1>Новостройки в <span>Ярославле</span></h1>
+                <div class="hero-sub-line">
+                    <p>
+                        <span>🏗️ Напрямую от застройщика</span>
+                        <span>🏦 Ипотека от <span id="mortgageDynamicHero">5.7</span>%</span>
+                    </p>
+                </div>
+                <a href="#applicationForm" class="btn-primary" id="scrollToFormHero">ПОДОБРАТЬ КВАРТИРУ</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Остальной контент -->
+    <div class="content-after-hero">
+        <!-- БЛОК ВЫБЕРИТЕ РАЙОН -->
+        <div class="districts">
+            <h2>Выберите район</h2>
+            <div class="districts-sub">Престижные локации с развитой инфраструктурой</div>
+            <div class="district-grid-cards">
+                <div class="district-card" data-district="Центр">
+                    <div class="card-img img-center"></div>
+                    <h3>Центр</h3>
+                    <p>Исторический центр, набережные, лучшие видовые квартиры</p>
+                </div>
+                <div class="district-card" data-district="Север">
+                    <div class="card-img img-north"></div>
+                    <h3>Север</h3>
+                    <p>Современные ЖК, парковые зоны, близость к деловым кластерам</p>
+                </div>
+                <div class="district-card" data-district="Юг">
+                    <div class="card-img img-south"></div>
+                    <h3>Юг</h3>
+                    <p>Экология, новые школы, выгодные цены за кв. метр</p>
+                </div>
+                <div class="district-card" data-district="Запад">
+                    <div class="card-img img-west"></div>
+                    <h3>Запад</h3>
+                    <p>Престижные новостройки бизнес-класса и транспортная доступность</p>
+                </div>
+                <div class="district-card" data-district="Восток">
+                    <div class="card-img img-east"></div>
+                    <h3>Восток</h3>
+                    <p>Жилые комплексы с собственной инфраструктурой, метро рядом</p>
+                </div>
+                <div class="district-card" data-district="Пригород">
+                    <div class="card-img img-suburb"></div>
+                    <h3>Пригород</h3>
+                    <p>Коттеджные поселки и таунхаусы, тишина и природа</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ФОРМА ЗАЯВКИ -->
+        <div class="form-section" id="applicationForm">
+            <div class="form-wrapper">
+                <h3>Оставьте заявку</h3>
+                <div class="form-desc">Подберем идеальный вариант и ответим на все вопросы</div>
+                <form id="leadForm">
+                    <div class="form-group-vertical">
+                        <input type="text" class="input-field" placeholder="Ваше имя" id="userName" required>
+                        <input type="tel" class="input-field" placeholder="Номер телефона" id="userPhone" required>
+                        <textarea class="input-field" placeholder="Ваши пожелания (количество комнат, бюджет, этаж, срок покупки...)" id="userWishes"></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">ОТПРАВИТЬ ЗАЯВКУ</button>
+                    <p style="font-size: 0.7rem; text-align: center; margin-top: 18px; color: #6f8ea0;">Нажимая на кнопку, вы соглашаетесь с обработкой персональных данных</p>
+                </form>
+            </div>
+        </div>
+
+        <!-- АКЦИИ И СТАТИСТИКА -->
+        <div class="promo-stats">
+            <div class="stat-card">
+                <div class="stat-number">60</div>
+                <div class="stat-label">ОСТАЛОСЬ ВСЕГО КВАРТИР</div>
+                <div class="stat-small" style="font-size:0.7rem;">в активных корпусах</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="discountDisplay">28</div>
+                <div class="stat-label">СКИДКИ ДО <span id="discountValueSpan">28</span>%</div>
+                <div class="stat-small">на отделку и паркинг</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="mortgageRateBig">5.7</div>
+                <div class="stat-label">ИПОТЕКА ОТ <span id="mortgageRateSpan">5.7</span>%</div>
+                <div class="stat-small">спецпредложение для семей</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">🔥</div>
+                <div class="stat-label">ПОСЛЕДНИЕ ПРЕДЛОЖЕНИЯ</div>
+                <div class="stat-small">Рассрочка 0% + ключи за 3 дня</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ФУТЕР НА ВЕСЬ ЭКРАН (контакты + копирайт) -->
+    <footer>
+        <div class="footer-contacts">
+            <div class="contacts-info">
+                <h4>Контакты</h4>
+                <p>📍 г. Ярославль, ул. Примерная, 1</p>
+                <p>📧 info@example.ru</p>
+                <p>🕒 Ежедневно 09:00 – 21:00</p>
+            </div>
+            <div class="contacts-phone">
+                <div class="big-phone">📞 +7 (4852) ХХХ-ХХ-ХХ</div>
+                <button id="callMockBtn" style="margin-top: 14px; background: #f7b32b; padding: 8px 28px; border-radius: 60px; font-weight: 600; cursor: pointer; font-size: 0.9rem;">Позвонить сейчас</button>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            © 2026 Новостройки в Ярославле — напрямую от застройщика
+        </div>
+    </footer>
+</div>
+
+<div id="toastMsg" class="toast-msg">✨ Сообщение принято</div>
+
+<script>
+    (function() {
+        // Процентные ставки и скидки
+        const MORTGAGE_RATE = 5.7;    
+        const DISCOUNT_MAX = 28;       
         
-        burgerBtn.addEventListener('click', function() {
-            this.classList.toggle('active');
+        // Заполняем все динамические элементы
+        const heroMortgageSpan = document.getElementById('mortgageDynamicHero');
+        const mortgageRateBig = document.getElementById('mortgageRateBig');
+        const mortgageRateSpan = document.getElementById('mortgageRateSpan');
+        const discountDisplaySpan = document.getElementById('discountDisplay');
+        const discountValueSpan = document.getElementById('discountValueSpan');
+        
+        if (heroMortgageSpan) heroMortgageSpan.innerText = MORTGAGE_RATE;
+        if (mortgageRateBig) mortgageRateBig.innerText = MORTGAGE_RATE;
+        if (mortgageRateSpan) mortgageRateSpan.innerText = MORTGAGE_RATE;
+        if (discountDisplaySpan) discountDisplaySpan.innerText = DISCOUNT_MAX;
+        if (discountValueSpan) discountValueSpan.innerText = DISCOUNT_MAX;
+        
+        // Toast уведомления
+        const toast = document.getElementById('toastMsg');
+        function showMessage(text, isError = false) {
+            toast.innerText = text;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2800);
+        }
+        
+        // Бургер-меню (просто анимация, без выпадающего меню по желанию)
+        const burgerBtn = document.getElementById('burgerBtn');
+        if (burgerBtn) {
+            burgerBtn.addEventListener('click', function() {
+                this.classList.toggle('active');
+                showMessage('🍔 Меню в разработке', false);
+            });
+        }
+        
+        // Карточки районов
+        const districtCards = document.querySelectorAll('.district-card');
+        districtCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const districtName = card.querySelector('h3')?.innerText || 'район';
+                showMessage(`🏙️ Район «${districtName}» выбран. Специалист по новостройкам скоро свяжется с вами.`);
+                card.style.transform = 'scale(0.97)';
+                setTimeout(() => { card.style.transform = ''; }, 150);
+            });
         });
-    </script>
+        
+        // Форма с пожеланиями
+        const form = document.getElementById('leadForm');
+        const nameInput = document.getElementById('userName');
+        const phoneInput = document.getElementById('userPhone');
+        const wishesInput = document.getElementById('userWishes');
+        
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nameVal = nameInput.value.trim();
+            const phoneVal = phoneInput.value.trim();
+            const wishesVal = wishesInput.value.trim();
+            
+            if (nameVal === '') {
+                showMessage('⚠️ Пожалуйста, укажите ваше имя', true);
+                nameInput.style.borderColor = '#f05b56';
+                setTimeout(() => nameInput.style.borderColor = '', 1500);
+                return;
+            }
+            if (phoneVal === '') {
+                showMessage('⚠️ Введите номер телефона для связи', true);
+                phoneInput.style.borderColor = '#f05b56';
+                setTimeout(() => phoneInput.style.borderColor = '', 1500);
+                return;
+            }
+            const phoneClean = phoneVal.replace(/[\s\-\(\)\+]/g, '');
+            if (phoneClean.length < 10) {
+                showMessage('📞 Укажите корректный телефон (минимум 10 цифр)', true);
+                phoneInput.style.borderColor = '#f05b56';
+                setTimeout(() => phoneInput.style.borderColor = '', 1500);
+                return;
+            }
+            
+            let wishesText = wishesVal ? ` Пожелания: "${wishesVal.substring(0, 70)}${wishesVal.length > 70 ? '…' : ''}"` : '';
+            showMessage(`✅ Спасибо, ${nameVal}! Наш менеджер свяжется с вами в ближайшее время.${wishesText}`);
+            form.reset();
+            console.log(`Заявка: Имя=${nameVal}, Телефон=${phoneVal}, Пожелания=${wishesVal}`);
+        });
+        
+        // Кнопка "Позвонить сейчас"
+        const callBtn = document.getElementById('callMockBtn');
+        if (callBtn) {
+            callBtn.addEventListener('click', () => {
+                showMessage('📞 Наберите +7 (4852) ХХХ-ХХ-ХХ или оставьте заявку для обратного звонка');
+            });
+        }
+        
+        // Плавная прокрутка к форме
+        const scrollHeroBtn = document.getElementById('scrollToFormHero');
+        if (scrollHeroBtn) {
+            scrollHeroBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const formSection = document.getElementById('applicationForm');
+                if (formSection) {
+                    formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    formSection.style.transition = 'background 0.3s';
+                    formSection.style.backgroundColor = '#fff8e8';
+                    setTimeout(() => { formSection.style.backgroundColor = ''; }, 800);
+                }
+            });
+        }
+        
+        // Интерактив для стат-карточек
+        const statCards = document.querySelectorAll('.stat-card');
+        statCards.forEach((card, idx) => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', () => {
+                if (idx === 0) showMessage('🏢 Всего 60 квартир в продаже! Успейте забронировать лучшие варианты.');
+                else if (idx === 1) showMessage(`🎁 Скидки до ${DISCOUNT_MAX}% на отдельные корпуса. Уточняйте условия.`);
+                else if (idx === 2) showMessage(`🏦 Ипотека от ${MORTGAGE_RATE}% на весь период акции. Господдержка и семейная ипотека.`);
+                else if (idx === 3) showMessage('✨ Последние предложения: готовые квартиры с ремонтом, быстрый заезд.');
+            });
+        });
+    })();
+</script>
 </body>
 </html>
