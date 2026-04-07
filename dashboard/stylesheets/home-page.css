@@ -89,12 +89,15 @@ body {
     width: 48px;
     height: 48px;
     border-radius: 10px;
+
     background: transparent;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     gap: 5px;
+    
     cursor: pointer;
     transition: 0.2s;
 }
