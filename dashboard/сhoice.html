@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Кировский район - Просмотр квартир (без ограничений)</title>
+    <title>Кировский район - Новостройки | АКЦИЯ</title>
     <style>
         * {
             margin: 0;
@@ -12,131 +12,171 @@
         }
 
         body {
-            background: #f0f4f8;
+            background: radial-gradient(circle at 10% 30%, #0a0f1c, #03060c);
             font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-            padding: 32px 24px;
-            color: #1e2a3e;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 28px 20px;
+            color: #ffffff;
         }
 
         .container {
             max-width: 1280px;
             margin: 0 auto;
-            background: #ffffff;
-            border-radius: 32px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
-            overflow: visible; /* изменено с hidden на visible, чтобы контент не обрезался */
+            background: rgba(12, 20, 30, 0.75);
+            backdrop-filter: blur(8px);
+            border-radius: 48px;
+            box-shadow: 0 30px 45px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 215, 0, 0.2);
+            overflow: visible;
             padding: 28px 32px 48px;
+            border: 1px solid rgba(255, 200, 50, 0.35);
         }
 
-        /* ШАПКА РАЙОНА */
+        /* ШАПКА РАЙОНА: баннерный стиль */
         .district-header {
             display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            justify-content: space-between;
-            border-bottom: 2px solid #e9edf2;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-bottom: 2px solid rgba(255, 200, 50, 0.5);
             padding-bottom: 18px;
             margin-bottom: 32px;
-        }
-        .district-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #1f4f3c, #2c7a5e);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
+            flex-wrap: wrap;
+            gap: 16px;
         }
         .home-button {
-            background: #f1f5f9;
+            background: rgba(255, 215, 0, 0.9);
             border: none;
-            padding: 10px 22px;
+            padding: 8px 14px;
             border-radius: 60px;
-            font-weight: 600;
-            color: #1e4620;
+            font-weight: 1000;
+            font-size: 1.3rem;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
+            position: absolute;
+            left: 0;
             transition: 0.2s;
+            color: #1e1a0c;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         .home-button:hover {
-            background: #e2e8f0;
-            transform: translateY(-1px);
+            background: #ffcd32;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(255,215,0,0.5);
+        }
+        .district-title {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFD966, #FFB347, #FF8C42);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-align: center;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            letter-spacing: -0.01em;
+        }
+        @media (max-width: 640px) {
+            .district-header {
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            .home-button {
+                position: static;
+                order: 1;
+            }
+            .district-title {
+                order: 2;
+            }
         }
 
-        /* Строка счётчиков */
+        /* Строка счётчиков — стиль баннер */
         .stats-row {
             display: flex;
             flex-wrap: wrap;
             align-items: baseline;
             justify-content: space-between;
             margin-bottom: 36px;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(4px);
+            padding: 12px 24px;
+            border-radius: 80px;
+            border-left: 5px solid #ffb347;
         }
         .section-headline {
-            font-size: 1.7rem;
-            font-weight: 650;
-            color: #0f2c23;
-            border-left: 5px solid #2b8c5e;
-            padding-left: 16px;
+            font-size: 2rem;
+            font-weight: 800;
+            padding-left: 8px;
+            background: linear-gradient(115deg, #FFF3C9, #FFE0A3);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
         }
         .counters {
             display: flex;
             gap: 24px;
-            background: #f9fafc;
-            padding: 8px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 6px 20px;
             border-radius: 80px;
         }
         .counter-item {
             display: flex;
             align-items: baseline;
             gap: 8px;
-            font-weight: 500;
+            font-weight: 600;
+            color: #FFE5B4;
         }
         .green-count, .red-count {
-            color: white;
-            font-weight: 700;
+            color: #0a0c10;
+            font-weight: 800;
             padding: 4px 12px;
             border-radius: 40px;
             font-size: 1.2rem;
             min-width: 55px;
             text-align: center;
         }
-        .green-count { background: #2c8c5a; }
-        .red-count { background: #c73f1e; }
+        .green-count { background: #F5B042; box-shadow: 0 0 6px #ffb347; color: #1f1c12; }
+        .red-count { background: #FF6A3D; box-shadow: 0 0 8px #ff5722; color: #fff2e0; }
 
-        /* Карточка ЖК */
+        /* Карточка ЖК — баннерный карточный стиль */
         .complex-card {
-            background: #ffffff;
-            border-radius: 28px;
+            background: linear-gradient(145deg, #1e2a32, #111b24);
+            border-radius: 32px;
             margin-bottom: 40px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
-            border: 1px solid #eef2f6;
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 180, 70, 0.5);
+            border: 1px solid rgba(255, 190, 80, 0.4);
         }
         .complex-header {
             display: flex;
             gap: 28px;
-            padding: 24px 28px 20px;
+            padding: 30px 30px 20px;
             flex-wrap: wrap;
             align-items: center;
         }
         .complex-image {
-            flex: 0 0 140px;
-            background: linear-gradient(145deg, #dbebdf, #cbdcd0);
-            border-radius: 24px;
+            flex: 0 0 300px;
+            background: radial-gradient(circle at 30% 20%, #2f3e48, #0f1920);
+            border-radius: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 16px 12px;
+            padding: 20px 12px;
+            border: 1px solid #ffb34780;
         }
         .img-placeholder {
             text-align: center;
-            font-size: 3rem;
-            color: #487a60;
+            font-size: 3.5rem;
+            color: #FFD966;
+            filter: drop-shadow(0 4px 6px #00000055);
         }
         .img-placeholder span {
             display: block;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             margin-top: 8px;
+            font-weight: bold;
+            color: #FFD58C;
         }
         .complex-info {
             flex: 1;
@@ -152,43 +192,57 @@
         }
         .complex-name {
             font-size: 1.9rem;
-            font-weight: 700;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFE5B4, #FFC477);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
         }
         .price-deadline {
             display: flex;
             gap: 18px;
-            background: #f2f5f9;
-            padding: 6px 16px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 6px 20px;
             border-radius: 60px;
+            backdrop-filter: blur(2px);
+        }
+        .price {
+            font-weight: 800;
+            color: #F7B32B;
+            font-size: 1rem;
+        }
+        .deadline {
+            color: #CFCFCF;
+            font-size: 0.9rem;
         }
         .info-row-2 {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
+            justify-content: flex-end;
             gap: 16px;
         }
-        .btn-outline {
-            background: transparent;
-            border: 1.5px solid #cbdbe0;
-            padding: 8px 24px;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-        }
         .btn-primary {
-            background: #1f6e4a;
+            background: linear-gradient(95deg, #FFA41F, #FF7F2A);
             border: none;
-            padding: 8px 32px;
+            padding: 10px 32px;
             border-radius: 40px;
-            font-weight: 600;
-            color: white;
+            font-weight: 800;
+            color: #221c0e;
             cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            letter-spacing: 0.5px;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(95deg, #FFB43B, #FF9430);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 18px rgba(255, 140, 0, 0.5);
         }
 
         /* Блок квартир */
         .apartments-wrapper {
             margin: 0 28px 24px;
-            border-top: 1px solid #eef2f8;
+            border-top: 1px solid rgba(255, 180, 70, 0.3);
             padding-top: 20px;
         }
         .apartments-header {
@@ -203,21 +257,39 @@
             gap: 18px;
             font-weight: 700;
             font-size: 1.25rem;
+            color: #FFDEAD;
         }
         .apartment-badge {
-            background: #eef2f6;
+            background: #FF8C42;
             padding: 4px 12px;
             border-radius: 32px;
+            color: #1e1b12;
+            font-weight: 800;
+        }
+        .toggle-details-btn-header {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #FFB347;
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #FFDCA8;
+        }
+        .toggle-details-btn-header:hover {
+            background: #FFB347;
+            border-color: #FFD966;
+            color: #1a1a0c;
         }
         .apartments-list {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease;
+            transition: max-height 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
         .apartments-list.open {
-            max-height: 2000px; /* достаточно большое значение, но не бесконечное. Чтобы гарантированно не обрезать, убираем ограничение по высоте в открытом состоянии */
+            max-height: 2500px;
         }
-        /* Убираем ограничение высоты для внутренней сетки, чтобы карточки всегда были видны */
         .apartments-grid {
             display: flex;
             flex-direction: column;
@@ -225,31 +297,34 @@
             padding: 20px 8px 12px;
         }
 
-        /* Базовая карточка квартиры */
+        /* Карточка квартиры — динамичный баннер */
         .apartment-card {
-            background: #f9fafd;
-            border-radius: 24px;
+            background: #0f1922e6;
+            backdrop-filter: blur(4px);
+            border-radius: 28px;
             padding: 16px 20px;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            border: 1px solid #eef2f6;
+            border: 1px solid rgba(255, 180, 70, 0.6);
             transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
-        /* Особое предложение — яркая карточка */
         .apartment-card.special-offer {
-            background: linear-gradient(115deg, #fff5eb, #ffe8d9);
-            border-left: 8px solid #e65c2e;
-            box-shadow: 0 6px 14px -6px rgba(230, 92, 46, 0.2);
+            background: linear-gradient(115deg, #2a1f12, #2f2418);
+            border-left: 8px solid #FF6A3D;
+            box-shadow: 0 10px 20px -5px rgba(255, 80, 40, 0.4);
         }
         .apartment-card.special-offer .apt-price {
-            color: #e65c2e;
+            color: #FF9460;
             font-size: 1.2rem;
+            text-shadow: 0 0 2px #ff4400;
         }
         .apartment-card.special-offer .apt-price::before {
             content: "🔥 ";
+            font-weight: 900;
         }
 
         .apartment-details {
@@ -259,19 +334,22 @@
             align-items: baseline;
         }
         .apt-type {
-            font-weight: 700;
+            font-weight: 800;
             font-size: 1.1rem;
             min-width: 130px;
+            color: #FFD6A5;
         }
         .apt-area, .apt-floor {
-            background: #eef3ef;
+            background: rgba(0, 0, 0, 0.55);
             padding: 4px 14px;
             border-radius: 32px;
             font-size: 0.85rem;
+            font-weight: 600;
+            color: #FFDDAA;
         }
         .apt-price {
             font-weight: 800;
-            color: #2c6e47;
+            color: #F5B042;
             font-size: 1.1rem;
         }
         .apt-actions {
@@ -279,35 +357,41 @@
             gap: 12px;
         }
         .btn-sm {
-            background: white;
-            border: 1px solid #cddfd4;
+            background: #1e2b32;
+            border: 1px solid #FFB347;
             padding: 6px 20px;
             border-radius: 40px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             font-size: 0.8rem;
+            color: #FFF0CC;
         }
         .btn-sm-primary {
-            background: #1f6e4a;
+            background: #FF8C42;
             border: none;
-            color: white;
+            color: #1f1c12;
+            font-weight: 800;
+        }
+        .btn-sm-primary:hover {
+            background: #FFA245;
+            transform: scale(0.98);
         }
 
-        /* ===== РАСШИРЕННЫЙ РЕЖИМ (ПО КНОПКЕ "СМОТРЕТЬ ▼") ===== */
+        /* РАСШИРЕННЫЙ РЕЖИМ — премиум баннер */
         .apartment-card.expanded {
             flex-direction: column;
             align-items: stretch;
-            background: #ffffff;
-            border: 2px solid #2b8c5e;
-            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.15);
+            background: #16222ce6;
+            backdrop-filter: blur(12px);
+            border: 2px solid #FFB347;
+            box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px #FFC477;
             cursor: default;
             padding: 20px;
         }
         .apartment-card.special-offer.expanded {
-            background: linear-gradient(115deg, #fffaf5, #fff2e6);
-            border-left: 8px solid #e65c2e;
+            background: linear-gradient(115deg, #2f2418, #241e12);
+            border-left: 8px solid #FF6A3D;
         }
-        /* Верхняя строка: заголовок (apt-type) + кнопка "Оставить заявку" */
         .expanded-header {
             display: flex;
             flex-wrap: wrap;
@@ -318,15 +402,17 @@
             width: 100%;
         }
         .expanded-title {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            color: #1e3a2f;
+            background: linear-gradient(135deg, #FFE0A3, #FFB347);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
         }
         .expanded-actions {
             display: flex;
             gap: 12px;
         }
-        /* Основная область: изображение слева, список деталей справа */
         .expanded-content {
             display: flex;
             flex-wrap: wrap;
@@ -335,22 +421,24 @@
         }
         .expanded-image {
             flex: 0 0 180px;
-            background: #eef2f0;
-            border-radius: 24px;
+            background: radial-gradient(#2f404b, #0c141c);
+            border-radius: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 24px 12px;
             min-height: 160px;
+            border: 1px solid #ffb34770;
         }
         .expanded-image .img-placeholder-lg {
             text-align: center;
             font-size: 4rem;
+            color: #FFCC77;
         }
         .expanded-image .img-placeholder-lg span {
             display: block;
             font-size: 0.75rem;
-            color: #5f7c6b;
+            color: #FFDCA8;
             margin-top: 8px;
         }
         .expanded-details-list {
@@ -364,99 +452,167 @@
             align-items: baseline;
             gap: 24px;
             flex-wrap: wrap;
-            border-bottom: 1px dashed #e2e8e4;
+            border-bottom: 1px dashed rgba(255, 190, 70, 0.4);
             padding-bottom: 8px;
         }
         .detail-label {
-            font-weight: 600;
-            color: #2c5a44;
+            font-weight: 700;
+            color: #FFCA7A;
             min-width: 100px;
         }
         .detail-value {
-            color: #1f2f3c;
+            color: #F2E5C9;
             font-weight: 500;
         }
         .close-expand-btn {
-            background: transparent;
-            border: 1px solid #cbd5e1;
-            padding: 6px 18px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #FFB347;
+            padding: 6px 20px;
             border-radius: 40px;
             font-size: 0.8rem;
             cursor: pointer;
             margin-top: 16px;
             align-self: flex-start;
+            color: #FFDEAD;
         }
         .close-expand-btn:hover {
-            background: #eef2f6;
+            background: #FFB347;
+            color: #1f1a0c;
         }
 
-        /* Баннер и футер */
-        .limited-banner {
-            margin: 16px 28px 28px;
-            background: #fff6e8;
-            border-left: 6px solid #e67e22;
-            border-radius: 20px;
-            padding: 12px 22px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .btn-pick {
-            background: #e67e22;
-            border: none;
-            padding: 8px 26px;
+        /* УРГЕНТ БЛОК — яркий баннерный */
+        .urgent-block {
+            background: linear-gradient(115deg, #FF7700, #E65100);
             border-radius: 40px;
+            padding: 32px 40px;
+            margin: 48px 0 56px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
             color: white;
-            font-weight: 600;
-            cursor: pointer;
+            box-shadow: 0 15px 30px rgba(230, 80, 0, 0.6);
+            border: 1px solid #FFC107;
         }
-        .leave-request-footer {
-            margin-top: 48px;
-            background: #eef4ec;
-            border-radius: 36px;
-            padding: 28px 32px;
+        .urgent-text h3 {
+            font-size: 1.9rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 0 #a83200;
+        }
+        .urgent-text p {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .btn-large {
+            background: #FFDE59;
+            padding: 14px 36px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #2c1e0a;
+            box-shadow: 0 6px 14px black;
+        }
+        .btn-large:hover {
+            background: #FFED85;
+            transform: scale(1.02);
+            box-shadow: 0 12px 22px black;
+        }
+
+        /* ФОРМА ЗАЯВКИ — стиль баннер */
+        .form-section {
+            background: #0E1A24CC;
+            backdrop-filter: blur(12px);
+            border-radius: 42px;
+            padding: 40px 36px;
+            margin-top: 20px;
+            border: 1px solid #FFB347;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.5);
+        }
+        .form-wrapper h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFE2B5, #FFBA5A);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 8px;
             text-align: center;
         }
-        .mock-form {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 14px;
-            margin-top: 12px;
+        .form-desc {
+            text-align: center;
+            color: #FFDAA5;
+            margin-bottom: 32px;
+            font-weight: 500;
         }
-        .mock-input {
-            padding: 12px 20px;
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .input-field {
+            width: 100%;
+            padding: 14px 22px;
+            border: 1px solid #FFB76E;
             border-radius: 60px;
-            border: none;
-            width: 260px;
-            background: white;
+            font-size: 1rem;
+            background: #1F2C36;
+            color: #FFF2E0;
+            transition: 0.2s;
+            outline: none;
+        }
+        .input-field:focus {
+            border-color: #FFA41F;
+            box-shadow: 0 0 0 3px rgba(255, 164, 31, 0.5);
+            background: #17242e;
         }
         .btn-submit {
-            background: #1f6e4a;
-            color: white;
-            border: none;
-            padding: 12px 32px;
+            background: linear-gradient(95deg, #FFA41F, #FF6E2E);
+            color: #221b0b;
+            font-weight: 800;
+            padding: 14px 28px;
             border-radius: 60px;
-            font-weight: 700;
+            border: none;
+            font-size: 1rem;
             cursor: pointer;
+            width: 100%;
+            transition: 0.2s;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+        }
+        .btn-submit:hover {
+            background: linear-gradient(95deg, #FFB843, #FF8330);
+            transform: scale(1.01);
         }
         @media (max-width: 760px) {
-            .container { padding: 20px; }
+            .container { padding: 18px; }
             .expanded-content { flex-direction: column; }
             .expanded-image { flex-basis: auto; width: 100%; }
+        }
+        /* акцентные иконки */
+        .counter-item span:first-child {
+            color: #FFDD99;
+        }
+        ::placeholder {
+            color: #b9cfdd;
+            opacity: 0.7;
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="district-header">
-        <h1 class="district-title">🏘️ Кировский район</h1>
-        <button class="home-button" id="homeBtn"><span>🏠</span> На главный экран</button>
+        <button class="home-button" id="homeBtn">🏠 ГЛАВНАЯ</button>
+        <h1 class="district-title">КИРОВСКИЙ РАЙОН</h1>
     </div>
 
     <div class="stats-row">
-        <div class="section-headline">Новостройки в районе</div>
+        <div class="section-headline">🔥 НОВОСТРОЙКИ СО СКИДКАМИ</div>
         <div class="counters">
             <div class="counter-item"><span>Всего квартир:</span><span class="green-count" id="totalApartmentsCount">0</span></div>
             <div class="counter-item"><span>Особая цена 🔥:</span><span class="red-count" id="specialPriceCount">0</span></div>
@@ -466,36 +622,90 @@
     <!-- ЖК Солнечный -->
     <div class="complex-card">
         <div class="complex-header">
-            <div class="complex-image"><div class="img-placeholder">🏞️<span>ЖК Солнечный</span></div></div>
+            <div class="complex-image"><div class="img-placeholder">☀️🏙️<span>ЖК Солнечный</span></div></div>
             <div class="complex-info">
-                <div class="info-row-1"><span class="complex-name">ЖК Солнечный</span><div class="price-deadline"><span>от 5.2 млн ₽</span><span>сдача 2025</span></div></div>
-                <div class="info-row-2"><button class="btn-outline toggle-details-btn" data-target="solar">Подробнее ▼</button><button class="btn-primary request-complex" data-complex="Солнечный">Оставить заявку</button></div>
+                <div class="info-row-1">
+                    <span class="complex-name">ЖК Солнечный</span>
+                    <div class="price-deadline">
+                        <span class="price">от 4.85 млн ₽</span>
+                        <span class="deadline">сдача 2025</span>
+                    </div>
+                </div>
+                <div class="info-row-2">
+                    <button class="btn-primary request-complex" data-complex="Солнечный">🔥 ЗАЯВКА НА ЖК</button>
+                </div>
             </div>
         </div>
         <div class="apartments-wrapper">
-            <div class="apartments-header"><div class="apartments-title"><span>🏢 Квартиры в ЖК</span><span class="apartment-badge" id="solarCountBadge">0</span></div></div>
-            <div class="apartments-list" id="solarApartmentsList"><div class="apartments-grid" id="solarApartmentsGrid"></div></div>
+            <div class="apartments-header">
+                <div class="apartments-title">
+                    <span>🏢 КВАРТИРЫ В ЖК</span>
+                    <span class="apartment-badge" id="solarCountBadge">0</span>
+                </div>
+                <button class="toggle-details-btn-header" data-target="solar">ПОДРОБНЕЕ ▼</button>
+            </div>
+            <div class="apartments-list" id="solarApartmentsList">
+                <div class="apartments-grid" id="solarApartmentsGrid"></div>
+            </div>
         </div>
     </div>
 
-    <div class="limited-banner"><div class="limited-text">🔥 ОСТАЛОСЬ ВСЕГО 2 ОБЪЕКТА</div><button class="btn-pick" id="pickApartBtn">ПОДОБРАТЬ КВАРТИРУ ➤</button></div>
+    <!-- СРОЧНОЕ ПРЕДЛОЖЕНИЕ -->
+    <div class="urgent-block">
+        <div class="urgent-text">
+            <h3>⚡ ОСТАЛОСЬ ВСЕГО 2 ОБЪЕКТА</h3>
+            <p>Квартиры в ЖК Солнечный по специальной цене</p>
+        </div>
+        <button class="btn-large" id="urgentSelectBtn">🔥 ПОДОБРАТЬ КВАРТИРУ ➤</button>
+    </div>
 
     <!-- ЖК Парк -->
     <div class="complex-card">
         <div class="complex-header">
-            <div class="complex-image"><div class="img-placeholder">🌳<span>ЖК Парк</span></div></div>
+            <div class="complex-image"><div class="img-placeholder">🌳🏞️<span>ЖК Парк</span></div></div>
             <div class="complex-info">
-                <div class="info-row-1"><span class="complex-name">ЖК Парк</span><div class="price-deadline"><span>от 6.8 млн ₽</span><span>сдача 2024</span></div></div>
-                <div class="info-row-2"><button class="btn-outline toggle-details-btn" data-target="park">Подробнее ▼</button><button class="btn-primary request-complex" data-complex="Парк">Оставить заявку</button></div>
+                <div class="info-row-1">
+                    <span class="complex-name">ЖК Парк</span>
+                    <div class="price-deadline">
+                        <span class="price">от 5.1 млн ₽</span>
+                        <span class="deadline">сдача 2024</span>
+                    </div>
+                </div>
+                <div class="info-row-2">
+                    <button class="btn-primary request-complex" data-complex="Парк">🏆 ЗАЯВКА НА ЖК</button>
+                </div>
             </div>
         </div>
         <div class="apartments-wrapper">
-            <div class="apartments-header"><div class="apartments-title"><span>🏢 Квартиры в ЖК</span><span class="apartment-badge" id="parkCountBadge">0</span></div></div>
-            <div class="apartments-list" id="parkApartmentsList"><div class="apartments-grid" id="parkApartmentsGrid"></div></div>
+            <div class="apartments-header">
+                <div class="apartments-title">
+                    <span>🏢 КВАРТИРЫ В ЖК</span>
+                    <span class="apartment-badge" id="parkCountBadge">0</span>
+                </div>
+                <button class="toggle-details-btn-header" data-target="park">ПОДРОБНЕЕ ▼</button>
+            </div>
+            <div class="apartments-list" id="parkApartmentsList">
+                <div class="apartments-grid" id="parkApartmentsGrid"></div>
+            </div>
         </div>
     </div>
 
-    <div class="leave-request-footer"><h3>📋 ОСТАВИТЬ ЗАЯВКУ</h3><div class="mock-form"><input type="text" placeholder="Ваше имя" class="mock-input"><input type="tel" placeholder="Телефон" class="mock-input"><button class="btn-submit" id="globalRequestBtn">Отправить заявку</button></div><p style="font-size: 12px; margin-top: 12px;">Наш менеджер свяжется с вами</p></div>
+    <!-- ФОРМА ЗАЯВКИ -->
+    <div class="form-section" id="formSection">
+        <div class="form-wrapper">
+            <h3>🚀 ОСТАВЬТЕ ЗАЯВКУ</h3>
+            <div class="form-desc">Менеджер подберет лучший вариант в Кировском районе с выгодой до 20%</div>
+            <form id="leadForm">
+                <div class="form-group">
+                    <input type="text" class="input-field" placeholder="Ваше имя" id="userName" required>
+                    <input type="tel" class="input-field" placeholder="Номер телефона" id="userPhone" required>
+                    <textarea class="input-field" rows="2" placeholder="Количество комнат / бюджет / пожелания" id="userComment" style="border-radius: 28px;"></textarea>
+                    <button type="submit" class="btn-submit">ОТПРАВИТЬ ЗАЯВКУ 🔥</button>
+                </div>
+            </form>
+            <p style="font-size: 0.7rem; text-align: center; margin-top: 20px; color: #FFDCA8;">Нажимая на кнопку, вы даете согласие на обработку данных</p>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -514,7 +724,6 @@
         ]
     };
 
-    // Глобальные счётчики
     function updateGlobalCounters() {
         let total = 0, special = 0;
         for (let key in apartmentsData) {
@@ -525,7 +734,6 @@
         document.getElementById('specialPriceCount').innerText = special;
     }
 
-    // Рендер списка квартир
     function renderApartments(complexKey, containerId, badgeId) {
         const apartments = apartmentsData[complexKey];
         const container = document.getElementById(containerId);
@@ -537,7 +745,6 @@
             if (apt.special) card.classList.add('special-offer');
             card.setAttribute('data-apt-idx', idx);
             card.setAttribute('data-complex', complexKey);
-            // Свёрнутое содержимое
             card.innerHTML = `
                 <div class="apartment-details">
                     <div class="apt-type">${apt.rooms}</div>
@@ -550,54 +757,43 @@
                     <button class="btn-sm btn-sm-primary request-apartment-btn">Оставить заявку</button>
                 </div>
             `;
-            // Обработчик для кнопки "Смотреть ▼" — именно она раскрывает карточку
             const viewBtn = card.querySelector('.view-detail-btn');
             const requestBtn = card.querySelector('.request-apartment-btn');
-            
             viewBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 expandCardByView(card, apt, complexKey);
             });
             requestBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                alert(`Заявка на ${apt.rooms} в ЖК ${complexKey === 'solar' ? 'Солнечный' : 'Парк'}`);
+                alert(`✅ Заявка на ${apt.rooms} в ЖК ${complexKey === 'solar' ? 'Солнечный' : 'Парк'} принята! Менеджер свяжется.`);
             });
             container.appendChild(card);
         });
         document.getElementById(badgeId).innerText = apartments.length;
     }
 
-    // Функция раскрытия карточки по кнопке "Смотреть"
     function expandCardByView(card, aptData, complexKey) {
-        // Если уже раскрыта — ничего не делаем
         if (card.classList.contains('expanded')) return;
-        
-        // Сохраняем оригинальный HTML для сворачивания
         const originalHtml = card.innerHTML;
         card.setAttribute('data-original-html', originalHtml);
         card.classList.add('expanded');
         card.innerHTML = '';
-        
         const complexName = complexKey === 'solar' ? 'ЖК Солнечный' : 'ЖК Парк';
-        
-        // Верхняя строка: заголовок (apt-type) и кнопка "Оставить заявку" (кнопка "Смотреть" отсутствует)
         const headerDiv = document.createElement('div');
         headerDiv.className = 'expanded-header';
         headerDiv.innerHTML = `
-            <div class="expanded-title">${aptData.rooms}</div>
+            <div class="expanded-title">✨ ${aptData.rooms}</div>
             <div class="expanded-actions">
                 <button class="btn-sm btn-sm-primary expanded-request-btn">Оставить заявку</button>
             </div>
         `;
-        
-        // Основная область: изображение (заглушка) слева, справа — детали (площадь, цена, этаж, описание)
         const contentDiv = document.createElement('div');
         contentDiv.className = 'expanded-content';
         contentDiv.innerHTML = `
             <div class="expanded-image">
                 <div class="img-placeholder-lg">
-                    🏙️
-                    <span>Изображение ЖК</span>
+                    🏙️🌟
+                    <span>Планировка премиум</span>
                 </div>
             </div>
             <div class="expanded-details-list">
@@ -608,8 +804,6 @@
                 <div class="detail-row"><div class="detail-label">📝 Описание:</div><div class="detail-value">${aptData.desc || 'Отличная планировка, развитая инфраструктура.'}</div></div>
             </div>
         `;
-        
-        // Кнопка "Свернуть" для закрытия расширенного вида
         const closeBtn = document.createElement('button');
         closeBtn.className = 'close-expand-btn';
         closeBtn.textContent = 'Свернуть ▲';
@@ -617,29 +811,24 @@
             e.stopPropagation();
             collapseCard(card, aptData, complexKey);
         });
-        
         card.appendChild(headerDiv);
         card.appendChild(contentDiv);
         card.appendChild(closeBtn);
-        
-        // Обработчик для кнопки "Оставить заявку" внутри expanded
         const expandedRequest = card.querySelector('.expanded-request-btn');
         if (expandedRequest) {
             expandedRequest.addEventListener('click', (e) => {
                 e.stopPropagation();
-                alert(`Заявка на ${aptData.rooms} в ${complexName}`);
+                alert(`✅ Заявка на ${aptData.rooms} в ${complexName}`);
             });
         }
     }
-    
-    // Функция сворачивания карточки обратно в исходное состояние
+
     function collapseCard(card, aptData, complexKey) {
         if (!card.classList.contains('expanded')) return;
         const original = card.getAttribute('data-original-html');
         if (original) {
             card.innerHTML = original;
             card.classList.remove('expanded');
-            // Перепривязываем обработчики к кнопкам после восстановления HTML
             const newViewBtn = card.querySelector('.view-detail-btn');
             const newRequestBtn = card.querySelector('.request-apartment-btn');
             if (newViewBtn) {
@@ -657,9 +846,8 @@
         }
     }
 
-    // Управление раскрытием списка квартир (кнопка "Подробнее ▼" в шапке ЖК)
     function initDropdowns() {
-        const toggles = document.querySelectorAll('.toggle-details-btn');
+        const toggles = document.querySelectorAll('.toggle-details-btn-header');
         toggles.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -667,30 +855,34 @@
                 const list = document.getElementById(`${target}ApartmentsList`);
                 if (list) {
                     list.classList.toggle('open');
-                    btn.innerHTML = list.classList.contains('open') ? 'Подробнее ▲' : 'Подробнее ▼';
+                    btn.innerHTML = list.classList.contains('open') ? 'ПОДРОБНЕЕ ▲' : 'ПОДРОБНЕЕ ▼';
                 }
             });
         });
-        // По умолчанию открываем список Солнечного
         const solarList = document.getElementById('solarApartmentsList');
-        const solarBtn = document.querySelector('.toggle-details-btn[data-target="solar"]');
+        const solarBtn = document.querySelector('.toggle-details-btn-header[data-target="solar"]');
         if (solarList && !solarList.classList.contains('open')) {
             solarList.classList.add('open');
-            if (solarBtn) solarBtn.innerHTML = 'Подробнее ▲';
+            if (solarBtn) solarBtn.innerHTML = 'ПОДРОБНЕЕ ▲';
         }
     }
 
-    // Общие обработчики
     function bindCommon() {
         document.querySelectorAll('.request-complex').forEach(btn => {
-            btn.addEventListener('click', () => alert(`Заявка на ЖК "${btn.getAttribute('data-complex')}" принята!`));
+            btn.addEventListener('click', () => alert(`✅ Заявка на ЖК "${btn.getAttribute('data-complex')}" принята! Наш эксперт свяжется.`));
         });
-        document.getElementById('homeBtn')?.addEventListener('click', () => alert('Возврат на главный экран (демо)'));
-        document.getElementById('pickApartBtn')?.addEventListener('click', () => alert('Подбор квартиры: укажите параметры в заявке'));
-        document.getElementById('globalRequestBtn')?.addEventListener('click', () => alert('Спасибо! Заявка отправлена.'));
+        document.getElementById('homeBtn')?.addEventListener('click', () => alert('🏠 Возврат на главную страницу (демо-режим)'));
+        document.getElementById('urgentSelectBtn')?.addEventListener('click', () => alert('⚡ Осталось 2 объекта! Оставьте заявку, чтобы получить максимальную скидку.'));
+        const form = document.getElementById('leadForm');
+        if(form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('🎉 Спасибо! Ваша заявка отправлена. Менеджер перезвонит в ближайшее время.');
+                form.reset();
+            });
+        }
     }
 
-    // Инициализация
     renderApartments('solar', 'solarApartmentsGrid', 'solarCountBadge');
     renderApartments('park', 'parkApartmentsGrid', 'parkCountBadge');
     updateGlobalCounters();
