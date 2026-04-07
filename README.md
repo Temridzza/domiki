@@ -3,6 +3,8 @@ markdown
 
 ## Подключение к репозиторию
 ```bash
+cd C:\xampp\htdocs
+
 git init
 git branch -M main
 git remote add origin https://github.com/Temrjdzza/domiki.git
@@ -18,8 +20,7 @@ git remote add origin https://github.com/Temrjdzza/domiki.git
 - [ ] Сделать адаптивность для устройств
 - [ ] Подогнать цветовую гамму как из исходноков
 #### Исходники
-![Главная страница](./img/Home.jpg)
-![Выбор квартир](./img/Choice.jpg)
+[тут](./img/README.md)
 
 ### ⚙️ Для бэкенда
 🚧 Информация отсутствует
