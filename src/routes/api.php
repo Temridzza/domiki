@@ -28,9 +28,16 @@ Route::get('/districts', [DistrictController::class, 'index']);
 use App\Http\Controllers\NewBuildingController;
 Route::get('/new-buildings', [NewBuildingController::class, 'index']);
 
+// new-buildings byDistrict
+Route::get('/districts/{slug}/new-buildings', [NewBuildingController::class, 'byDistrict']);
+
 // создание записей под админом
 Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     Route::post('/districts', [DistrictController::class, 'store']);
+});
+
+Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
+    Route::post('/new-buildings', [NewBuildingController::class, 'store']);
 });
 
 # dev

@@ -23,7 +23,7 @@ class DistrictController extends Controller
             $path = $request->file('image')->store('districts', 'public');
             $data['image'] = $path;
         } else {
-            $data['image'] = 'districts/default.png'; // путь к заглушке
+            $data['image'] = 'default.png'; // путь к заглушке
         }
 
         // Создание записи
