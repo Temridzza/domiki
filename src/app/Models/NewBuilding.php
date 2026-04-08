@@ -14,6 +14,16 @@ class NewBuilding extends Model
     {
         return $this->belongsTo(District::class);
     }
+
+    protected $fillable = [
+        'district_id',
+        'name',
+        'image',
+        'address',
+        'completion_date',
+        'developer_pdf',
+        'advantages',
+    ];
 }
 
 
