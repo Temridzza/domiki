@@ -6,15 +6,13 @@
         <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <!-- Использовать title, если он есть в YAML-разметке страницы -->
+        <!-- Использовать title -->
         <title>Новостройки в Ярославле </title>
-
         <meta name="description" content="Новостройки в Ярославле — поиск и покупка квартир" />
         <meta name="keywords" content="застройщик, ипотека, скидки" />
 
-        <link href="/dashboard/stylesheets/home-page.css" rel="stylesheet" type="text/css" />
-        <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-
+        <!-- Подключение файлов -->
+        <link href="/dashboard/stylesheets/style.css" rel="stylesheet" type="text/css" />
         <link href="/dashboard/images/favicon.png" rel="icon" type="image/png" />
     </head>
 
@@ -48,7 +46,7 @@
                 <div class="hero-sub-line">
                     <p>
                         <span>🏗️ Напрямую от застройщика</span>
-                        <span>🏦 Ипотека от <span id="mortgageDynamicHero">5.7</span>%</span>
+                        <span>🔥 Скидки до конца месяца</span>
                     </p>
                 </div>
                 <a href="#applicationForm" class="btn-primary" id="scrollToFormHero">ПОДОБРАТЬ КВАРТИРУ</a>
@@ -115,25 +113,27 @@
 
         <!-- АКЦИИ И СТАТИСТИКА -->
         <div class="promo-stats">
-            <div class="stat-card">
-                <div class="stat-number">60</div>
-                <div class="stat-label">ОСТАЛОСЬ ВСЕГО КВАРТИР</div>
-                <div class="stat-small" style="font-size:0.7rem;">в активных корпусах</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="discountDisplay">28</div>
-                <div class="stat-label">СКИДКИ ДО <span id="discountValueSpan">28</span>%</div>
-                <div class="stat-small">на отделку и паркинг</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="mortgageRateBig">5.7</div>
-                <div class="stat-label">ИПОТЕКА ОТ <span id="mortgageRateSpan">5.7</span>%</div>
-                <div class="stat-small">спецпредложение для семей</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">🔥</div>
-                <div class="stat-label">ПОСЛЕДНИЕ ПРЕДЛОЖЕНИЯ</div>
-                <div class="stat-small">Рассрочка 0% + ключи за 3 дня</div>
+            <div class="promo-stats-inner">
+                <div class="stat-card">
+                    <div class="stat-number">60</div>
+                    <div class="stat-label">ОСТАЛОСЬ ВСЕГО КВАРТИР</div>
+                    <div class="stat-small" style="font-size:0.7rem;">в активных корпусах</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="discountDisplay">28</div>
+                    <div class="stat-label">СКИДКИ ДО <span id="discountValueSpan">28</span>%</div>
+                    <div class="stat-small">на отделку и паркинг</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="mortgageRateBig">5.7</div>
+                    <div class="stat-label">ИПОТЕКА ОТ <span id="mortgageRateSpan">5.7</span>%</div>
+                    <div class="stat-small">спецпредложение для семей</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">🔥</div>
+                    <div class="stat-label">ПОСЛЕДНИЕ ПРЕДЛОЖЕНИЯ</div>
+                    <div class="stat-small">Рассрочка 0% + ключи за 3 дня</div>
+                </div>
             </div>
         </div>
     </div>
@@ -148,8 +148,9 @@
                 <p>🕒 Ежедневно 09:00 – 21:00</p>
             </div>
             <div class="contacts-phone">
-                <div class="big-phone">📞 +7 (4852) ХХХ-ХХ-ХХ</div>
-                <button id="callMockBtn" style="margin-top: 14px; background: #f7b32b; padding: 8px 28px; border-radius: 60px; font-weight: 600; cursor: pointer; font-size: 0.9rem;">Позвонить сейчас</button>
+                <div class="big-phone">+7 (4852) ХХХ-ХХ-ХХ</div>
+                <div class="big-phone">+7 (4852) ХХХ-ХХ-ХХ</div>
+                <div class="big-phone">+7 (4852) ХХХ-ХХ-ХХ</div>
             </div>
         </div>
         <div class="footer-copyright">
