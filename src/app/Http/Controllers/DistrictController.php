@@ -121,4 +121,6 @@ class DistrictController extends Controller
 
         return response()->json($districts);
     }
+
+    
 }

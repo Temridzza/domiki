@@ -128,7 +128,7 @@ class ApartmentTypeController extends Controller
         // загрузка изображения
         if ($request->hasFile('layout_image')) {
             $data['layout_image'] = $request->file('layout_image')
-                ->store('layouts', 'public');
+                ->store('apartmentType', 'public');
         }
 
         $apartmentType = ApartmentType::create($data);

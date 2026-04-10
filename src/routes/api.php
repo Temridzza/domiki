@@ -10,8 +10,6 @@ use App\Http\Controllers\ApartmentController;
 
 // получение всех записей
 Route::get('/districts', [DistrictController::class, 'index']);
-
-
 Route::get('/new-buildings', [NewBuildingController::class, 'index']);
 
 // new-buildings byDistrict
