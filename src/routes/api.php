@@ -3,38 +3,33 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
-
-/* я хз зачем тут это, нам не надо
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-*/
-
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\NewBuildingController;
+use App\Http\Controllers\ApartmentTypeController;
+use App\Http\Controllers\ApartmentController;
 
 // получение всех записей
-use App\Http\Controllers\DistrictController;
 Route::get('/districts', [DistrictController::class, 'index']);
 
-use App\Http\Controllers\NewBuildingController;
+
 Route::get('/new-buildings', [NewBuildingController::class, 'index']);
 
 // new-buildings byDistrict
 Route::get('/districts/{slug}/new-buildings', [NewBuildingController::class, 'byDistrict']);
 
+// apartments byBuilding
+Route::get('/buildings/{buildingId}/apartment-types', [ApartmentTypeController::class, 'byBuilding']);
+
 // создание записей под админом
 Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
-    Route::post('/districts', [DistrictController::class, 'store']);
+    // создание района
+    Route::post('/districts', [DistrictController::class, 'store']); 
+    // создание новостройки
     Route::post('/districts/{slug}/new-buildings', [NewBuildingController::class, 'store']);
+    // создание типа квартиры
+    Route::post('/apartment-types', [ApartmentTypeController::class, 'store']);
+    // создание квартиры
+    Route::post('/apartments', [ApartmentController::class, 'store']);
 });
 
 # dev

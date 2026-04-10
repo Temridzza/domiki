@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             DistrictSeeder::class,
             NewBuildingSeeder::class,
+            ApartmentTypeSeeder::class,
         ]);
         
     }

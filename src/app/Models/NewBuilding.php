@@ -24,6 +24,11 @@ class NewBuilding extends Model
         'developer_pdf',
         'advantages',
     ];
+
+    public function apartmentTypes()
+    {
+        return $this->hasMany(ApartmentType::class, 'building_id');
+    }
 }
 
 

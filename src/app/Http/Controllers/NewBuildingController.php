@@ -86,4 +86,6 @@ class NewBuildingController extends Controller
             'data' => $newBuilding
         ], 201);
     }
+
+    
 }
