@@ -7,6 +7,62 @@ use App\Models\District;
 
 class DistrictController extends Controller
 {
+    /**
+     * @OA\Post(
+     *     path="/api/districts",
+     *     summary="Создать район (только админ)",
+     *     tags={"Districts"},
+     *     security={{"sanctum":{}}},
+     *
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 required={"name","slug"},
+     *
+     *                 @OA\Property(property="name", type="string", example="Центральный"),
+     *                 @OA\Property(property="slug", type="string", example="central"),
+     *                 @OA\Property(property="description", type="string", example="Описание района"),
+     *                 @OA\Property(property="advantages", type="string", example="Инфраструктура, транспорт"),
+     *
+     *                 @OA\Property(
+     *                     property="image",
+     *                     type="string",
+     *                     format="binary",
+     *                     description="Изображение района"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=201,
+     *         description="Район создан",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="District created"),
+     *             @OA\Property(
+     *                 property="district",
+     *                 type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="name", type="string", example="Центральный"),
+     *                 @OA\Property(property="slug", type="string", example="central"),
+     *                 @OA\Property(property="image", type="string", example="districts/image.png")
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=422,
+     *         description="Ошибка валидации"
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=401,
+     *         description="Не авторизован"
+     *     )
+     * )
+     */
     public function store(Request $request)
     {
         // Валидация данных
@@ -32,6 +88,33 @@ class DistrictController extends Controller
         return response()->json(['message' => 'District created', 'district' => $district], 201);
     }
 
+
+    /**
+     * @OA\Get(
+     *     path="/api/districts",
+     *     summary="Получить список районов",
+     *     tags={"Districts"},
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="Список районов",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(
+     *                 type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="name", type="string", example="Центральный"),
+     *                 @OA\Property(property="slug", type="string", example="central"),
+     *                 @OA\Property(property="description", type="string", example="Описание района"),
+     *                 @OA\Property(property="advantages", type="string", example="Инфраструктура, транспорт"),
+     *                 @OA\Property(property="image", type="string", example="districts/image.png"),
+     *                 @OA\Property(property="created_at", type="string", example="2026-04-10 12:00:00"),
+     *                 @OA\Property(property="updated_at", type="string", example="2026-04-10 12:00:00")
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function index()
     {
         $districts = District::all();

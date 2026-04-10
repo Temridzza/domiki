@@ -9,6 +9,42 @@ use App\Models\District;
 
 class NewBuildingController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/api/new-buildings",
+     *     summary="Получить все новостройки",
+     *     tags={"NewBuildings"},
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="Список новостроек",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(property="id", type="integer", example=1),
+     *                     @OA\Property(property="name", type="string", example="ЖК Солнечный"),
+     *                     @OA\Property(property="address", type="string", example="ул. Ленина 10"),
+     *                     @OA\Property(property="completion_date", type="string", example="2026"),
+     *                     @OA\Property(property="advantages", type="string", example="Рядом парк"),
+     *                     @OA\Property(property="image", type="string", example="new-buildings/img.png"),
+     *
+     *                     @OA\Property(
+     *                         property="district",
+     *                         type="object",
+     *                         @OA\Property(property="id", type="integer", example=1),
+     *                         @OA\Property(property="name", type="string", example="Центральный"),
+     *                         @OA\Property(property="slug", type="string", example="central")
+     *                     )
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function index(): JsonResponse
     {
         // Получаем все новостройки с данными о районе
@@ -20,6 +56,52 @@ class NewBuildingController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/districts/{slug}/new-buildings",
+     *     summary="Получить новостройки по району",
+     *     tags={"NewBuildings"},
+     *
+     *     @OA\Parameter(
+     *         name="slug",
+     *         in="path",
+     *         required=true,
+     *         description="Slug района",
+     *         @OA\Schema(type="string", example="central")
+     *     ),
+     *
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         required=false,
+     *         description="Количество элементов на страницу",
+     *         @OA\Schema(type="integer", example=10)
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="Список новостроек с пагинацией",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(type="object")
+     *             ),
+     *
+     *             @OA\Property(
+     *                 property="meta",
+     *                 type="object",
+     *                 @OA\Property(property="current_page", type="integer", example=1),
+     *                 @OA\Property(property="last_page", type="integer", example=5),
+     *                 @OA\Property(property="per_page", type="integer", example=10),
+     *                 @OA\Property(property="total", type="integer", example=50)
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function byDistrict(Request $request, string $slug): JsonResponse
     {
         $perPage = $request->get('per_page', 10); // сколько элементов на страницу
@@ -41,6 +123,76 @@ class NewBuildingController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/districts/{slug}/new-buildings",
+     *     summary="Создать новостройку (только админ)",
+     *     tags={"NewBuildings"},
+     *     security={{"sanctum":{}}},
+     *
+     *     @OA\Parameter(
+     *         name="slug",
+     *         in="path",
+     *         required=true,
+     *         description="Slug района",
+     *         @OA\Schema(type="string", example="central")
+     *     ),
+     *
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 required={"name","address"},
+     *
+     *                 @OA\Property(property="name", type="string", example="ЖК Солнечный"),
+     *                 @OA\Property(property="address", type="string", example="ул. Ленина 10"),
+     *                 @OA\Property(property="completion_date", type="string", example="2026"),
+     *                 @OA\Property(property="advantages", type="string", example="Рядом парк"),
+     *
+     *                 @OA\Property(
+     *                     property="image",
+     *                     type="string",
+     *                     format="binary",
+     *                     description="Изображение"
+     *                 ),
+     *
+     *                 @OA\Property(
+     *                     property="developer_pdf",
+     *                     type="string",
+     *                     format="binary",
+     *                     description="PDF от застройщика"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=201,
+     *         description="Новостройка создана",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Новостройка создана"),
+     *             @OA\Property(property="data", type="object")
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=404,
+     *         description="Район не найден"
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=422,
+     *         description="Ошибка валидации"
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=401,
+     *         description="Не авторизован"
+     *     )
+     * )
+     */
     public function store(Request $request, string $slug): JsonResponse
     {
         // Валидация

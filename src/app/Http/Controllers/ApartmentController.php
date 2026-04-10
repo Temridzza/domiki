@@ -10,6 +10,64 @@ use Illuminate\Http\JsonResponse;
 
 class ApartmentController extends Controller
 {
+    /**
+     * @OA\Post(
+     *     path="/api/apartments",
+     *     summary="Создать квартиру (только админ)",
+     *     tags={"Apartments"},
+     *     security={{"sanctum":{}}},
+     *
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"apartment_type_id","floor","entrance","number"},
+     *
+     *             @OA\Property(property="apartment_type_id", type="integer", example=1),
+     *             @OA\Property(property="floor", type="integer", example=5),
+     *             @OA\Property(property="entrance", type="integer", example=2),
+     *             @OA\Property(property="number", type="string", example="45A"),
+     *
+     *             @OA\Property(property="price", type="integer", example=120000, nullable=true),
+     *
+     *             @OA\Property(
+     *                 property="status",
+     *                 type="string",
+     *                 enum={"available","reserved","sold"},
+     *                 example="available"
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=201,
+     *         description="Квартира создана",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Apartment created successfully"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="apartment_type_id", type="integer", example=1),
+     *                 @OA\Property(property="floor", type="integer", example=5),
+     *                 @OA\Property(property="entrance", type="integer", example=2),
+     *                 @OA\Property(property="number", type="string", example="45A"),
+     *                 @OA\Property(property="price", type="integer", example=120000),
+     *                 @OA\Property(property="status", type="string", example="available")
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=422,
+     *         description="Ошибка валидации"
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=401,
+     *         description="Не авторизован"
+     *     )
+     * )
+     */
     public function store(Request $request): JsonResponse
     {
         // 1. Валидация
@@ -44,11 +102,93 @@ class ApartmentController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/apartments",
-     *     summary="Получить список квартир",
+     *     path="/api/apartment-types/{id}/apartments",
+     *     summary="Получить квартиры по типу (с фильтрами и сортировкой)",
+     *     tags={"Apartments"},
+     *
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID типа квартиры",
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *
+     *     @OA\Parameter(
+     *         name="status",
+     *         in="query",
+     *         required=false,
+     *         description="Фильтр по статусу",
+     *         @OA\Schema(type="string", enum={"available","reserved","sold"})
+     *     ),
+     *
+     *     @OA\Parameter(
+     *         name="floor",
+     *         in="query",
+     *         required=false,
+     *         description="Фильтр по этажу",
+     *         @OA\Schema(type="integer", example=5)
+     *     ),
+     *
+     *     @OA\Parameter(
+     *         name="min_price",
+     *         in="query",
+     *         required=false,
+     *         description="Минимальная цена",
+     *         @OA\Schema(type="integer", example=100000)
+     *     ),
+     *
+     *     @OA\Parameter(
+     *         name="max_price",
+     *         in="query",
+     *         required=false,
+     *         description="Максимальная цена",
+     *         @OA\Schema(type="integer", example=200000)
+     *     ),
+     *
+     *     @OA\Parameter(
+     *         name="sort",
+     *         in="query",
+     *         required=false,
+     *         description="Поле для сортировки (например price, floor)",
+     *         @OA\Schema(type="string", example="price")
+     *     ),
+     *
+     *     @OA\Parameter(
+     *         name="direction",
+     *         in="query",
+     *         required=false,
+     *         description="Направление сортировки",
+     *         @OA\Schema(type="string", enum={"asc","desc"}, example="asc")
+     *     ),
+     *
      *     @OA\Response(
      *         response=200,
-     *         description="Успешный ответ"
+     *         description="Список квартир",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="count", type="integer", example=10),
+     *
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     type="object",
+     *
+     *                     @OA\Property(property="id", type="integer", example=1),
+     *                     @OA\Property(property="apartment_type_id", type="integer", example=1),
+     *                     @OA\Property(property="floor", type="integer", example=5),
+     *                     @OA\Property(property="entrance", type="integer", example=2),
+     *                     @OA\Property(property="number", type="string", example="45A"),
+     *                     @OA\Property(property="price", type="integer", example=120000),
+     *                     @OA\Property(property="status", type="string", example="available")
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=404,
+     *         description="Тип квартиры не найден"
      *     )
      * )
      */

@@ -6,15 +6,855 @@
     },
     "paths": {
         "/api/apartments": {
+            "post": {
+                "tags": [
+                    "Apartments"
+                ],
+                "summary": "Создать квартиру (только админ)",
+                "operationId": "c40dbd16366fb6f100e6bbf98eee2768",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "apartment_type_id",
+                                    "floor",
+                                    "entrance",
+                                    "number"
+                                ],
+                                "properties": {
+                                    "apartment_type_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "floor": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "entrance": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "number": {
+                                        "type": "string",
+                                        "example": "45A"
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "example": 120000,
+                                        "nullable": true
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "available",
+                                            "reserved",
+                                            "sold"
+                                        ],
+                                        "example": "available"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Квартира создана",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Apartment created successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "apartment_type_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "floor": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "entrance": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "number": {
+                                                    "type": "string",
+                                                    "example": "45A"
+                                                },
+                                                "price": {
+                                                    "type": "integer",
+                                                    "example": 120000
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "available"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации"
+                    },
+                    "401": {
+                        "description": "Не авторизован"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/apartment-types/{id}/apartments": {
             "get": {
-                "summary": "Получить список квартир",
-                "operationId": "b22b3830b1061522db622450222c26f8",
+                "tags": [
+                    "Apartments"
+                ],
+                "summary": "Получить квартиры по типу (с фильтрами и сортировкой)",
+                "operationId": "85a0e36073c53fa1b24850dc68898038",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID типа квартиры",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Фильтр по статусу",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "available",
+                                "reserved",
+                                "sold"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "floor",
+                        "in": "query",
+                        "description": "Фильтр по этажу",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 5
+                        }
+                    },
+                    {
+                        "name": "min_price",
+                        "in": "query",
+                        "description": "Минимальная цена",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 100000
+                        }
+                    },
+                    {
+                        "name": "max_price",
+                        "in": "query",
+                        "description": "Максимальная цена",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 200000
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Поле для сортировки (например price, floor)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "price"
+                        }
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Направление сортировки",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ],
+                            "example": "asc"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Успешный ответ"
+                        "description": "Список квартир",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "count": {
+                                            "type": "integer",
+                                            "example": 10
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "apartment_type_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "floor": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    },
+                                                    "entrance": {
+                                                        "type": "integer",
+                                                        "example": 2
+                                                    },
+                                                    "number": {
+                                                        "type": "string",
+                                                        "example": "45A"
+                                                    },
+                                                    "price": {
+                                                        "type": "integer",
+                                                        "example": 120000
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "available"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Тип квартиры не найден"
                     }
                 }
             }
+        },
+        "/api/buildings/{buildingId}/apartment-types": {
+            "get": {
+                "tags": [
+                    "ApartmentTypes"
+                ],
+                "summary": "Получить типы квартир по зданию (только с доступными квартирами)",
+                "operationId": "2a593bacdf070ffaf7946307c8cca8e4",
+                "parameters": [
+                    {
+                        "name": "buildingId",
+                        "in": "path",
+                        "description": "ID здания",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список типов квартир",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "building_id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "area": {
+                                                "type": "integer",
+                                                "example": 45
+                                            },
+                                            "base_price": {
+                                                "type": "integer",
+                                                "example": 120000
+                                            },
+                                            "rooms": {
+                                                "type": "integer",
+                                                "example": 2
+                                            },
+                                            "layout_image": {
+                                                "type": "string",
+                                                "example": "layouts/image.png"
+                                            },
+                                            "available_count": {
+                                                "description": "Количество доступных квартир",
+                                                "type": "integer",
+                                                "example": 5
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/apartment-types": {
+            "post": {
+                "tags": [
+                    "ApartmentTypes"
+                ],
+                "summary": "Создать тип квартиры (только админ)",
+                "operationId": "22a3b9ce277490f7eaae804b1c238961",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "building_id",
+                                    "area",
+                                    "base_price",
+                                    "rooms"
+                                ],
+                                "properties": {
+                                    "building_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "area": {
+                                        "type": "integer",
+                                        "example": 45
+                                    },
+                                    "base_price": {
+                                        "type": "integer",
+                                        "example": 120000
+                                    },
+                                    "rooms": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "layout_image": {
+                                        "description": "Планировка квартиры",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Тип квартиры создан",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "building_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "area": {
+                                            "type": "integer",
+                                            "example": 45
+                                        },
+                                        "base_price": {
+                                            "type": "integer",
+                                            "example": 120000
+                                        },
+                                        "rooms": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "layout_image": {
+                                            "type": "string",
+                                            "example": "layouts/image.png"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации"
+                    },
+                    "401": {
+                        "description": "Не авторизован"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/districts": {
+            "get": {
+                "tags": [
+                    "Districts"
+                ],
+                "summary": "Получить список районов",
+                "operationId": "3374065fd459eae2cd92886d84d5bf3b",
+                "responses": {
+                    "200": {
+                        "description": "Список районов",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Центральный"
+                                            },
+                                            "slug": {
+                                                "type": "string",
+                                                "example": "central"
+                                            },
+                                            "description": {
+                                                "type": "string",
+                                                "example": "Описание района"
+                                            },
+                                            "advantages": {
+                                                "type": "string",
+                                                "example": "Инфраструктура, транспорт"
+                                            },
+                                            "image": {
+                                                "type": "string",
+                                                "example": "districts/image.png"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "example": "2026-04-10 12:00:00"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "example": "2026-04-10 12:00:00"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Districts"
+                ],
+                "summary": "Создать район (только админ)",
+                "operationId": "d71ad3726e62a3c29a2cfc6ce80ec792",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Центральный"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "example": "central"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Описание района"
+                                    },
+                                    "advantages": {
+                                        "type": "string",
+                                        "example": "Инфраструктура, транспорт"
+                                    },
+                                    "image": {
+                                        "description": "Изображение района",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Район создан",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "District created"
+                                        },
+                                        "district": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Центральный"
+                                                },
+                                                "slug": {
+                                                    "type": "string",
+                                                    "example": "central"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "districts/image.png"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации"
+                    },
+                    "401": {
+                        "description": "Не авторизован"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/new-buildings": {
+            "get": {
+                "tags": [
+                    "NewBuildings"
+                ],
+                "summary": "Получить все новостройки",
+                "operationId": "d3fe4eca82df1c99ffab0eef98e06b29",
+                "responses": {
+                    "200": {
+                        "description": "Список новостроек",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "ЖК Солнечный"
+                                                    },
+                                                    "address": {
+                                                        "type": "string",
+                                                        "example": "ул. Ленина 10"
+                                                    },
+                                                    "completion_date": {
+                                                        "type": "string",
+                                                        "example": "2026"
+                                                    },
+                                                    "advantages": {
+                                                        "type": "string",
+                                                        "example": "Рядом парк"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "new-buildings/img.png"
+                                                    },
+                                                    "district": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Центральный"
+                                                            },
+                                                            "slug": {
+                                                                "type": "string",
+                                                                "example": "central"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/districts/{slug}/new-buildings": {
+            "get": {
+                "tags": [
+                    "NewBuildings"
+                ],
+                "summary": "Получить новостройки по району",
+                "operationId": "c2786589866833d1bf4e272270e813c2",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Slug района",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "central"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Количество элементов на страницу",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список новостроек с пагинацией",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 50
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "NewBuildings"
+                ],
+                "summary": "Создать новостройку (только админ)",
+                "operationId": "33ac8d7b9525f9c438a5c97d467f0f26",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Slug района",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "central"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "address"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "ЖК Солнечный"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "ул. Ленина 10"
+                                    },
+                                    "completion_date": {
+                                        "type": "string",
+                                        "example": "2026"
+                                    },
+                                    "advantages": {
+                                        "type": "string",
+                                        "example": "Рядом парк"
+                                    },
+                                    "image": {
+                                        "description": "Изображение",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "developer_pdf": {
+                                        "description": "PDF от застройщика",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Новостройка создана",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Новостройка создана"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Район не найден"
+                    },
+                    "422": {
+                        "description": "Ошибка валидации"
+                    },
+                    "401": {
+                        "description": "Не авторизован"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
         }
-    }
+    },
+    "tags": [
+        {
+            "name": "Apartments",
+            "description": "Apartments"
+        },
+        {
+            "name": "ApartmentTypes",
+            "description": "ApartmentTypes"
+        },
+        {
+            "name": "Districts",
+            "description": "Districts"
+        },
+        {
+            "name": "NewBuildings",
+            "description": "NewBuildings"
+        }
+    ]
 }
