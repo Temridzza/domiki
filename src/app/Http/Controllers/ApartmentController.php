@@ -42,6 +42,16 @@ class ApartmentController extends Controller
         ], 201);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/apartments",
+     *     summary="Получить список квартир",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Успешный ответ"
+     *     )
+     * )
+     */
     public function indexByType(Request $request, int $apartmentTypeId)
     {
         // проверим, что тип существует

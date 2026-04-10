@@ -1,0 +1,20 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Real Estate API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/apartments": {
+            "get": {
+                "summary": "Получить список квартир",
+                "operationId": "b22b3830b1061522db622450222c26f8",
+                "responses": {
+                    "200": {
+                        "description": "Успешный ответ"
+                    }
+                }
+            }
+        }
+    }
+}
