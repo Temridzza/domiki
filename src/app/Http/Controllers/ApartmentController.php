@@ -41,4 +41,42 @@ class ApartmentController extends Controller
             'data' => $apartment
         ], 201);
     }
+
+    public function indexByType(Request $request, int $apartmentTypeId)
+    {
+        // проверим, что тип существует
+        $type = \App\Models\ApartmentType::findOrFail($apartmentTypeId);
+
+        $query = \App\Models\Apartment::where('apartment_type_id', $apartmentTypeId);
+
+        // 🔍 фильтры (по желанию)
+        if ($request->has('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->has('floor')) {
+            $query->where('floor', $request->floor);
+        }
+
+        if ($request->has('min_price')) {
+            $query->where('price', '>=', $request->min_price);
+        }
+
+        if ($request->has('max_price')) {
+            $query->where('price', '<=', $request->max_price);
+        }
+
+        // сортировка (например по цене)
+        if ($request->has('sort')) {
+            $direction = $request->get('direction', 'asc');
+            $query->orderBy($request->sort, $direction);
+        }
+
+        $apartments = $query->get();
+
+        return response()->json([
+            'count' => $apartments->count(),
+            'data' => $apartments,
+        ]);
+    }
 }

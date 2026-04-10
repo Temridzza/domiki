@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             DistrictSeeder::class,
             NewBuildingSeeder::class,
             ApartmentTypeSeeder::class,
+            ApartmentSeeder::class,
         ]);
         
     }

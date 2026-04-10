@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('base_price');    // базовая цена
             $table->integer('rooms');         // комнатность
 
-            $table->string('layout_image')->nullable(); // планировка
+            $table->string('layout_image')->default('default.png'); // планировка
 
             $table->timestamps();
         });

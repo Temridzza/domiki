@@ -17,8 +17,11 @@ Route::get('/new-buildings', [NewBuildingController::class, 'index']);
 // new-buildings byDistrict
 Route::get('/districts/{slug}/new-buildings', [NewBuildingController::class, 'byDistrict']);
 
-// apartments byBuilding
+// apartmentsType byBuilding
 Route::get('/buildings/{buildingId}/apartment-types', [ApartmentTypeController::class, 'byBuilding']);
+
+// apartmentsType apartmentType
+Route::get('/apartment-types/{id}/apartments', [ApartmentController::class, 'indexByType']);
 
 // создание записей под админом
 Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {

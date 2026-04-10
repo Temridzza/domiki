@@ -43,7 +43,6 @@ class ApartmentTypeSeeder extends Seeder
                     [
                         'area' => $type['area'],
                         'base_price' => $type['base_price'],
-                        'layout_image' => "layouts/default_{$type['rooms']}.png",
                     ]
                 );
             }
