@@ -2,66 +2,74 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
-    <!-- Всегда использовать последнюю версию IE или запрашивать Chrome Frame -->
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Не найдена | Новостройки</title>
+    <title>Страница не найдена | Новостройки в Ярославле</title>
+    <meta name="description" content="Страница не найдена - вернитесь на главную или оставьте заявку на подбор квартиры" />
 
-    <!-- Подключение CSS -->
+    <!-- Styles -->
     <link href="./stylesheets/page/mistake.css" rel="stylesheet" type="text/css" />
     
     <!-- Font Awesome для иконок -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 
     <!-- Favicon -->
     <link href="./images/favicon.png" rel="icon" type="image/png" />
 </head>
-
 <body>
-    <div class="error-wrapper">
-        <div class="error-container">
-            <div class="error-code">404</div>
-            <h1 class="error-title">Страница не найдена</h1>
-            <p class="error-message">
-                К сожалению, произошла ошибка.
-            </p>
-            
-            <div class="buttons-group">
-                <a href="/" class="btn-primary" id="homeBtn">
-                    <i class="fas fa-home"></i> На главную
-                </a>
-                <a href="#" class="btn-secondary" id="requestBtn">
-                    <i class="fas fa-phone-alt"></i> Оставить заявку
-                </a>
-            </div>
+<div class="error-wrapper">
+    <div class="error-container">
+        <!-- Домашняя иконка с анимацией -->
+        <div class="house-icon" id="houseIcon">
+            🏠
+        </div>
 
-            <!-- Быстрые ссылки на другие разделы -->
-            <div class="search-suggestions">
-                <div class="suggestions-title">
-                    <i class="fas fa-map-marker-alt"></i> Популярные районы
-                </div>
-                <div class="suggestions-links" id="districtLinks">
-                    <a data-district="Центр">
-                        <i class="fas fa-star"></i> Центр
-                    </a>
-                    <a data-district="Север">
-                        <i class="fas fa-snowflake"></i> Север
-                    </a>
-                    <a data-district="Юг">
-                        <i class="fas fa-sun"></i> Юг
-                    </a>
-                    <a data-district="Запад">
-                        <i class="fas fa-cloud-sun"></i> Запад
-                    </a>
-                    <a data-district="Восток">
-                        <i class="fas fa-city"></i> Восток
-                    </a>
-                    <a data-district="Пригород">
-                        <i class="fas fa-tree"></i> Пригород
-                    </a>
-                </div>
+        <!-- 404 анимация -->
+        <div class="error-code" id="errorCode">
+            404
+        </div>
+        
+        <h1 class="error-title">Страница не найдена</h1>
+        <p class="error-message">
+            К сожалению, запрашиваемая страница не существует или была перемещена.
+        </p>
+        
+        <!-- Кнопки с иконками -->
+        <div class="buttons-group">
+            <a href="/" class="btn-primary" id="homeBtn">
+                <i class="fas fa-home"></i> На главную
+            </a>
+            <a href="#" class="btn-secondary" id="showFormBtn">
+                <i class="fas fa-pen-alt"></i> Оставить заявку
+            </a>
+        </div>
+
+        <!-- ФОРМА ЗАЯВКИ (скрыта до клика на кнопку) -->
+        <div class="form-section" id="applicationForm">
+            <div class="form-wrapper">
+                <h3>📋 Оставьте заявку</h3>
+                <div class="form-desc">Подберем идеальный вариант и ответим на все вопросы</div>
+                <form id="leadForm">
+                    <div class="form-group-vertical">
+                        <input type="text" class="input-field" placeholder="Ваше имя" id="userName">
+                        <input type="tel" class="input-field" placeholder="Номер телефона" id="userPhone">
+                        <textarea class="input-field" placeholder="Ваши пожелания (количество комнат, бюджет, этаж, срок покупки...)" id="userWishes"></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i> ОТПРАВИТЬ ЗАЯВКУ
+                    </button>
+                    <p class="form-agreement">Нажимая на кнопку, вы соглашаетесь с обработкой персональных данных</p>
+                </form>
             </div>
+        </div>
+
+        <!-- Быстрые ссылки на районы (генерируются из JS) -->
+        <div class="search-suggestions">
+            <div class="suggestions-title">
+                <i class="fas fa-map-marker-alt"></i> Популярные районы
+            </div>
+            <div class="suggestions-links" id="districtLinks"></div>
         </div>
     </div>
 
@@ -69,180 +77,13 @@
     <div id="toastMsg" class="toast-msg">
         <i class="fas fa-info-circle"></i> <span id="toastText">Сообщение</span>
     </div>
+</div>
 
-    <script>
-        // Частицы для атмосферы
-        function createParticles() {
-            const particlesContainer = document.createElement('div');
-            particlesContainer.className = 'particles';
-            document.body.appendChild(particlesContainer);
-            
-            for (let i = 0; i < 45; i++) { // Увеличил количество частиц
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                const size = Math.random() * 8 + 2;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDuration = Math.random() * 8 + 4 + 's';
-                particle.style.animationDelay = Math.random() * 10 + 's';
-                particle.style.opacity = Math.random() * 0.6 + 0.2;
-                particlesContainer.appendChild(particle);
-            }
-        }
-        
-        // Запускаем частицы после загрузки страницы
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', createParticles);
-        } else {
-            createParticles();
-        }
+<!-- Частицы -->
+<div class="particles" id="particlesContainer"></div>
 
-        // Toast уведомления с улучшенной функциональностью
-        const toast = document.getElementById('toastMsg');
-        const toastText = document.getElementById('toastText');
-        
-        function showMessage(text, isError = false) {
-            toastText.innerHTML = text;
-            toast.classList.add('show');
-            
-            // Меняем цвет для ошибок (опционально)
-            if (isError) {
-                toast.style.backgroundColor = '#c0392b';
-                setTimeout(() => {
-                    toast.style.backgroundColor = '#1f4a5e';
-                }, 2800);
-            }
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2800);
-        }
-
-        // Функция для плавного перенаправления
-        function redirectWithMessage(url, message, delay = 800) {
-            showMessage(message);
-            setTimeout(() => {
-                window.location.href = url;
-            }, delay);
-        }
-
-        // Кнопка "На главную"
-        const homeBtn = document.getElementById('homeBtn');
-        if (homeBtn) {
-            homeBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                redirectWithMessage('/', '🏠 Перенаправляем на главную страницу...');
-            });
-        }
-
-        // Кнопка "Оставить заявку"
-        const requestBtn = document.getElementById('requestBtn');
-        if (requestBtn) {
-            requestBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                redirectWithMessage('/', '📝 Заявка будет доступна на главной странице. Перенаправляем...', 1500);
-            });
-        }
-
-        // Ссылки на районы
-        const districtLinks = document.querySelectorAll('#districtLinks a');
-        districtLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const district = link.getAttribute('data-district') || link.innerText.trim();
-                redirectWithMessage(
-                    '/', 
-                    `🏙️ Район «${district}» — перейдите на главную страницу для просмотра новостроек`, 
-                    1200
-                );
-            });
-        });
-
-        // Интерактивная иконка дома
-        const houseIcon = document.getElementById('houseIcon');
-        if (houseIcon) {
-            const icons = ['🏗️🏠', '🔍❓', '🏢🔧', '📍🗺️', '🏠✨', '🔑🏘️', '💎🏰', '🌆🏙️'];
-            let iconIndex = 0;
-            
-            houseIcon.addEventListener('click', () => {
-                iconIndex = (iconIndex + 1) % icons.length;
-                houseIcon.textContent = icons[iconIndex];
-                showMessage('🔍 Попробуйте поискать на главной странице!');
-            });
-            
-            // Добавляем подсказку при наведении
-            houseIcon.title = 'Кликни для смены иконки!';
-        }
-
-        // Анимация для 404 при наведении
-        const errorCodeDiv = document.querySelector('.error-code');
-        if (errorCodeDiv) {
-            errorCodeDiv.addEventListener('mouseenter', () => {
-                errorCodeDiv.style.transform = 'scale(1.05)';
-                errorCodeDiv.style.transition = 'transform 0.2s ease';
-            });
-            errorCodeDiv.addEventListener('mouseleave', () => {
-                errorCodeDiv.style.transform = 'scale(1)';
-            });
-        }
-
-        // Добавляем эффект ripple для кнопок
-        const buttons = document.querySelectorAll('.btn-primary, .btn-secondary');
-        buttons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const ripple = document.createElement('span');
-                ripple.style.position = 'absolute';
-                ripple.style.width = '0px';
-                ripple.style.height = '0px';
-                ripple.style.borderRadius = '50%';
-                ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
-                ripple.style.transform = 'translate(-50%, -50%)';
-                ripple.style.left = x + 'px';
-                ripple.style.top = y + 'px';
-                ripple.style.transition = 'all 0.5s ease';
-                ripple.style.pointerEvents = 'none';
-                
-                this.style.position = 'relative';
-                this.style.overflow = 'hidden';
-                this.appendChild(ripple);
-                
-                setTimeout(() => {
-                    ripple.style.width = '200px';
-                    ripple.style.height = '200px';
-                    ripple.style.opacity = '0';
-                }, 10);
-                
-                setTimeout(() => {
-                    ripple.remove();
-                }, 500);
-            });
-        });
-
-        // Консольное приветствие (пасхалка)
-        console.log('%c🏠 404 страница | Новостройки', 'color: #FFD966; font-size: 16px; font-weight: bold;');
-        console.log('%cВернитесь на главную, чтобы подобрать квартиру мечты!', 'color: #FFB347; font-size: 12px;');
-        console.log('%c✨ Подсказка: кликните на иконку дома для смены эмоции', 'color: #8ec07c; font-size: 11px;');
-        
-        // Дополнительная пасхалка: секретная комбинация клавиш
-        let konamiIndex = 0;
-        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-        
-        document.addEventListener('keydown', (e) => {
-            if (e.key === konamiCode[konamiIndex]) {
-                konamiIndex++;
-                if (konamiIndex === konamiCode.length) {
-                    showMessage('🎮 Секретный код активирован! Вы нашли пасхалку! 🎉');
-                    konamiIndex = 0;
-                }
-            } else {
-                konamiIndex = 0;
-            }
-        });
-    </script>
+<!-- JavaScript -->
+<script src="./javascripts/data.js"></script>
+<script src="./javascripts/404.js"></script>
 </body>
 </html>

@@ -36,6 +36,27 @@ const districtsData = [
         description: 'Коттеджные поселки и таунхаусы, тишина и природа',
         imageUrl: 'https://placehold.co/400x200/a0d8c8/ffffff?text=Пригород'
     }
+    ,
+    {
+        id: 7,
+        name: 'Пригород',
+        description: 'Коттеджные поселки и таунхаусы, тишина и природа',
+        imageUrl: 'https://placehold.co/400x200/a0d8c8/ffffff?text=Пригород'
+    }
+    ,
+    {
+        id: 8,
+        name: 'Пригород',
+        description: 'Коттеджные поселки и таунхаусы, тишина и природа',
+        imageUrl: 'https://placehold.co/400x200/a0d8c8/ffffff?text=Пригород'
+    }
+    ,
+    {
+        id: 9,
+        name: 'Пригород',
+        description: 'Коттеджные поселки и таунхаусы, тишина и природа',
+        imageUrl: 'https://placehold.co/400x200/a0d8c8/ffffff?text=Пригород'
+    }
 ];
 
 // Данные для раздела АКЦИИ И СТАТИСТИКА

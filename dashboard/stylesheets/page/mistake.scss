@@ -1,24 +1,6 @@
-// ============================================
-// ПЕРЕМЕННЫЕ
-// ============================================
-$primary-gradient-start: #0b2b3b;
-$primary-gradient-end: #144d5e;
-$accent-gradient-start: #FFD966;
-$accent-gradient-middle: #FFB347;
-$accent-gradient-end: #FF8C42;
-$btn-primary-bg: #f7b32b;
-$btn-primary-hover: #ffa01e;
-$text-light: white;
-$shadow-default: 0 10px 30px rgba(0, 0, 0, 0.2);
-$shadow-medium: 0 8px 20px rgba(0, 0, 0, 0.2);
-$shadow-large: 0 12px 28px rgba(0, 0, 0, 0.25);
-$transition-default: all 0.25s ease;
-$border-radius-pill: 56px;
-$border-radius-round: 40px;
+@use "../details/variables" as *;
 
-// ============================================
-// КЛЮЧЕВЫЕ КАДРЫ (АНТИМАЦИИ)
-// ============================================
+// ========= КЛЮЧЕВЫЕ КАДРЫ (АНИМАЦИИ) =========
 @keyframes float {
   0%, 100% {
     transform: translateY(0px);
@@ -56,9 +38,27 @@ $border-radius-round: 40px;
   }
 }
 
-// ============================================
-// ГЛОБАЛЬНЫЕ СТИЛИ
-// ============================================
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// ========= ГЛОБАЛЬНЫЕ СТИЛИ =========
 * {
   margin: 0;
   padding: 0;
@@ -67,41 +67,50 @@ $border-radius-round: 40px;
 
 body {
   font-family: "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-  background: linear-gradient(135deg, $primary-gradient-start 0%, $primary-gradient-end 100%);
+  @include gradient-bg($hero-gradient-start, $hero-gradient-end);
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
   padding: 40px 20px;
+  position: relative;
+  overflow-x: hidden;
 }
 
-// ============================================
-// КОМПОНЕНТЫ ОШИБКИ
-// ============================================
+// ========= КОМПОНЕНТЫ ОШИБКИ =========
 .error-wrapper {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
+  position: relative;
+  z-index: 2;
 }
 
 .error-container {
   max-width: 800px;
+  width: 100%;
   text-align: center;
   color: $text-light;
+  background: rgba($primary-gradient-start, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: $border-radius-lg;
+  padding: 50px 40px;
+  box-shadow: $shadow-lg;
+  border: 1px solid rgba($text-light, 0.1);
 }
 
 .error-code {
   font-size: 12rem;
   font-weight: 800;
   line-height: 1;
-  background: linear-gradient(135deg, $accent-gradient-start, $accent-gradient-middle, $accent-gradient-end);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  text-shadow: $shadow-default;
+  @include gradient-text($accent-gradient-start, $accent-gradient-end);
+  text-shadow: $shadow-md;
   margin-bottom: 20px;
   animation: float 3s ease-in-out infinite;
+  cursor: pointer;
+  display: inline-block;
+  transition: transform $transition-fast;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
 .error-title {
@@ -119,11 +128,25 @@ body {
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
+  color: rgba($text-light, 0.9);
 }
 
-// ============================================
-// КНОПКИ
-// ============================================
+// ========= ДОМАШНЯЯ ИКОНКА =========
+.house-icon {
+  margin: 0 auto 20px;
+  font-size: 4rem;
+  opacity: 0.8;
+  animation: pulse 2s ease-in-out infinite;
+  cursor: pointer;
+  display: inline-block;
+  transition: transform $transition-fast;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+// ========= КНОПКИ =========
 .buttons-group {
   display: flex;
   gap: 20px;
@@ -132,59 +155,149 @@ body {
 }
 
 %btn-base {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-weight: 700;
   font-size: 1rem;
   padding: 14px 32px;
-  border-radius: $border-radius-pill;
+  border-radius: $border-radius-xl;
   text-decoration: none;
-  transition: $transition-default;
+  transition: $transition-normal;
   cursor: pointer;
+  @include hover-lift(-3px);
 }
 
 .btn-primary {
   @extend %btn-base;
-  background: $btn-primary-bg;
-  color: #1e2f3a;
-  box-shadow: $shadow-medium;
+  background: $accent-color;
+  color: $text-dark;
+  box-shadow: $shadow-md;
   border: none;
-
+  
   &:hover {
-    background: $btn-primary-hover;
-    transform: translateY(-3px);
-    box-shadow: $shadow-large;
+    background: $accent-hover;
+    box-shadow: $shadow-lg;
   }
 }
 
 .btn-secondary {
   @extend %btn-base;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba($text-light, 0.15);
   backdrop-filter: blur(4px);
   color: $text-light;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba($text-light, 0.3);
   font-weight: 600;
-
+  
   &:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: translateY(-3px);
+    background: rgba($text-light, 0.25);
   }
 }
 
-// ============================================
-// ПОДСКАЗКИ ПОИСКА
-// ============================================
+// ========= ФОРМА ЗАЯВКИ =========
+.form-section {
+  margin: 30px 0 40px;
+  padding: 30px;
+  background: rgba($text-light, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: $border-radius-lg;
+  text-align: left;
+  display: none;
+  border: 1px solid rgba($text-light, 0.2);
+  
+  &.show {
+    display: block;
+    animation: fadeInUp 0.4s ease;
+  }
+}
+
+.form-wrapper {
+  h3 {
+    font-size: 1.5rem;
+    color: $text-light;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+}
+
+.form-desc {
+  text-align: center;
+  color: rgba($text-light, 0.8);
+  margin-bottom: 25px;
+  font-size: 0.9rem;
+}
+
+.form-group-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 14px 20px;
+  border: 1px solid rgba($text-light, 0.3);
+  border-radius: $border-radius-xl;
+  font-size: 1rem;
+  background: rgba($text-light, 0.95);
+  transition: $transition-fast;
+  font-family: inherit;
+  @include focus-ring($accent-color);
+  
+  &.error {
+    border-color: #e74c3c;
+    background: rgba(#e74c3c, 0.1);
+  }
+}
+
+textarea.input-field {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.btn-submit {
+  width: 100%;
+  background: $accent-color;
+  color: $text-dark;
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: $border-radius-xl;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: $transition-fast;
+  @include flex-center;
+  gap: 10px;
+  
+  &:hover {
+    background: $accent-hover;
+    transform: scale(0.98);
+  }
+}
+
+.form-agreement {
+  font-size: 0.7rem;
+  text-align: center;
+  margin-top: 18px;
+  color: rgba($text-light, 0.7);
+}
+
+// ========= ПОДСКАЗКИ ПОИСКА (РАЙОНЫ) =========
 .search-suggestions {
-  margin-top: 60px;
+  margin-top: 40px;
   padding-top: 40px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid rgba($text-light, 0.2);
 }
 
 .suggestions-title {
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 2px;
-  opacity: 0.7;
+  opacity: 0.8;
   margin-bottom: 20px;
+  @include flex-center;
+  gap: 8px;
 }
 
 .suggestions-links {
@@ -192,39 +305,27 @@ body {
   flex-wrap: wrap;
   gap: 15px;
   justify-content: center;
-
+  
   a {
     color: $text-light;
     text-decoration: none;
     padding: 8px 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: $border-radius-round;
+    background: rgba($text-light, 0.1);
+    border-radius: $border-radius-full;
     font-size: 0.9rem;
-    transition: $transition-default;
+    transition: $transition-normal;
     cursor: pointer;
-
+    @include flex-center;
+    gap: 8px;
+    
     &:hover {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba($text-light, 0.25);
       transform: translateY(-2px);
     }
   }
 }
 
-// ============================================
-// ДОМАШНЯЯ ИКОНКА
-// ============================================
-.house-icon {
-  margin: 0 auto 20px;
-  font-size: 4rem;
-  opacity: 0.6;
-  animation: pulse 2s ease-in-out infinite;
-  cursor: pointer;
-  display: inline-block;
-}
-
-// ============================================
-// ЧАСТИЦЫ
-// ============================================
+// ========= ЧАСТИЦЫ =========
 .particles {
   position: fixed;
   top: 0;
@@ -237,65 +338,69 @@ body {
 
 .particle {
   position: absolute;
-  background: rgba(255, 215, 100, 0.3);
+  background: rgba($accent-gradient-start, 0.3);
   border-radius: 50%;
   animation: particleFloat 8s infinite linear;
 }
 
-// ============================================
-// TOAST УВЕДОМЛЕНИЕ
-// ============================================
+// ========= TOAST УВЕДОМЛЕНИЕ =========
 .toast-msg {
   visibility: hidden;
   min-width: 260px;
-  background-color: #1f4a5e;
-  color: #fff;
+  background-color: $dark-bg;
+  color: $text-light;
   text-align: center;
-  border-radius: 60px;
+  border-radius: $border-radius-full;
   padding: 12px 28px;
   position: fixed;
   bottom: 35px;
   left: 50%;
   transform: translateX(-50%);
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity $transition-fast;
   z-index: 1000;
   font-weight: 500;
-  box-shadow: $shadow-medium;
+  box-shadow: $shadow-md;
   font-family: "Segoe UI", Roboto, sans-serif;
   pointer-events: none;
-
+  
   &.show {
     visibility: visible;
     opacity: 1;
   }
 }
 
-// ============================================
-// МЕДИА-ЗАПРОСЫ
-// ============================================
+// ========= МЕДИА-ЗАПРОСЫ =========
 @media (max-width: 680px) {
+  .error-container {
+    padding: 30px 20px;
+  }
+  
   .error-code {
     font-size: 7rem;
   }
-
+  
   .error-title {
     font-size: 1.5rem;
   }
-
+  
   .error-message {
     font-size: 1rem;
     padding: 0 16px;
   }
-
+  
   .buttons-group {
     flex-direction: column;
     align-items: center;
   }
-
+  
   .btn-primary,
   .btn-secondary {
     width: 80%;
-    text-align: center;
+    justify-content: center;
+  }
+  
+  .form-section {
+    padding: 20px;
   }
 }
