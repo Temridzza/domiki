@@ -1,0 +1,329 @@
+@-webkit-keyframes float {
+  0%, 100% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+  50% {
+    -webkit-transform: translateY(-15px);
+            transform: translateY(-15px);
+  }
+}
+@keyframes float {
+  0%, 100% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+  50% {
+    -webkit-transform: translateY(-15px);
+            transform: translateY(-15px);
+  }
+}
+@-webkit-keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+}
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+}
+@-webkit-keyframes particleFloat {
+  0% {
+    -webkit-transform: translateY(100vh) rotate(0deg);
+            transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    -webkit-transform: translateY(-100px) rotate(360deg);
+            transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+@keyframes particleFloat {
+  0% {
+    -webkit-transform: translateY(100vh) rotate(0deg);
+            transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    -webkit-transform: translateY(-100px) rotate(360deg);
+            transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  background: linear-gradient(135deg, #0b2b3b 0%, #144d5e 100%);
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 40px 20px;
+}
+
+.error-wrapper {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.error-container {
+  max-width: 800px;
+  text-align: center;
+  color: white;
+}
+
+.error-code {
+  font-size: 12rem;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, #FFD966, #FFB347, #FF8C42);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  -webkit-animation: float 3s ease-in-out infinite;
+          animation: float 3s ease-in-out infinite;
+}
+
+.error-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+.error-message {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin-bottom: 40px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.buttons-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 20px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.btn-secondary, .btn-primary {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 14px 32px;
+  border-radius: 56px;
+  text-decoration: none;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #f7b32b;
+  color: #1e2f3a;
+  -webkit-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  border: none;
+}
+.btn-primary:hover {
+  background: #ffa01e;
+  -webkit-transform: translateY(-3px);
+          transform: translateY(-3px);
+  -webkit-box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+}
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.25);
+  -webkit-transform: translateY(-3px);
+          transform: translateY(-3px);
+}
+
+.search-suggestions {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.suggestions-title {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+.suggestions-links {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 15px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.suggestions-links a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 40px;
+  font-size: 0.9rem;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+.suggestions-links a:hover {
+  background: rgba(255, 255, 255, 0.25);
+  -webkit-transform: translateY(-2px);
+          transform: translateY(-2px);
+}
+
+.house-icon {
+  margin: 0 auto 20px;
+  font-size: 4rem;
+  opacity: 0.6;
+  -webkit-animation: pulse 2s ease-in-out infinite;
+          animation: pulse 2s ease-in-out infinite;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(255, 215, 100, 0.3);
+  border-radius: 50%;
+  -webkit-animation: particleFloat 8s infinite linear;
+          animation: particleFloat 8s infinite linear;
+}
+
+.toast-msg {
+  visibility: hidden;
+  min-width: 260px;
+  background-color: #1f4a5e;
+  color: #fff;
+  text-align: center;
+  border-radius: 60px;
+  padding: 12px 28px;
+  position: fixed;
+  bottom: 35px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  opacity: 0;
+  -webkit-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+  font-weight: 500;
+  -webkit-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  font-family: "Segoe UI", Roboto, sans-serif;
+  pointer-events: none;
+}
+.toast-msg.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (max-width: 680px) {
+  .error-code {
+    font-size: 7rem;
+  }
+  .error-title {
+    font-size: 1.5rem;
+  }
+  .error-message {
+    font-size: 1rem;
+    padding: 0 16px;
+  }
+  .buttons-group {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .btn-primary,
+  .btn-secondary {
+    width: 80%;
+    text-align: center;
+  }
+}

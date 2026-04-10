@@ -1,0 +1,301 @@
+// ============================================
+// ПЕРЕМЕННЫЕ
+// ============================================
+$primary-gradient-start: #0b2b3b;
+$primary-gradient-end: #144d5e;
+$accent-gradient-start: #FFD966;
+$accent-gradient-middle: #FFB347;
+$accent-gradient-end: #FF8C42;
+$btn-primary-bg: #f7b32b;
+$btn-primary-hover: #ffa01e;
+$text-light: white;
+$shadow-default: 0 10px 30px rgba(0, 0, 0, 0.2);
+$shadow-medium: 0 8px 20px rgba(0, 0, 0, 0.2);
+$shadow-large: 0 12px 28px rgba(0, 0, 0, 0.25);
+$transition-default: all 0.25s ease;
+$border-radius-pill: 56px;
+$border-radius-round: 40px;
+
+// ============================================
+// КЛЮЧЕВЫЕ КАДРЫ (АНТИМАЦИИ)
+// ============================================
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+// ============================================
+// ГЛОБАЛЬНЫЕ СТИЛИ
+// ============================================
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  background: linear-gradient(135deg, $primary-gradient-start 0%, $primary-gradient-end 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+// ============================================
+// КОМПОНЕНТЫ ОШИБКИ
+// ============================================
+.error-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-container {
+  max-width: 800px;
+  text-align: center;
+  color: $text-light;
+}
+
+.error-code {
+  font-size: 12rem;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, $accent-gradient-start, $accent-gradient-middle, $accent-gradient-end);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: $shadow-default;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.error-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+.error-message {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin-bottom: 40px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// ============================================
+// КНОПКИ
+// ============================================
+.buttons-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+%btn-base {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 14px 32px;
+  border-radius: $border-radius-pill;
+  text-decoration: none;
+  transition: $transition-default;
+  cursor: pointer;
+}
+
+.btn-primary {
+  @extend %btn-base;
+  background: $btn-primary-bg;
+  color: #1e2f3a;
+  box-shadow: $shadow-medium;
+  border: none;
+
+  &:hover {
+    background: $btn-primary-hover;
+    transform: translateY(-3px);
+    box-shadow: $shadow-large;
+  }
+}
+
+.btn-secondary {
+  @extend %btn-base;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  color: $text-light;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px);
+  }
+}
+
+// ============================================
+// ПОДСКАЗКИ ПОИСКА
+// ============================================
+.search-suggestions {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.suggestions-title {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+.suggestions-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+
+  a {
+    color: $text-light;
+    text-decoration: none;
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: $border-radius-round;
+    font-size: 0.9rem;
+    transition: $transition-default;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// ============================================
+// ДОМАШНЯЯ ИКОНКА
+// ============================================
+.house-icon {
+  margin: 0 auto 20px;
+  font-size: 4rem;
+  opacity: 0.6;
+  animation: pulse 2s ease-in-out infinite;
+  cursor: pointer;
+  display: inline-block;
+}
+
+// ============================================
+// ЧАСТИЦЫ
+// ============================================
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(255, 215, 100, 0.3);
+  border-radius: 50%;
+  animation: particleFloat 8s infinite linear;
+}
+
+// ============================================
+// TOAST УВЕДОМЛЕНИЕ
+// ============================================
+.toast-msg {
+  visibility: hidden;
+  min-width: 260px;
+  background-color: #1f4a5e;
+  color: #fff;
+  text-align: center;
+  border-radius: 60px;
+  padding: 12px 28px;
+  position: fixed;
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+  font-weight: 500;
+  box-shadow: $shadow-medium;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  pointer-events: none;
+
+  &.show {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+// ============================================
+// МЕДИА-ЗАПРОСЫ
+// ============================================
+@media (max-width: 680px) {
+  .error-code {
+    font-size: 7rem;
+  }
+
+  .error-title {
+    font-size: 1.5rem;
+  }
+
+  .error-message {
+    font-size: 1rem;
+    padding: 0 16px;
+  }
+
+  .buttons-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 80%;
+    text-align: center;
+  }
+}
