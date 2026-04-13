@@ -38,6 +38,4 @@ php artisan session:table || true
 php artisan config:clear
 php artisan cache:clear
 
-php artisan migrate:fresh --seed
-
 exec "$@"

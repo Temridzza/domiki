@@ -122,5 +122,109 @@ class DistrictController extends Controller
         return response()->json($districts);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/districts/{id}",
+     *     summary="Обновить район (только админ)",
+     *     tags={"Districts"},
+     *     security={{"sanctum":{}}},
+     *
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 required={"_method"},
+     *
+     *                 @OA\Property(property="_method", type="string", example="PUT"),
+     *                 @OA\Property(property="name", type="string", example="Центральный"),
+     *                 @OA\Property(property="slug", type="string", example="central"),
+     *                 @OA\Property(property="description", type="string"),
+     *                 @OA\Property(property="advantages", type="string"),
+     *                 @OA\Property(
+     *                     property="image",
+     *                     type="string",
+     *                     format="binary"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(response=200, description="Обновлено"),
+     *     @OA\Response(response=422, description="Ошибка валидации"),
+     *     @OA\Response(response=401, description="Не авторизован"),
+     *     @OA\Response(response=404, description="Не найден")
+     * )
+     */
+    public function update(Request $request, $id)
+    {
+        $district = District::findOrFail($id);
     
+        $data = $request->validate([
+            'name' => 'sometimes|string|max:255',
+            'slug' => 'sometimes|string|max:255|unique:districts,slug,' . $district->id,
+            'description' => 'nullable|string|max:1000',
+            'advantages' => 'nullable|string|max:1000',
+            'image' => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+
+            if ($district->image && $district->image !== 'default.png') {
+                Storage::disk('public')->delete($district->image);
+            }
+
+            $path = $request->file('image')->store('districts', 'public');
+            $data['image'] = $path;
+        }
+
+        $district->update($data);
+
+        return response()->json([
+            'message' => 'District updated',
+            'district' => $district,
+            'data' => $data
+        ]);
+    }
+
+    /**
+     * @OA\Delete(
+     *     path="/api/districts/{id}",
+     *     summary="Удалить район (только админ)",
+     *     tags={"Districts"},
+     *     security={{"sanctum":{}}},
+     *
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *
+     *     @OA\Response(response=200, description="Удалено"),
+     *     @OA\Response(response=404, description="Не найден")
+     * )
+     */
+    public function destroy($id)
+    {
+        $district = District::findOrFail($id);
+
+        // Удаляем картинку (если не дефолт)
+        if ($district->image && $district->image !== 'default.png') {
+            Storage::disk('public')->delete($district->image);
+        }
+
+        $district->delete();
+
+        return response()->json([
+            'message' => 'District deleted'
+        ]);
+    }
 }
