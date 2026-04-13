@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\NewBuilding;
 use App\Models\District;
+use Illuminate\Support\Facades\Storage;
 
 class NewBuildingController extends Controller
 {
@@ -237,6 +238,135 @@ class NewBuildingController extends Controller
             'message' => 'Новостройка создана',
             'data' => $newBuilding
         ], 201);
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/api/new-buildings/{id}",
+     *     summary="Обновить новостройку (только админ)",
+     *     tags={"NewBuildings"},
+     *     security={{"sanctum":{}}},
+     *
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 required={"_method"},
+     *
+     *                 @OA\Property(property="_method", type="string", example="PUT"),
+     *                 @OA\Property(property="district_id", type="integer", example=1),
+     *                 @OA\Property(property="name", type="string", example="ЖК Солнечный"),
+     *                 @OA\Property(property="address", type="string", example="ул. Ленина 10"),
+     *                 @OA\Property(property="completion_date", type="string", example="2026"),
+     *                 @OA\Property(property="advantages", type="string"),
+     *
+     *                 @OA\Property(
+     *                     property="image",
+     *                     type="string",
+     *                     format="binary"
+     *                 ),
+     *
+     *                 @OA\Property(
+     *                     property="developer_pdf",
+     *                     type="string",
+     *                     format="binary"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(response=200, description="Обновлено"),
+     *     @OA\Response(response=404, description="Не найдено")
+     * )
+     */
+    public function update(Request $request, $id)
+    {
+        $building = NewBuilding::findOrFail($id);
+
+        $data = $request->validate([
+            'district_id' => 'sometimes|exists:districts,id',
+            'name' => 'sometimes|string|max:255',
+            'address' => 'sometimes|string|max:255',
+            'completion_date' => 'nullable|string|max:255',
+            'advantages' => 'nullable|string',
+
+            'image' => 'nullable|image|max:2048',
+            'developer_pdf' => 'nullable|file|mimes:pdf|max:5120',
+        ]);
+
+        // 📸 Обновление картинки
+        if ($request->hasFile('image')) {
+
+            if ($building->image && $building->image !== 'default.png') {
+                Storage::disk('public')->delete($building->image);
+            }
+
+            $data['image'] = $request->file('image')->store('new-buildings', 'public');
+        }
+
+        // 📄 Обновление PDF
+        if ($request->hasFile('developer_pdf')) {
+
+            if ($building->developer_pdf) {
+                Storage::disk('public')->delete($building->developer_pdf);
+            }
+
+            $data['developer_pdf'] = $request->file('developer_pdf')->store('new-buildings/pdfs', 'public');
+        }
+
+        $building->update($data);
+
+        return response()->json([
+            'message' => 'New building updated',
+            'building' => $building
+        ]);
+    }
+
+    /**
+     * @OA\Delete(
+     *     path="/api/new-buildings/{id}",
+     *     summary="Удалить новостройку (только админ)",
+     *     tags={"NewBuildings"},
+     *     security={{"sanctum":{}}},
+     *
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *
+     *     @OA\Response(response=200, description="Удалено"),
+     *     @OA\Response(response=404, description="Не найдено")
+     * )
+     */
+    public function destroy($id)
+    {
+        $building = NewBuilding::findOrFail($id);
+
+        // удаляем image
+        if ($building->image && $building->image !== 'default.png') {
+            Storage::disk('public')->delete($building->image);
+        }
+
+        // удаляем pdf
+        if ($building->developer_pdf) {
+            Storage::disk('public')->delete($building->developer_pdf);
+        }
+
+        $building->delete();
+
+        return response()->json([
+            'message' => 'New building deleted'
+        ]);
     }
 
     
