@@ -1,6 +1,7 @@
 # 🏠 Domiki
 
-## Подключение к репозиторию
+# Подключение 
+## к репозиторию
 ```bash
 cd C:\xampp\htdocs
 
@@ -9,9 +10,22 @@ git branch -M main
 git remote add origin https://github.com/Temrjdzza/domiki.git
 ```
 
-## 📁 Структура проекта
-- Frontend — папка dashboard
-- Backend — 🚧 пока не определён
+## К докеру
+Переходим в докер и нажимаем на консоль ().
+[внижнем правом углу](./docs/image/docker-desktop.png)
+
+Вводим команды
+```bash
+cd C:\xampp\htdocs
+
+docker-compose up -d --build
+docker-compose up 
+```
+
+---
+# 📁 Структура проекта
+- Frontend — по пути src/resources
+- Backend — большая часть в src
 
 ## Задачи на данный момент
 ### 🎨 Для фронтенда
@@ -19,7 +33,7 @@ git remote add origin https://github.com/Temrjdzza/domiki.git
 - [ ] Сделать адаптивность для устройств
 - [ ] Подогнать цветовую гамму как из исходноков
 
-Исходники - [тут](./img/README.md)
+Исходники - [тут](./docs/README.md)
 
 ### ⚙️ Для бэкенда
 🚧 Информация отсутствует
