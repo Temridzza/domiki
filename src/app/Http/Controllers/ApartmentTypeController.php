@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ApartmentType;
+use Illuminate\Support\Facades\Storage;
+
 
 class ApartmentTypeController extends Controller
 {
@@ -134,5 +136,111 @@ class ApartmentTypeController extends Controller
         $apartmentType = ApartmentType::create($data);
 
         return response()->json($apartmentType, 201);
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/api/apartment-types/{id}",
+     *     summary="Обновить тип квартиры (только админ)",
+     *     tags={"ApartmentTypes"},
+     *     security={{"sanctum":{}}},
+     *
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 required={"_method"},
+     *
+     *                 @OA\Property(property="_method", type="string", example="PUT"),
+     *                 @OA\Property(property="building_id", type="integer", example=1),
+     *                 @OA\Property(property="area", type="integer", example=45),
+     *                 @OA\Property(property="base_price", type="integer", example=5000000),
+     *                 @OA\Property(property="rooms", type="integer", example=2),
+     *
+     *                 @OA\Property(
+     *                     property="layout_image",
+     *                     type="string",
+     *                     format="binary"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(response=200, description="Обновлено"),
+     *     @OA\Response(response=404, description="Не найдено")
+     * )
+     */
+    public function update(Request $request, $id)
+    {
+        $type = ApartmentType::findOrFail($id);
+
+        $data = $request->validate([
+            'building_id' => 'sometimes|exists:new_buildings,id',
+            'area' => 'sometimes|integer|min:1',
+            'base_price' => 'sometimes|integer|min:0',
+            'rooms' => 'sometimes|integer|min:0',
+
+            'layout_image' => 'nullable|image|max:2048',
+        ]);
+
+        // 🏠 Обновление планировки
+        if ($request->hasFile('layout_image')) {
+
+            if ($type->layout_image && $type->layout_image !== 'default.png') {
+                Storage::disk('public')->delete($type->layout_image);
+            }
+
+            $data['layout_image'] = $request->file('layout_image')
+                ->store('apartment-types', 'public');
+        }
+
+        $type->update($data);
+
+        return response()->json([
+            'message' => 'Apartment type updated',
+            'apartment_type' => $type
+        ]);
+    }
+
+    /**
+     * @OA\Delete(
+     *     path="/api/apartment-types/{id}",
+     *     summary="Удалить тип квартиры (только админ)",
+     *     tags={"ApartmentTypes"},
+     *     security={{"sanctum":{}}},
+     *
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *
+     *     @OA\Response(response=200, description="Удалено"),
+     *     @OA\Response(response=404, description="Не найдено")
+     * )
+     */
+    public function destroy($id)
+    {
+        $type = ApartmentType::findOrFail($id);
+
+        // удаляем планировку
+        if ($type->layout_image && $type->layout_image !== 'default.png') {
+            Storage::disk('public')->delete($type->layout_image);
+        }
+
+        $type->delete();
+
+        return response()->json([
+            'message' => 'Apartment type deleted'
+        ]);
     }
 }
