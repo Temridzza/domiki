@@ -12,7 +12,7 @@ git remote add origin https://github.com/Temrjdzza/domiki.git
 
 ## К докеру
 Переходим в докер и нажимаем на консоль ().
-[внижнем правом углу](./docs/image/docker-desktop.png)
+[внижнем правом углу](/docs/image/docker-desktop.png)
 
 Вводим команды
 ```bash
