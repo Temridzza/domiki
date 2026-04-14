@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\District;
 use Illuminate\Support\Facades\Storage;
-
 class DistrictController extends Controller
 {
     /**

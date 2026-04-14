@@ -270,6 +270,152 @@
                 }
             }
         },
+        "/api/apartments/{id}": {
+            "post": {
+                "tags": [
+                    "Apartments"
+                ],
+                "summary": "Обновить квартиру (только админ)",
+                "operationId": "eb39d2e11ac0608dea2e0a95c8713a6d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "_method"
+                                ],
+                                "properties": {
+                                    "_method": {
+                                        "type": "string",
+                                        "example": "PUT"
+                                    },
+                                    "apartment_type_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "floor": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "entrance": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "number": {
+                                        "type": "string",
+                                        "example": "45A"
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "example": 5500000
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "available"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Квартира обновлена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Apartment updated"
+                                        },
+                                        "apartment": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "floor": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "price": {
+                                                    "type": "integer",
+                                                    "example": 5500000
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "available"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации"
+                    },
+                    "401": {
+                        "description": "Не авторизован"
+                    },
+                    "404": {
+                        "description": "Не найдено"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Apartments"
+                ],
+                "summary": "Удалить квартиру (только админ)",
+                "operationId": "1d3397cf004ec4489ac4691d8aa3b72e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Удалено"
+                    },
+                    "404": {
+                        "description": "Не найдено"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/api/buildings/{buildingId}/apartment-types": {
             "get": {
                 "tags": [
@@ -434,6 +580,107 @@
                 ]
             }
         },
+        "/api/apartment-types/{id}": {
+            "post": {
+                "tags": [
+                    "ApartmentTypes"
+                ],
+                "summary": "Обновить тип квартиры (только админ)",
+                "operationId": "975196d020c60c47d3b981f6987124f8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "_method"
+                                ],
+                                "properties": {
+                                    "_method": {
+                                        "type": "string",
+                                        "example": "PUT"
+                                    },
+                                    "building_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "area": {
+                                        "type": "integer",
+                                        "example": 45
+                                    },
+                                    "base_price": {
+                                        "type": "integer",
+                                        "example": 5000000
+                                    },
+                                    "rooms": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "layout_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Обновлено"
+                    },
+                    "404": {
+                        "description": "Не найдено"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "ApartmentTypes"
+                ],
+                "summary": "Удалить тип квартиры (только админ)",
+                "operationId": "0049b76deaa400a7df912e79bc7fbf3b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Удалено"
+                    },
+                    "404": {
+                        "description": "Не найдено"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/api/districts": {
             "get": {
                 "tags": [
@@ -577,6 +824,111 @@
                     },
                     "401": {
                         "description": "Не авторизован"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/districts/{id}": {
+            "post": {
+                "tags": [
+                    "Districts"
+                ],
+                "summary": "Обновить район (только админ)",
+                "operationId": "f192f278761af3ddbeabeca9b2dbbad6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "_method"
+                                ],
+                                "properties": {
+                                    "_method": {
+                                        "type": "string",
+                                        "example": "PUT"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Центральный"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "example": "central"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "advantages": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Обновлено"
+                    },
+                    "422": {
+                        "description": "Ошибка валидации"
+                    },
+                    "401": {
+                        "description": "Не авторизован"
+                    },
+                    "404": {
+                        "description": "Не найден"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Districts"
+                ],
+                "summary": "Удалить район (только админ)",
+                "operationId": "fc2bfa5e2a1b61020e6729451b81a964",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Удалено"
+                    },
+                    "404": {
+                        "description": "Не найден"
                     }
                 },
                 "security": [
@@ -829,6 +1181,114 @@
                     },
                     "401": {
                         "description": "Не авторизован"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/new-buildings/{id}": {
+            "post": {
+                "tags": [
+                    "NewBuildings"
+                ],
+                "summary": "Обновить новостройку (только админ)",
+                "operationId": "2f0abd847e989e16b059761e3218fbc6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "_method"
+                                ],
+                                "properties": {
+                                    "_method": {
+                                        "type": "string",
+                                        "example": "PUT"
+                                    },
+                                    "district_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "ЖК Солнечный"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "ул. Ленина 10"
+                                    },
+                                    "completion_date": {
+                                        "type": "string",
+                                        "example": "2026"
+                                    },
+                                    "advantages": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "developer_pdf": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Обновлено"
+                    },
+                    "404": {
+                        "description": "Не найдено"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "NewBuildings"
+                ],
+                "summary": "Удалить новостройку (только админ)",
+                "operationId": "6973669b147250f2d82b093b2ca18261",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Удалено"
+                    },
+                    "404": {
+                        "description": "Не найдено"
                     }
                 },
                 "security": [

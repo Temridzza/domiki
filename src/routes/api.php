@@ -28,6 +28,7 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     Route::put('/districts/{id}', [DistrictController::class, 'update']);
     Route::put('/new-buildings/{id}', [NewBuildingController::class, 'update']);
     Route::put('/apartment-types/{id}', [ApartmentTypeController::class, 'update']);
+    Route::put('/apartments/{id}', [ApartmentController::class, 'update']);
 });
 
 // удаление под админом
@@ -35,6 +36,7 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     Route::delete('/districts/{id}', [DistrictController::class, 'destroy']);
     Route::delete('/new-buildings/{id}', [NewBuildingController::class, 'destroy']);
     Route::delete('/apartment-types/{id}', [ApartmentTypeController::class, 'destroy']);
+    Route::delete('/apartments/{id}', [ApartmentController::class, 'destroy']);
 });
 
 

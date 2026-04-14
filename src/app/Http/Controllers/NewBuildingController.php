@@ -6,7 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\NewBuilding;
 use App\Models\District;
-use Illuminate\Support\Facades\Storage;
+
 
 class NewBuildingController extends Controller
 {

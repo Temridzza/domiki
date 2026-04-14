@@ -229,4 +229,109 @@ class ApartmentController extends Controller
             'data' => $apartments,
         ]);
     }
+
+    /**
+     * @OA\Post(
+     *     path="/api/apartments/{id}",
+     *     summary="Обновить квартиру (только админ)",
+     *     tags={"Apartments"},
+     *     security={{"sanctum":{}}},
+     *
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 required={"_method"},
+     *
+     *                 @OA\Property(property="_method", type="string", example="PUT"),
+     *                 @OA\Property(property="apartment_type_id", type="integer", example=1),
+     *                 @OA\Property(property="floor", type="integer", example=5),
+     *                 @OA\Property(property="entrance", type="integer", example=2),
+     *                 @OA\Property(property="number", type="string", example="45A"),
+     *                 @OA\Property(property="price", type="integer", example=5500000),
+     *                 @OA\Property(property="status", type="string", example="available")
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="Квартира обновлена",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Apartment updated"),
+     *             @OA\Property(
+     *                 property="apartment",
+     *                 type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="floor", type="integer", example=5),
+     *                 @OA\Property(property="price", type="integer", example=5500000),
+     *                 @OA\Property(property="status", type="string", example="available")
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(response=422, description="Ошибка валидации"),
+     *     @OA\Response(response=401, description="Не авторизован"),
+     *     @OA\Response(response=404, description="Не найдено")
+     * )
+     */
+    public function update(Request $request, $id)
+    {
+        $apartment = Apartment::findOrFail($id);
+
+        $data = $request->validate([
+            'apartment_type_id' => 'sometimes|exists:apartment_types,id',
+            'floor' => 'sometimes|integer|min:1',
+            'entrance' => 'sometimes|integer|min:1',
+            'number' => 'sometimes|string|max:50',
+
+            'price' => 'nullable|integer|min:0',
+
+            'status' => 'sometimes|in:available,reserved,sold',
+        ]);
+
+        $apartment->update($data);
+
+        return response()->json([
+            'message' => 'Apartment updated',
+            'apartment' => $apartment
+        ]);
+    }
+
+    /**
+     * @OA\Delete(
+     *     path="/api/apartments/{id}",
+     *     summary="Удалить квартиру (только админ)",
+     *     tags={"Apartments"},
+     *     security={{"sanctum":{}}},
+     *
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *
+     *     @OA\Response(response=200, description="Удалено"),
+     *     @OA\Response(response=404, description="Не найдено")
+     * )
+     */
+    public function destroy($id)
+    {
+        $apartment = Apartment::findOrFail($id);
+
+        $apartment->delete();
+
+        return response()->json([
+            'message' => 'Apartment deleted'
+        ]);
+    }
 }
