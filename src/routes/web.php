@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Корневой маршрут - показывает welcome.blade.php
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Если нужен отдельный маршрут для главной страницы
+Route::get('/home', function () {
+    return view('home.index');
+})->name('home');

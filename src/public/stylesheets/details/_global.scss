@@ -1,0 +1,230 @@
+@use '_variables.scss' as *;
+
+// ========= ГЛОБАЛЬНЫЕ СТИЛИ =========
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+button {
+  background: none;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+// ========= ВЕРХНЯЯ ПАНЕЛЬ =========
+.top-bar {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(5px);
+  box-shadow: $shadow-sm, 0 2px 4px rgba(0, 0, 0, 0.02);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0.9rem 2rem;
+  @include flex-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.logo-area {
+  @include flex-center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  @include gradient-bg($primary-gradient-start, $primary-gradient-end);
+  border-radius: $border-radius-md;
+  @include flex-center;
+  box-shadow: 0 10px 15px -6px rgba(0, 0, 0, 0.2);
+  transition: transform $transition-fast;
+
+  &:hover {
+    transform: scale(1.10);
+  }
+
+  svg {
+    width: 32px;
+    height: 32px;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+  }
+}
+
+.logo-text {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  @include gradient-text(#1f2e3a, #2c4b5e);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+// ========= БУРГЕР-КНОПКА =========
+.burger-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: $border-radius-sm;
+  background: transparent;
+  @include flex-center;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  transition: $transition-fast;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.15);
+    transform: scale(1.02);
+  }
+
+  &.active {
+    .burger-line {
+      &:nth-child(1) {
+        transform: translateY(7.5px) rotate(45deg);
+      }
+      &:nth-child(2) {
+        opacity: 0;
+      }
+      &:nth-child(3) {
+        transform: translateY(-7.5px) rotate(-45deg);
+      }
+    }
+  }
+}
+
+.burger-line {
+  width: 22px;
+  height: 3px;
+  background-color: black;
+  border-radius: 4px;
+  transition: $transition-normal;
+}
+
+// ========= ФУТЕР =========
+footer {
+  background: #f2f6fa;
+  margin-top: auto;
+  border-top: 1px solid #eef2f8;
+}
+
+.footer-contacts {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 50px 40px 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.contacts-info {
+  text-align: left;
+  flex: 1;
+
+  h4 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    color: $dark-bg;
+  }
+
+  p {
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+}
+
+.contacts-phone {
+  text-align: right;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .big-phone {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: $hero-gradient-end;
+    display: block;
+    text-decoration: none;
+    transition: $transition-fast;
+    position: relative;
+    padding-left: 28px;
+
+    &::before {
+      content: "📞";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+    }
+
+    &:hover {
+      color: #e68a2e;
+      transform: translateX(-4px);
+    }
+  }
+}
+
+.footer-copyright {
+  text-align: center;
+  padding: 20px 20px 28px;
+  background: #f2f6fa;
+  color: #6f8ea0;
+  font-size: 0.85rem;
+  border-top: 1px solid #e2eaf0;
+}
+
+// ========= TOAST СООБЩЕНИЯ =========
+.toast-msg {
+  visibility: hidden;
+  min-width: 260px;
+  background-color: #1f4a5e;
+  color: #fff;
+  text-align: center;
+  border-radius: $border-radius-full;
+  padding: 12px 28px;
+  position: fixed;
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: $transition-fast;
+  z-index: 1000;
+  font-weight: 500;
+  box-shadow: $shadow-md;
+  pointer-events: none;
+
+  &.show {
+    visibility: visible;
+    opacity: 1;
+  }
+}
