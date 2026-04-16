@@ -66,20 +66,5 @@
 </div>
 
 <script>
-    function selectPlan(plan) {
-        const messageDiv = document.getElementById('selection-message');
-        messageDiv.style.display = 'block';
-        messageDiv.style.background = '#d4edda';
-        messageDiv.style.color = '#155724';
-        messageDiv.style.border = '1px solid #c3e6cb';
-        messageDiv.innerHTML = `✅ Спасибо! Вы выбрали тариф "${plan}". Наш менеджер свяжется с вами в ближайшее время.`;
-        
-        // Прокрутка к сообщению
-        messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        
-        // Скрыть сообщение через 5 секунд
-        setTimeout(() => {
-            messageDiv.style.display = 'none';
-        }, 5000);
-    }
+    
 </script>
