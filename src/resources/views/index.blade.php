@@ -13,18 +13,21 @@
         <!-- Верхняя панель с логотипом и бургером -->
         <div class="top-bar">
             <div class="container">
+                <!-- Логотип -->
                 <div class="logo-area">
                     <div class="logo-icon">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg viewBox="0 0 24 24" fill="none" >
                             <path d="M3 9L12 3L21 9V19C21 20.1 20.1 21 19 21H5C3.9 21 3 20.1 3 19V9Z" stroke="white" stroke-width="1.5" fill="#f7b32b" />
                             <path d="M9 21V12H15V21" stroke="white" stroke-width="1.5" fill="none" />
                         </svg>
                     </div>
+                    <!-- Текст для логотипа -->
                     <span class="logo-text">NORTHWIND</span>
                 </div>
             </div>
         </div>
         
+        <!-- Основной контент -->
         <div class="content" id="page-content">
             <div class="loading">
                 <div class="spinner"></div>
