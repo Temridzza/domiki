@@ -64,7 +64,3 @@
     
     <div id="selection-message" style="text-align: center; margin-top: 30px; padding: 15px; border-radius: 10px; display: none;"></div>
 </div>
-
-<script>
-    
-</script>

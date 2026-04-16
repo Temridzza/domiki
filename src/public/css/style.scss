@@ -8,17 +8,15 @@
   box-sizing: border-box;
 }
 
-// Основные стили
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, $primary-gradient-start 0%, $primary-gradient-end 100%);
-  min-height: 100vh;
+  background: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
+  font-family: 'Helvetica Neue', Roboto, 'Segoe UI', sans-serif;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 // Навигация
