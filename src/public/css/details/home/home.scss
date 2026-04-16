@@ -1,0 +1,12 @@
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+
+// ========= HERO БЛОК =========
+.hero-fullscreen {
+  min-height: 100vh;
+  @include gradient-bg($hero-gradient-start, $hero-gradient-end);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
