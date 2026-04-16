@@ -18,5 +18,22 @@ Route::get('/', function () {
     return view('index');
 });
 
+// API для загрузки шаблонов
+Route::get('/api/page/{page}', function ($page) {
+    // Проверяем, существует ли шаблон
+    $allowedPages = ['home', 'choice'];
+    
+    if (!in_array($page, $allowedPages)) {
+        abort(404, 'Страница не найдена');
+    }
+    
+    // Возвращаем view из папки vendor.page
+    if (View::exists("vendor.page.{$page}")) {
+        return view("vendor.page.{$page}");
+    }
+    
+    abort(404, 'Шаблон не найден');
+})->name('api.page');
+
 
 
