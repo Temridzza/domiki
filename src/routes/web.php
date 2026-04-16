@@ -15,23 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 // Главная страница
 Route::get('/', function () {
-    return view('index');
-});
+    return view('page.home'); 
+})->name('home');
 
-// API для загрузки шаблонов
-Route::get('/api/page/{page}', function ($page) {
-    // Проверяем, существует ли шаблон
-    $allowedPages = ['home', 'choice'];
-    
-    if (!in_array($page, $allowedPages)) {
-        abort(404, 'Страница не найдена');
-    }
-    
-    // Возвращаем view из папки vendor.page
-    if (View::exists("vendor.page.{$page}")) {
-        return view("vendor.page.{$page}");
-    }
-})->name('api.page');
+Route::get('/home', function () {
+    return view('page.home'); 
+})->name('home');
 
-
-
+// Страница выбора
+Route::get('/сhoice', function () {
+    return view('page.сhoice'); 
+})->name('сhoice');
