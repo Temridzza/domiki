@@ -1,23 +1,23 @@
-// Миксины
+// Миксины - положения
 @mixin flex-center {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
-@mixin absolute-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-@mixin keyframes($name) {
-  @keyframes #{$name} {
-    @content;
-  }
+// Работа со цветом
+@mixin gradient-bg($start, $end, $deg: 135deg) {
+  background: linear-gradient($deg, $start, $end);
 }
 
-@mixin animation($name, $duration, $easing) {
-  animation: #{$name} $duration $easing;
+@mixin gradient-text($start, $end) {
+  background: linear-gradient(125deg, $start, $end);
+  background-clip: text;
+  color: transparent;
 }
