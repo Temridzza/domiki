@@ -25,7 +25,13 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # entrypoint
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+
+# Конвертируем и делаем исполняемым
+RUN apt-get update && apt-get install -y dos2unix \
+    && dos2unix /entrypoint.sh \
+    && chmod +x /entrypoint.sh \
+    && apt-get remove -y dos2unix \
+    && rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["apache2-foreground"]
