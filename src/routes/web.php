@@ -31,8 +31,6 @@ Route::get('/api/page/{page}', function ($page) {
     if (View::exists("vendor.page.{$page}")) {
         return view("vendor.page.{$page}");
     }
-    
-    abort(404, 'Шаблон не найден');
 })->name('api.page');
 
 

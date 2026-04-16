@@ -1,0 +1,118 @@
+@use "base/variables" as *;
+@use "base/mixins" as *;
+
+// Сброс стилей
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// Основные стили
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, $primary-gradient-start 0%, $primary-gradient-end 100%);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+// Навигация
+.nav {
+  background: $text-light;
+  border-radius: $border-radius-md;
+  padding: 15px 30px;
+  margin-bottom: 30px;
+  box-shadow: $shadow-sm;
+
+  ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+
+    li {
+      a {
+        text-decoration: none;
+        color: $text-dark;
+        padding: 8px 16px;
+        border-radius: $border-radius-sm;
+        transition: all $transition-speed;
+        font-weight: 500;
+
+        &:hover,
+        &.active {
+          background: $primary-gradient-start;
+          color: $text-light;
+        }
+      }
+    }
+  }
+}
+
+// Контент
+.content {
+  background: $text-light;
+  border-radius: $border-radius-lg;
+  padding: 30px;
+  box-shadow: $shadow-lg;
+  min-height: 500px;
+  @include animation(fadeIn, $animation-speed, ease-in);
+}
+
+// Анимации
+@include keyframes(fadeIn) {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Загрузка
+.loading {
+  text-align: center;
+  padding: 50px;
+  font-size: 18px;
+  color: $primary-gradient-start;
+}
+
+.spinner {
+  border: 3px solid $spinner-border;
+  border-top: 3px solid $primary-gradient-start;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 20px;
+  
+  @include keyframes(spin) {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @include animation(spin, 1s, linear);
+}
+
+.error {
+  text-align: center;
+  padding: 50px;
+  color: $error-color;
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .content {
+    padding: 20px;
+  }
+}
