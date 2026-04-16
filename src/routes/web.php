@@ -15,15 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 // Главная страница
 Route::get('/', function () {
-    return view('page.index');
+    return view('index');
 });
 
-Route::get('/home', function () {
-    return view('page.index');
-});
 
-// Страница Выбора
-Route::get('/choice', function () {
-    return view('page.choice');
-});
 
