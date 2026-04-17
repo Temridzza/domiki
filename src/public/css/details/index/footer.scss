@@ -79,7 +79,7 @@ footer {
 }
 
 /* ========= МЕДИА-ЗАПРОС ДЛЯ 650px ========= */
-@media (max-width: 650px) {
+@media (max-width: 670px) {
   .footer-contacts {
     flex-direction: column;
     align-items: center;
@@ -88,7 +88,7 @@ footer {
 }
 
 /* ========= МЕДИА-ЗАПРОС ДЛЯ 370px ========= */
-@media (max-width: 372px) {
+@media (max-width: 380px) {
   .contacts-phone .big-phone {
     font-size: 1.35rem;
   }

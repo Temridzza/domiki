@@ -176,7 +176,7 @@ footer {
 }
 
 /* ========= МЕДИА-ЗАПРОС ДЛЯ 650px ========= */
-@media (max-width: 650px) {
+@media (max-width: 670px) {
   .footer-contacts {
     flex-direction: column;
     align-items: center;
@@ -184,11 +184,12 @@ footer {
   }
 }
 /* ========= МЕДИА-ЗАПРОС ДЛЯ 370px ========= */
-@media (max-width: 372px) {
+@media (max-width: 380px) {
   .contacts-phone .big-phone {
     font-size: 1.35rem;
   }
 }
+/* ========= HERO БЛОК ========= */
 .hero-fullscreen {
   min-height: 100vh;
   background: linear-gradient(135deg, #0b2b3b, #144d5e);
@@ -196,4 +197,102 @@ footer {
   align-items: center;
   position: relative;
   overflow: hidden;
+}
+
+.hero-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 60px 48px;
+}
+
+.hero-text {
+  flex: 1.2;
+  color: #ffffff;
+  z-index: 2;
+}
+.hero-text h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+.hero-text h1 span {
+  background: linear-gradient(125deg, #FFD966, #FFB347);
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-sub-line {
+  margin: 16px 0 32px 0;
+}
+.hero-sub-line p {
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 24px;
+  row-gap: 12px;
+  color: #ffffff;
+}
+.hero-sub-line p span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 20px 6px 18px;
+  border-radius: 60px;
+  font-weight: 600;
+  backdrop-filter: blur(2px);
+}
+
+.btn-primary {
+  display: inline-block;
+  background: #f7b32b;
+  color: #000000;
+  font-weight: 700;
+  font-size: 1.2rem;
+  padding: 16px 44px;
+  border-radius: 56px;
+  text-decoration: none;
+  transition: 0.2s ease;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  margin-top: 12px;
+}
+.btn-primary:hover {
+  background: #ffa01e;
+  transform: translateY(-4px);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ========= MEDIA QUERIES 550px ========= */
+@media (max-width: 550px) {
+  .hero-container {
+    padding: 40px 20px;
+    gap: 24px;
+  }
+  .hero-text h1 {
+    font-size: 2.8rem;
+    margin-bottom: 12px;
+  }
+  .hero-sub-line p {
+    font-size: 2.5rem;
+    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero-sub-line p span {
+    padding: 4px 12px 4px 10px;
+    gap: 6px;
+    font-size: 1.2rem;
+  }
 }

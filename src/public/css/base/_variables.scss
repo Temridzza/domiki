@@ -1,6 +1,6 @@
 // Переменные
 
-// top-bar
+// top-bar, hero-block
 $primary-gradient-start: #1a2a3a;
 $primary-gradient-end: #0f1a24;
 
@@ -8,6 +8,22 @@ $shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.05);
 
 $transition-fast: 0.2s ease;
 $border-radius-md: 8px;
+
+// hero-block
+$text-light: #ffffff;
+$text-dark: #000000;
+
+$accent-gradient-start: #FFD966;
+$accent-gradient-end: #FFB347;
+
+$border-radius-full: 60px;
+$border-radius-xl: 56px;
+
+$accent-color: #f7b32b;
+$accent-hover: #ffa01e;
+
+$shadow-md: 0 12px 24px rgba(0, 0, 0, 0.2);
+$shadow-lg: 0 20px 30px rgba(0, 0, 0, 0.25);
 
 // footer
 $dark-bg: #0f2c38;
