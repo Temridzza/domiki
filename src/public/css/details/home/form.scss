@@ -95,3 +95,20 @@ textarea.input-field {
   margin-top: 18px;
   color: #6f8ea0;
 }
+
+.input-field {
+  &.error {
+    border-color: #e74c3c;
+  }
+}
+
+.error-message-field {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 5px;
+  animation: fadeIn 0.3s ease;
+}
+
+.success-message, .error-message-global {
+  animation: fadeIn 0.5s ease;
+}

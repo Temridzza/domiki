@@ -1,0 +1,98 @@
+$transition-fast: 0.2s ease;
+$text-light: #ffffff;
+$text-muted: #5f7e90;
+$dark-hover: #1f556b;
+
+// ========= АКЦИИ И СТАТИСТИКА =========
+.promo-stats {
+  width: 100%;
+  background: #fffaf0;
+  padding: 60px 0;
+  border-bottom: 1px solid #f0e7da;
+}
+
+.promo-stats-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 0 40px;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 180px;
+  text-align: center;
+  background: $text-light;
+  padding: 28px 16px;
+  border-radius: 36px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid #ffe0b5;
+  cursor: pointer;
+  transition: $transition-fast;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.stat-number {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #e68a2e;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-weight: 700;
+  font-size: 1rem;
+  color: $dark-hover;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-small {
+  font-size: 0.7rem;
+  color: $text-muted;
+  line-height: 1.4;
+}
+
+// Адаптивность для мобильных устройств
+@media (max-width: 768px) {
+  .promo-stats {
+    padding: 40px 0;
+  }
+  
+  .promo-stats-inner {
+    padding: 0 20px;
+    gap: 16px;
+  }
+  
+  .stat-card {
+    min-width: calc(50% - 16px);
+    padding: 20px 12px;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .stat-label {
+    font-size: 0.85rem;
+  }
+  
+  .stat-small {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-card {
+    min-width: 100%;
+  }
+}
