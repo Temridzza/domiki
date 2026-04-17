@@ -1,0 +1,153 @@
+// ========= ПЕРЕМЕННЫЕ =========
+$dark-bg: #0f2c38;
+$text-muted: #5f7e90;
+$card-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+$card-shadow-hover: 0 25px 35px rgba(0, 0, 0, 0.1);
+$transition: 0.3s ease;
+
+// ========= РАЙОНЫ =========
+.districts {
+  padding: 70px 40px 60px;
+  text-align: center;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  h2 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: $dark-bg;
+    margin-bottom: 16px;
+  }
+}
+
+.districts-sub {
+  color: $text-muted;
+  margin-bottom: 48px;
+  font-size: 1.1rem;
+}
+
+// Карточки
+.district-grid-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.district-card {
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: $card-shadow;
+  transition: $transition;
+  cursor: pointer;
+  text-align: center;
+  padding-bottom: 24px;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $card-shadow-hover;
+  }
+
+  h3 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin: 20px 0 8px;
+    color: #144d5e;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: #658296;
+    padding: 0 16px;
+  }
+}
+
+.card-img {
+  height: 160px;
+  background-size: cover;
+  background-position: center;
+  background-color: #d9e3ec;
+}
+
+// ========= МЕДИА-ЗАПРОСЫ =========
+
+// Планшеты (768px - 1023px)
+@media (max-width: 1023px) {
+  .districts {
+    padding: 50px 30px 45px;
+    
+    h2 {
+      font-size: 2rem;
+    }
+  }
+  
+  .districts-sub {
+    font-size: 1rem;
+    margin-bottom: 40px;
+  }
+  
+  .district-grid-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .district-card {
+    h3 {
+      font-size: 1.4rem;
+    }
+    
+    p {
+      font-size: 0.85rem;
+    }
+  }
+  
+  .card-img {
+    height: 140px;
+  }
+}
+
+// Телефоны (320px - 767px)
+@media (max-width: 767px) {
+  .districts {
+    padding: 40px 20px 35px;
+    
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+  }
+  
+  .districts-sub {
+    font-size: 0.9rem;
+    margin-bottom: 32px;
+  }
+  
+  .district-grid-cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .district-card {
+    padding-bottom: 20px;
+    
+    &:hover {
+      transform: translateY(-4px);
+    }
+    
+    h3 {
+      font-size: 1.3rem;
+      margin: 16px 0 6px;
+    }
+    
+    p {
+      font-size: 0.8rem;
+      padding: 0 12px;
+    }
+  }
+  
+  .card-img {
+    height: 120px;
+  }
+}
