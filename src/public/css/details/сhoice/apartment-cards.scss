@@ -1,0 +1,283 @@
+// ========= ПЕРЕМЕННЫЕ =========
+$primary-gradient-start: #1a2a3a;
+$primary-gradient-end: #0f1a24;
+
+$hero-gradient-start: #0b2b3b;
+$hero-gradient-end: #144d5e;
+$accent-color: #f7b32b;
+$accent-hover: #ffa01e;
+$accent-gradient-start: #FFD966;
+$accent-gradient-end: #FFB347;
+$dark-bg: #0f2c38;
+$dark-hover: #1f556b;
+$text-light: #ffffff;
+$text-dark: #1e2f3a;
+$text-muted: #5f7e90;
+$border-light: #eef3fc;
+$border-color: #cfdfe9;
+
+$shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 12px 24px rgba(0, 0, 0, 0.2);
+$shadow-lg: 0 20px 30px rgba(0, 0, 0, 0.25);
+
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+
+$border-radius-sm: 10px;
+$border-radius-md: 15px;
+$border-radius-lg: 32px;
+$border-radius-xl: 56px;
+$border-radius-full: 60px;
+
+// ========= МИКСИНЫ =========
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin gradient-text($start, $end) {
+  background: linear-gradient(125deg, $start, $end);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@mixin gradient-bg($start, $end, $deg: 135deg) {
+  background: linear-gradient($deg, $start, $end);
+}
+
+@mixin hover-lift($translateY: -4px) {
+  transition: $transition-normal;
+  &:hover {
+    transform: translateY($translateY);
+  }
+}
+
+@mixin card-shadow {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+}
+
+@mixin focus-ring($color: $accent-color) {
+  &:focus {
+    outline: none;
+    border-color: $color;
+    box-shadow: 0 0 0 3px rgba($color, 0.2);
+  }
+}
+
+// КАРТОЧКА КВАРТИРЫ
+.apartment-card {
+  background: #fafcff;
+  border-radius: 28px;
+  padding: 16px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid $border-color;
+  transition: $transition-fast;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+
+  &.special-offer {
+    background: linear-gradient(115deg, #fffaf0, #fef7e8);
+    border-left: 8px solid $accent-hover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+
+    .apt-price {
+      color: $accent-hover;
+      font-size: 1.2rem;
+
+      &::before {
+        content: "🔥 ";
+        font-weight: 900;
+      }
+    }
+  }
+
+  .apartment-details {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    align-items: baseline;
+
+    .apt-type {
+      font-weight: 800;
+      font-size: 1.1rem;
+      min-width: 130px;
+      color: $dark-bg;
+    }
+
+    .apt-area,
+    .apt-floor {
+      background: $text-light;
+      padding: 4px 14px;
+      border-radius: $border-radius-lg;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: $text-muted;
+      border: 1px solid #eef2f8;
+    }
+
+    .apt-price {
+      font-weight: 800;
+      color: $hero-gradient-end;
+      font-size: 1.1rem;
+    }
+  }
+
+  .apt-actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn-sm {
+    background: $text-light;
+    border: 1px solid $border-color;
+    padding: 6px 20px;
+    border-radius: $border-radius-full;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: $hero-gradient-end;
+    transition: $transition-fast;
+
+    &:hover {
+      background: $border-light;
+      border-color: $accent-color;
+    }
+
+    &-primary {
+      background: $accent-color;
+      border: none;
+      color: $text-dark;
+      font-weight: 800;
+
+      &:hover {
+        background: $accent-hover;
+        transform: scale(0.98);
+      }
+    }
+  }
+
+// РАСШИРЕННЫЙ РЕЖИМ
+  &.expanded {
+    flex-direction: column;
+    align-items: stretch;
+    background: $text-light;
+    border: 2px solid $hero-gradient-end;
+    box-shadow: 0 18px 32px -8px rgba(0, 0, 0, 0.1);
+    cursor: default;
+    padding: 20px;
+
+    &.special-offer {
+      background: linear-gradient(115deg, #fffaf0, #fef7e8);
+      border-left: 8px solid $accent-hover;
+    }
+
+    .expanded-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+      width: 100%;
+
+      .expanded-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        @include gradient-text($primary-gradient-start, $primary-gradient-end);
+      }
+
+      .expanded-actions {
+        display: flex;
+        gap: 12px;
+      }
+    }
+
+    .expanded-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      align-items: flex-start;
+
+      .expanded-image {
+        flex: 0 0 180px;
+        background: #fafcff;
+        border-radius: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px 12px;
+        min-height: 160px;
+        border: 1px solid $border-color;
+
+        .img-placeholder-lg {
+          text-align: center;
+          font-size: 4rem;
+          color: $hero-gradient-end;
+
+          span {
+            display: block;
+            font-size: 0.75rem;
+            color: $text-muted;
+            margin-top: 8px;
+          }
+        }
+      }
+
+      .expanded-details-list {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+
+        .detail-row {
+          display: flex;
+          align-items: baseline;
+          gap: 24px;
+          flex-wrap: wrap;
+          border-bottom: 1px dashed #eef2f8;
+          padding-bottom: 8px;
+
+          .detail-label {
+            font-weight: 700;
+            color: $dark-bg;
+            min-width: 100px;
+          }
+
+          .detail-value {
+            color: $text-muted;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
+    .close-expand-btn {
+      background: $border-light;
+      border: 1px solid $border-color;
+      padding: 6px 20px;
+      border-radius: $border-radius-full;
+      font-size: 0.8rem;
+      cursor: pointer;
+      margin-top: 16px;
+      align-self: flex-start;
+      color: $hero-gradient-end;
+      transition: $transition-fast;
+
+      &:hover {
+        background: #eef2f8;
+        border-color: $accent-color;
+      }
+    }
+  }
+}

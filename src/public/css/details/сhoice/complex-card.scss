@@ -145,6 +145,81 @@ $hero-gradient-end: #2c4a6e; // Добавлено недостающее зна
     }
   }
 
+// БЛОК КВАРТИР
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+$dark-bg: #0f2c38;
+$text-light: #ffffff;
+$hero-gradient-end: #144d5e;
+$border-radius-lg: 32px;
+
+.apartments-wrapper {
+  margin: 0 28px 24px;
+  border-top: 1px solid #eef2f8;
+  padding-top: 20px;
+
+  .apartments-header {
+    @include flex-between;
+    margin-bottom: 16px;
+
+    .apartments-title {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: $dark-bg;
+
+      .apartment-badge {
+        background: $hero-gradient-end;
+        padding: 4px 12px;
+        border-radius: $border-radius-lg;
+        color: $text-light;
+        font-weight: 800;
+      }
+    }
+
+    .toggle-details-btn-header {
+      background: $border-light;
+      border: 1px solid $border-color;
+      padding: 6px 20px;
+      border-radius: $border-radius-full;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: $transition-fast;
+      color: $hero-gradient-end;
+
+      &:hover {
+        background: #eef2f8;
+        border-color: $accent-color;
+        color: $dark-bg;
+      }
+    }
+  }
+
+  .apartments-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+
+    &.open {
+      max-height: 2500px;
+    }
+
+    .apartments-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px 8px 12px;
+    }
+  }
+}
+
   // Адаптация для планшетов
   @media (max-width: 990px) {
     .complex-header .complex-image {
