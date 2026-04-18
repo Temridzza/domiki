@@ -1,0 +1,184 @@
+// ========= ПЕРЕМЕННЫЕ =========
+$primary-gradient-start: #1a2a3a;
+$primary-gradient-end: #0f1a24;
+
+$hero-gradient-start: #0b2b3b;
+$hero-gradient-end: #144d5e;
+$accent-color: #f7b32b;
+$accent-hover: #ffa01e;
+$accent-gradient-start: #FFD966;
+$accent-gradient-end: #FFB347;
+$dark-bg: #0f2c38;
+$dark-hover: #1f556b;
+$text-light: #ffffff;
+$text-dark: #1e2f3a;
+$text-muted: #5f7e90;
+$border-light: #eef3fc;
+$border-color: #cfdfe9;
+
+$shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 12px 24px rgba(0, 0, 0, 0.2);
+$shadow-lg: 0 20px 30px rgba(0, 0, 0, 0.25);
+
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+
+$border-radius-sm: 10px;
+$border-radius-md: 15px;
+$border-radius-lg: 32px;
+$border-radius-xl: 56px;
+$border-radius-full: 60px;
+
+// ========= МИКСИНЫ =========
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin gradient-text($start, $end) {
+  background: linear-gradient(125deg, $start, $end);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@mixin gradient-bg($start, $end, $deg: 135deg) {
+  background: linear-gradient($deg, $start, $end);
+}
+
+@mixin hover-lift($translateY: -4px) {
+  transition: $transition-normal;
+  &:hover {
+    transform: translateY($translateY);
+  }
+}
+
+@mixin card-shadow {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+}
+
+@mixin focus-ring($color: $accent-color) {
+  &:focus {
+    outline: none;
+    border-color: $color;
+    box-shadow: 0 0 0 3px rgba($color, 0.2);
+  }
+}
+
+// ФОРМА ЗАЯВКИ
+.form-section {
+  background: #fafcff;
+  border-radius: 42px;
+  padding: 40px 36px;
+  margin-top: 20px;
+  border: 1px solid $border-color;
+  box-shadow: $shadow-sm;
+
+  .form-wrapper {
+    h3 {
+      font-size: 2rem;
+      font-weight: 800;
+      @include gradient-text($primary-gradient-start, $primary-gradient-end);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .form-desc {
+      text-align: center;
+      color: $text-muted;
+      margin-bottom: 32px;
+      font-weight: 500;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 14px 22px;
+      border: 1px solid $border-color;
+      border-radius: $border-radius-full;
+      font-size: 1rem;
+      background: $text-light;
+      color: $text-dark;
+      transition: $transition-fast;
+      outline: none;
+
+      @include focus-ring($accent-color);
+
+      &::placeholder {
+        color: #6f8ea0;
+        opacity: 0.7;
+      }
+    }
+
+    textarea.input-field {
+      border-radius: 28px;
+    }
+
+    .btn-submit {
+      background: $hero-gradient-start;
+      color: $text-light;
+      font-weight: 800;
+      padding: 14px 28px;
+      border-radius: $border-radius-full;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: $transition-fast;
+      box-shadow: $shadow-sm;
+
+      &:hover {
+        background: $dark-hover;
+        transform: scale(1.01);
+      }
+    }
+
+    p {
+      font-size: 0.7rem;
+      text-align: center;
+      margin-top: 20px;
+      color: #6f8ea0;
+    }
+  }
+}
+
+// АДАПТИВ
+
+
+@media (max-width: 760px) {
+  .site-wrapper {
+    padding: 18px;
+  }
+
+  .expanded-content {
+    flex-direction: column;
+  }
+
+  .expanded-image {
+    flex-basis: auto;
+    width: 100%;
+  }
+
+  .contacts-phone {
+    text-align: left !important;
+    width: 100%;
+  }
+
+  .footer-contacts {
+    flex-direction: column;
+  }
+}
