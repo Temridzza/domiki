@@ -663,7 +663,7 @@ textarea.input-field {
   min-width: 55px;
   text-align: center;
 }
-@media (max-width: 570px) {
+@media (max-width: 580px) {
   .stats-row {
     flex-direction: column;
     gap: 16px;
@@ -704,10 +704,9 @@ textarea.input-field {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
+  padding: 30px 20px;
   border: 1px solid #cfdfe9;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  overflow: hidden;
 }
 .complex-card .complex-header .complex-image:hover {
   transform: scale(1.02);
