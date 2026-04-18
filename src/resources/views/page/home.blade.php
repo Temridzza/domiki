@@ -52,7 +52,11 @@
             <div class="promo-stats-inner" id="statsContainer"></div>
         </div>
     </div>
+    
+@push('scripts')
     <script src="{{ asset('js/proces-stocks.js') }}"></script>
     <script src="{{ asset('js/proces-card.js') }}"></script>
     <script src="{{ asset('js/proces-form.js') }}"></script>
+@endpush
+
 @endsection

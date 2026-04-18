@@ -1,0 +1,199 @@
+$primary-gradient-start: #1a2a3a;
+$primary-gradient-end: #0f1a24;
+$border-color: #cfdfe9;
+$border-light: #eef3fc;
+$accent-color: #f7b32b;
+$accent-hover: #ffa01e;
+$text-muted: #5f7e90;
+$text-light: #ffffff;
+$text-dark: #1a2a3a; // Добавлено недостающее значение
+
+$shadow-md: 0 12px 24px rgba(0, 0, 0, 0.2);
+$shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.1); // Добавлено недостающее значение
+
+$border-radius-full: 60px;
+$border-radius-lg: 32px;
+$transition-fast: 0.2s ease;
+
+$hero-gradient-end: #2c4a6e; // Добавлено недостающее значение
+
+@mixin card-shadow {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+}
+
+@mixin gradient-text($start, $end) {
+  background: linear-gradient(135deg, $start, $end);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+// КАРТОЧКА ЖК 
+.complex-card {
+  background: $text-light;
+  border-radius: $border-radius-lg;
+  margin-bottom: 40px;
+  @include card-shadow;
+  border: 1px solid #eef2f8;
+  transition: $transition-fast;
+
+  .complex-header {
+    display: flex;
+    gap: 32px;
+    padding: 30px 30px 20px;
+    flex-wrap: wrap;
+    align-items: center;
+
+    .complex-image {
+      flex: 0 0 420px; 
+      min-height: 260px; 
+      background: #fafcff;
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px; 
+      border: 1px solid $border-color;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      
+      &:hover {
+        transform: scale(1.02);
+        box-shadow: $shadow-md;
+      }
+
+      .img-placeholder {
+        text-align: center;
+        font-size: 5rem; 
+        color: $hero-gradient-end;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+        
+        span {
+          display: block;
+          font-size: 1.1rem; 
+          margin-top: 16px;
+          font-weight: 800; 
+          color: $text-muted;
+          letter-spacing: 0.5px;
+        }
+      }
+    }
+
+    .complex-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      
+      .info-row-1 {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: flex-end;
+        gap: 16px; 
+
+        .complex-name {
+          font-size: 1.9rem;
+          font-weight: 800;
+          @include gradient-text($primary-gradient-start, $primary-gradient-end);
+        }
+
+        .price-deadline {
+          display: flex;
+          gap: 18px;
+          background: $border-light;
+          padding: 6px 20px;
+          border-radius: $border-radius-full;
+
+          .price {
+            font-weight: 800;
+            color: $accent-hover;
+            font-size: 1rem;
+          }
+
+          .deadline {
+            color: $text-muted;
+            font-size: 0.9rem;
+          }
+        }
+      }
+
+      .info-row-2 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 16px;
+      }
+    }
+  }
+
+  .btn-primary {
+    background: $accent-color;
+    border: none;
+    padding: 10px 32px;
+    border-radius: $border-radius-full;
+    font-weight: 800;
+    color: $text-dark;
+    cursor: pointer;
+    transition: $transition-fast;
+    box-shadow: $shadow-sm;
+    letter-spacing: 0.5px;
+
+    &:hover {
+      background: $accent-hover;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(247, 179, 43, 0.3);
+    }
+  }
+
+  // Адаптация для планшетов
+  @media (max-width: 990px) {
+    .complex-header .complex-image {
+      flex: 0 0 360px;
+      min-height: 220px;
+      
+      .img-placeholder {
+        font-size: 4rem;
+        
+        span {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  // Адаптация для мобильных устройств
+  @media (max-width: 725px) {
+    .complex-header {
+      flex-direction: column;
+      text-align: center;
+      
+      .complex-image {
+        flex: 0 0 100%;
+        width: 100%;
+        min-height: 200px;
+        
+        .img-placeholder {
+          font-size: 4.5rem;
+          
+          span {
+            font-size: 1rem;
+          }
+        }
+      }
+      
+      .complex-info {
+        width: 100%;
+        
+        .info-row-1 {
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+        }
+        
+        .info-row-2 {
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
