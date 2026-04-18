@@ -1,6 +1,53 @@
 // Обработка формы
 document.addEventListener('DOMContentLoaded', function() {
+    // Находим элементы
+    const formSection = document.getElementById('applicationForm');
+    const button = document.querySelector('.btn-primary');
     const form = document.getElementById('contactForm');
+    
+    // Скрываем форму при загрузке страницы
+    if (formSection) {
+        formSection.style.display = 'none';
+    }
+    
+    // Функция для показа формы и скролла к ней
+    window.showFormAndScroll = function(event) {
+        if (event) event.preventDefault();
+        
+        // Показываем форму
+        if (formSection) {
+            formSection.style.display = 'block';
+            
+            // Плавный скролл к форме
+            setTimeout(() => {
+                formSection.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+                
+                // Устанавливаем фокус на первое поле формы
+                setTimeout(() => {
+                    const firstInput = formSection.querySelector('input:not([type="submit"]), textarea');
+                    if (firstInput) {
+                        firstInput.focus();
+                    }
+                }, 500); // Небольшая задержка после скролла
+            }, 100);
+        }
+    };
+    
+    // Если кнопка уже существует, обновляем её обработчик
+    if (button) {
+        // Удаляем старый обработчик, если он был
+        const newButton = button.cloneNode(true);
+        button.parentNode.replaceChild(newButton, button);
+        
+        // Добавляем новый обработчик
+        newButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.showFormAndScroll(e);
+        });
+    }
     
     if (form) {
         form.addEventListener('submit', function(e) {

@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="content-after-hero">
-        <h1>О выборе</h1>
+        <h1>{{ $districtSlug }}</h1>
         <p>Содержание страницы о выборе...</p>
     </div>
 @endsection

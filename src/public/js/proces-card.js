@@ -31,15 +31,15 @@ async function fetchDistricts() {
                 
                 // Добавляем обработчик клика для перехода
                 card.addEventListener('click', () => {
-                    window.location.href = `api/districts/${district.slug}/new-buildings`;
+                    window.location.href = `сhoice/${district.slug}`;
                 });
                 
                 // Изображение
                 const imgDiv = document.createElement('div');
                 imgDiv.className = 'card-img';
-                const imageUrl = district.image && district.image !== 'default.png' 
-                    ? `/storage/${district.image}` 
-                    : `https://via.placeholder.com/400x300?text=${district.name}`;
+                
+                const imageUrl = `/storage/${district.image}`;
+
                 imgDiv.style.backgroundImage = `url('${imageUrl}')`;
                 imgDiv.style.backgroundSize = 'cover';
                 imgDiv.style.backgroundPosition = 'center';
