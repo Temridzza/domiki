@@ -25,10 +25,11 @@ Route::get('/home', function () {
 })->name('home');
 
 // Страница выбора
-Route::get('/сhoice/{slug}', function ($slug) {
+Route::get('/сhoice/{slug}&{name}', function ($slug, $name) {
     // slug в представление
     return view('page.сhoice', [
-        'districtSlug' => $slug
+        'districtSlug' => $slug,
+        'districtName' => $name,
     ]);
 })->name('сhoice');
 

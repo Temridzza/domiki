@@ -31,7 +31,7 @@ async function fetchDistricts() {
                 
                 // Добавляем обработчик клика для перехода
                 card.addEventListener('click', () => {
-                    window.location.href = `сhoice/${district.slug}`;
+                    window.location.href = `сhoice/${district.slug}&${district.name}`;
                 });
                 
                 // Изображение

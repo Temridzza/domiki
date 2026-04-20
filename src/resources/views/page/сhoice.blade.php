@@ -10,7 +10,7 @@
         
         <!-- Шапка района -->
         <div class="district-header">
-            <h1 class="district-title">{{ $districtSlug }} РАЙОН</h1>
+            <h1 class="district-title">{{ $districtName }} РАЙОН</h1>
         </div>
 
         <div class="stats-row">
