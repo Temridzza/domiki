@@ -38,6 +38,12 @@ Route::get('/panel', function () {
     return view('page.panel');
 })->name('panel');
 
+Route::post('/admin/{token}', function ($token) {
+    return view('page.сhoice', [
+        'TokenUse' => $token
+    ]);
+})->name('admin');
+
 // image
 Route::get('/storage/{path}', function ($path) {
     // Проверяем существование файла в storage/app/public

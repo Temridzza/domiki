@@ -75,36 +75,6 @@ body {
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-.loading {
-  text-align: center;
-  padding: 50px;
-  font-size: 18px;
-  color: #667eea;
-}
-.loading .spinner {
-  border: 3px solid #f3f3f3;
-  border-top: 3px solid #667eea;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 20px;
-}
-
-.error {
-  text-align: center;
-  padding: 50px;
-  color: #e74c3c;
-}
-
 /* ========= ФУТЕР ========= */
 footer {
   background: #ecf6ff;
