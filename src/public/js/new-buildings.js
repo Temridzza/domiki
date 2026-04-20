@@ -132,6 +132,19 @@ function expandCardByView(card, aptData, complexKey) {
     
     const complexName = aptData.complexName || (complexKey === 'solar' ? 'ЖК Солнечный' : 'ЖК');
     
+    // Формируем путь к изображению
+    let imageUrl = '';
+    if (aptData.layout_image) {
+        // Проверяем, начинается ли путь с /storage/
+        if (aptData.layout_image.startsWith('/storage/')) {
+            imageUrl = aptData.layout_image;
+        } else if (aptData.layout_image.startsWith('storage/')) {
+            imageUrl = '/' + aptData.layout_image;
+        } else {
+            imageUrl = '/storage/' + aptData.layout_image;
+        }
+    }
+    
     const headerDiv = document.createElement('div');
     headerDiv.className = 'expanded-header';
     headerDiv.innerHTML = `
@@ -143,21 +156,62 @@ function expandCardByView(card, aptData, complexKey) {
     
     const contentDiv = document.createElement('div');
     contentDiv.className = 'expanded-content';
-    contentDiv.innerHTML = `
-        <div class="expanded-image">
-            <div class="img-placeholder-lg">
-                🏙️🌟
-                <span>Планировка премиум</span>
-            </div>
-        </div>
-        <div class="expanded-details-list">
-            <div class="detail-row"><div class="detail-label">📐 Площадь:</div><div class="detail-value">${aptData.area}м²</div></div>
-            <div class="detail-row"><div class="detail-label">💰 Цена:</div><div class="detail-value">${aptData.price}</div></div>
-            <div class="detail-row"><div class="detail-label">🏢 Этаж:</div><div class="detail-value">${aptData.floor || 'разные'}</div></div>
-            <div class="detail-row"><div class="detail-label">🏗️ Жилой комплекс:</div><div class="detail-value">${complexName}</div></div>
-            <div class="detail-row"><div class="detail-label">📝 Описание:</div><div class="detail-value">${aptData.desc || 'Отличная планировка, развитая инфраструктура.'}</div></div>
-        </div>
+    
+    // Создаём блок изображения
+    const imageDiv = document.createElement('div');
+    imageDiv.className = 'expanded-image';
+    // Устанавливаем стили, чтобы блок занимал всё пространство
+    imageDiv.style.position = 'relative';
+    imageDiv.style.overflow = 'hidden';
+    imageDiv.style.padding = '0'; // Убираем отступы
+    imageDiv.style.minHeight = '240px';
+    
+    const imgPlaceholder = document.createElement('div');
+    imgPlaceholder.className = 'img-placeholder-lg';
+    imgPlaceholder.style.position = 'absolute';
+    imgPlaceholder.style.top = '0';
+    imgPlaceholder.style.left = '0';
+    imgPlaceholder.style.width = '100%';
+    imgPlaceholder.style.height = '100%';
+    
+    if (imageUrl) {
+        // Если есть изображение - показываем его на весь блок
+        imgPlaceholder.style.backgroundImage = `url('${imageUrl}')`;
+        imgPlaceholder.style.backgroundSize = 'cover';
+        imgPlaceholder.style.backgroundPosition = 'center';
+        imgPlaceholder.style.backgroundRepeat = 'no-repeat';
+        imgPlaceholder.innerHTML = '';
+    } else {
+        // Если нет изображения - центрируем плейсхолдер
+        imgPlaceholder.style.display = 'flex';
+        imgPlaceholder.style.flexDirection = 'column';
+        imgPlaceholder.style.alignItems = 'center';
+        imgPlaceholder.style.justifyContent = 'center';
+        imgPlaceholder.style.textAlign = 'center';
+        imgPlaceholder.style.fontSize = '4rem';
+        imgPlaceholder.style.color = '#144d5e';
+        imgPlaceholder.style.backgroundColor = '#fafcff';
+        imgPlaceholder.innerHTML = `
+            🏙️🌟
+            <span style="display: block; font-size: 0.75rem; color: #5f7e90; margin-top: 8px;">Планировка премиум</span>
+        `;
+    }
+    
+    imageDiv.appendChild(imgPlaceholder);
+    
+    // Создаём блок с деталями
+    const detailsDiv = document.createElement('div');
+    detailsDiv.className = 'expanded-details-list';
+    detailsDiv.innerHTML = `
+        <div class="detail-row"><div class="detail-label">📐 Площадь:</div><div class="detail-value">${aptData.area}м²</div></div>
+        <div class="detail-row"><div class="detail-label">💰 Цена:</div><div class="detail-value">${aptData.price}</div></div>
+        <div class="detail-row"><div class="detail-label">🏢 Этаж:</div><div class="detail-value">${aptData.floor || 'разные'}</div></div>
+        <div class="detail-row"><div class="detail-label">🏗️ Жилой комплекс:</div><div class="detail-value">${complexName}</div></div>
+        <div class="detail-row"><div class="detail-label">📝 Описание:</div><div class="detail-value">${aptData.desc || 'Отличная планировка, развитая инфраструктура.'}</div></div>
     `;
+    
+    contentDiv.appendChild(imageDiv);
+    contentDiv.appendChild(detailsDiv);
     
     const closeBtn = document.createElement('button');
     closeBtn.className = 'close-expand-btn';
@@ -339,7 +393,7 @@ function initDropdowns() {
             
             if (list) {
                 list.classList.toggle('open');
-                btn.innerHTML = list.classList.contains('open') ? 'ПОДРОБНЕЕ ▲' : 'ПОДРОБНЕЕ ▼';
+                btn.innerHTML = list.classList.contains('open') ? 'ПОДРОБНЕЕ ▲ ' : 'ПОДРОБНЕЕ ▼';
             }
         };
         

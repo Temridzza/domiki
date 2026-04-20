@@ -681,6 +681,576 @@ textarea.input-field {
   }
 }
 
+.complex-card {
+  background: #ffffff;
+  border-radius: 32px;
+  margin-bottom: 40px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eef2f8;
+  transition: 0.2s ease;
+  overflow: hidden;
+}
+.complex-card .complex-header {
+  display: flex;
+  gap: 32px;
+  padding: 30px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.complex-card .complex-header .complex-image {
+  flex: 0 0 420px;
+  height: 260px;
+  border-radius: 28px;
+  border: 1px solid #cfdfe9;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.complex-card .complex-header .complex-image .card-img {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+.complex-card .complex-header .complex-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+.complex-card .complex-header .complex-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 10px;
+  min-height: 200px;
+}
+.complex-card .complex-header .complex-info .info-row-1 {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+.complex-card .complex-header .complex-info .info-row-1 .complex-name {
+  font-size: 1.9rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #1a2a3a, #0f1a24);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1.2;
+}
+.complex-card .complex-header .complex-info .info-row-1 .price-deadline {
+  display: flex;
+  gap: 18px;
+  background: #eef3fc;
+  padding: 8px 20px;
+  border-radius: 60px;
+}
+.complex-card .complex-header .complex-info .info-row-1 .price-deadline .price {
+  font-weight: 800;
+  color: #ffa01e;
+  font-size: 1.1rem;
+}
+.complex-card .complex-header .complex-info .info-row-1 .price-deadline .deadline {
+  color: #5f7e90;
+  font-size: 0.95rem;
+  align-self: center;
+}
+.complex-card .complex-header .complex-info .info-row-2 {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  margin-top: auto;
+}
+.complex-card .complex-header .complex-info .info-row-2 .btn-primary {
+  background: #f7b32b;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 60px;
+  font-weight: 800;
+  color: #1a2a3a;
+  cursor: pointer;
+  transition: 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+.complex-card .complex-header .complex-info .info-row-2 .btn-primary:hover {
+  background: #ffa01e;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(247, 179, 43, 0.3);
+}
+.complex-card .apartments-wrapper {
+  margin: 0 30px 30px;
+  border-top: 1px solid #eef2f8;
+  padding-top: 24px;
+}
+.complex-card .apartments-wrapper .apartments-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f0f4f8;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.complex-card .apartments-wrapper .apartments-header .apartments-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #0f2c38;
+}
+.complex-card .apartments-wrapper .apartments-header .apartments-title .apartment-badge {
+  background: #2c4a6e;
+  padding: 6px 14px;
+  border-radius: 32px;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+.complex-card .apartments-wrapper .apartments-header .toggle-details-btn-header {
+  background: #eef3fc;
+  border: 1px solid #cfdfe9;
+  padding: 8px 24px;
+  border-radius: 60px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+  color: #2c4a6e;
+}
+.complex-card .apartments-wrapper .apartments-header .toggle-details-btn-header:hover {
+  background: rgb(224.995, 233.82, 249.705);
+  border-color: #f7b32b;
+  color: #0f2c38;
+}
+.complex-card .apartments-wrapper .apartments-list {
+  max-height: 0;
+  padding-top: 5px;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.complex-card .apartments-wrapper .apartments-list.open {
+  max-height: 2000px;
+}
+.complex-card .apartments-wrapper .apartments-list .apartments-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.complex-card .apartment-card {
+  background: #eef3fc;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+.complex-card .apartment-card:hover {
+  border-color: #f7b32b;
+  background: rgb(242.335, 246.06, 252.765);
+  transform: translateY(-2px);
+}
+.complex-card .apartment-card .apartment-details {
+  display: flex;
+  flex: 1;
+  gap: 28px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.complex-card .apartment-card .apartment-details .apt-type {
+  font-weight: 700;
+  color: #1a2a3a;
+  font-size: 1.15rem;
+  white-space: nowrap;
+}
+.complex-card .apartment-card .apartment-details .apt-area {
+  color: #2c4a6e;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.complex-card .apartment-card .apartment-details .apt-price {
+  font-weight: 800;
+  color: #ffa01e;
+  font-size: 1.25rem;
+  white-space: nowrap;
+}
+.complex-card .apartment-card .apartment-details .apt-floor {
+  color: #5f7e90;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.complex-card .apartment-card .apt-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.complex-card .apartment-card .apt-actions .btn-sm {
+  padding: 10px 20px;
+  border-radius: 60px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+  border: 1px solid #cfdfe9;
+  background: #ffffff;
+  color: #1a2a3a;
+  font-size: 0.9rem;
+}
+.complex-card .apartment-card .apt-actions .btn-sm:hover {
+  background: #eef3fc;
+  transform: translateY(-1px);
+}
+.complex-card .apartment-card .apt-actions .btn-sm-primary {
+  background: #f7b32b;
+  border-color: #f7b32b;
+  color: #1a2a3a;
+}
+.complex-card .apartment-card .apt-actions .btn-sm-primary:hover {
+  background: #ffa01e;
+  box-shadow: 0 4px 12px rgba(247, 179, 43, 0.3);
+}
+
+@media (max-width: 992px) {
+  .complex-card .complex-header .complex-image {
+    flex: 0 0 350px;
+    height: 240px;
+  }
+}
+@media (max-width: 815px) {
+  .complex-card .complex-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+  }
+  .complex-card .complex-header .complex-image {
+    flex: none;
+    width: 100%;
+    max-width: 400px;
+    height: 220px;
+    margin: 0 auto;
+  }
+  .complex-card .complex-header .complex-info {
+    width: 100%;
+    gap: 20px;
+  }
+  .complex-card .complex-header .complex-info .info-row-1 {
+    align-items: center;
+    text-align: center;
+  }
+  .complex-card .complex-header .complex-info .info-row-2 {
+    justify-content: center;
+  }
+  .complex-card .apartments-wrapper {
+    margin: 0 20px 24px;
+  }
+  .complex-card .apartment-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  .complex-card .apartment-card .apartment-details {
+    justify-content: center;
+    gap: 16px;
+    order: 2;
+  }
+  .complex-card .apartment-card .apt-actions {
+    order: 1;
+    width: 100%;
+    justify-content: center;
+  }
+}
+@media (max-width: 480px) {
+  .complex-card {
+    margin-bottom: 24px;
+  }
+  .complex-card .complex-header {
+    padding: 20px;
+  }
+  .complex-card .complex-header .complex-name {
+    font-size: 1.6rem;
+  }
+  .complex-card .complex-header .complex-image {
+    height: 180px;
+  }
+  .complex-card .apartments-wrapper {
+    margin: 0 16px 20px;
+    padding-top: 20px;
+  }
+  .complex-card .apartment-details {
+    flex-direction: column;
+    gap: 12px !important;
+    text-align: center;
+  }
+  .complex-card .apt-actions .btn-sm {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    flex: 1;
+    min-width: 120px;
+  }
+  .complex-card .apartments-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .complex-card .apartments-header .toggle-details-btn-header {
+    align-self: center;
+  }
+}
+.apartment-card {
+  background: #fafcff;
+  border-radius: 28px;
+  padding: 16px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid #cfdfe9;
+  transition: 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+.apartment-card.special-offer {
+  background: linear-gradient(115deg, #fffaf0, #fef7e8);
+  border-left: 8px solid #ffa01e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+.apartment-card.special-offer .apt-price {
+  color: #ffa01e;
+  font-size: 1.2rem;
+}
+.apartment-card.special-offer .apt-price::before {
+  content: "🔥 ";
+  font-weight: 900;
+}
+.apartment-card .apartment-details {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+.apartment-card .apartment-details .apt-type {
+  font-weight: 800;
+  font-size: 1.1rem;
+  min-width: 130px;
+  color: #0f2c38;
+}
+.apartment-card .apartment-details .apt-area,
+.apartment-card .apartment-details .apt-floor {
+  background: #ffffff;
+  padding: 4px 14px;
+  border-radius: 32px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #5f7e90;
+  border: 1px solid #eef2f8;
+}
+.apartment-card .apartment-details .apt-price {
+  font-weight: 800;
+  color: #144d5e;
+  font-size: 1.1rem;
+}
+.apartment-card .apt-actions {
+  display: flex;
+  gap: 12px;
+}
+.apartment-card .btn-sm {
+  background: #ffffff;
+  border: 1px solid #cfdfe9;
+  padding: 6px 20px;
+  border-radius: 60px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: #144d5e;
+  transition: 0.2s ease;
+}
+.apartment-card .btn-sm:hover {
+  background: #eef3fc;
+  border-color: #f7b32b;
+}
+.apartment-card .btn-sm-primary {
+  background: #f7b32b;
+  border: none;
+  color: #1e2f3a;
+  font-weight: 800;
+}
+.apartment-card .btn-sm-primary:hover {
+  background: #ffa01e;
+  transform: scale(0.98);
+}
+
+.apartment-card.expanded {
+  flex-direction: column;
+  align-items: stretch;
+  background: #ffffff;
+  border: 2px solid #144d5e;
+  box-shadow: 0 18px 32px -8px rgba(0, 0, 0, 0.1);
+  cursor: default;
+  padding: 20px;
+}
+.apartment-card.expanded.special-offer {
+  background: linear-gradient(115deg, #fffaf0, #fef7e8);
+  border-left: 8px solid #ffa01e;
+}
+.apartment-card.expanded .expanded-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.apartment-card.expanded .expanded-header .expanded-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(125deg, #1a2a3a, #0f1a24);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.apartment-card.expanded .expanded-header .expanded-actions {
+  display: flex;
+  gap: 12px;
+}
+.apartment-card.expanded .expanded-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  align-items: flex-start;
+}
+.apartment-card.expanded .expanded-content .expanded-image {
+  flex: 0 0 360px;
+  position: relative;
+  background: #fafcff;
+  border-radius: 28px;
+  overflow: hidden;
+  min-height: 240px;
+  border: 1px solid #cfdfe9;
+}
+.apartment-card.expanded .expanded-content .expanded-image .img-placeholder-lg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+}
+.apartment-card.expanded .expanded-content .expanded-image .img-placeholder-lg:not([style*=background-image]) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 4rem;
+  color: #144d5e;
+}
+.apartment-card.expanded .expanded-content .expanded-image .img-placeholder-lg:not([style*=background-image]) span {
+  display: block;
+  font-size: 0.75rem;
+  color: #5f7e90;
+  margin-top: 8px;
+}
+.apartment-card.expanded .expanded-content .expanded-details-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.apartment-card.expanded .expanded-content .expanded-details-list .detail-row {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  flex-wrap: wrap;
+  border-bottom: 1px dashed #eef2f8;
+  padding-bottom: 8px;
+}
+.apartment-card.expanded .expanded-content .expanded-details-list .detail-row .detail-label {
+  font-weight: 700;
+  color: #0f2c38;
+  min-width: 100px;
+}
+.apartment-card.expanded .expanded-content .expanded-details-list .detail-row .detail-value {
+  color: #5f7e90;
+  font-weight: 500;
+}
+.apartment-card.expanded .close-expand-btn {
+  background: #eef3fc;
+  border: 1px solid #cfdfe9;
+  padding: 6px 20px;
+  border-radius: 60px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-top: 16px;
+  align-self: flex-start;
+  color: #144d5e;
+  transition: 0.2s ease;
+}
+.apartment-card.expanded .close-expand-btn:hover {
+  background: #eef2f8;
+  border-color: #f7b32b;
+}
+@media (max-width: 815px) {
+  .apartment-card.expanded {
+    padding: 16px;
+  }
+  .apartment-card.expanded .expanded-header {
+    margin-bottom: 16px;
+    gap: 12px;
+  }
+  .apartment-card.expanded .expanded-header .expanded-title {
+    font-size: 1.3rem;
+  }
+  .apartment-card.expanded .expanded-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .apartment-card.expanded .expanded-content .expanded-image {
+    flex: none;
+    width: 100%;
+    min-height: 200px;
+  }
+  .apartment-card.expanded .expanded-content .expanded-image .img-placeholder-lg {
+    border-radius: 28px;
+  }
+  .apartment-card.expanded .expanded-content .expanded-image .img-placeholder-lg:not([style*=background-image]) {
+    font-size: 5rem;
+  }
+  .apartment-card.expanded .expanded-content .expanded-image .img-placeholder-lg:not([style*=background-image]) span {
+    font-size: 0.75rem;
+  }
+  .apartment-card.expanded .expanded-content .expanded-details-list {
+    flex: none;
+    width: 100%;
+    gap: 16px;
+  }
+  .apartment-card.expanded .expanded-content .expanded-details-list .detail-row {
+    gap: 16px;
+    padding-bottom: 12px;
+  }
+  .apartment-card.expanded .expanded-content .expanded-details-list .detail-row .detail-label {
+    min-width: 120px;
+    font-size: 0.95rem;
+  }
+  .apartment-card.expanded .expanded-content .expanded-details-list .detail-row .detail-value {
+    font-size: 1rem;
+    flex: 1;
+  }
+  .apartment-card.expanded .close-expand-btn {
+    width: 100%;
+    justify-content: center;
+    margin-top: 12px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
 .main-content {
   max-width: 1000px;
   margin: 0 auto;
