@@ -57,19 +57,13 @@ function getRoomsText(rooms) {
 
 // ===== ОБНОВЛЕНИЕ ГЛОБАЛЬНЫХ СЧЁТЧИКОВ =====
 function updateGlobalCounters() {
-    let total = 0;
-    let special = 0;
-    
-    for (let key in apartmentsData) {
-        total += apartmentsData[key].length;
-        special += apartmentsData[key].filter(a => a.special).length;
-    }
+    // Получаем количество загруженных комплексов
+    const complexCards = document.querySelectorAll('.complex-card');
+    const totalComplexes = complexCards.length;
     
     const totalElement = document.getElementById('totalApartmentsCount');
-    const specialElement = document.getElementById('specialPriceCount');
     
-    if (totalElement) totalElement.innerText = total;
-    if (specialElement) specialElement.innerText = special;
+    if (totalElement) totalElement.innerText = totalComplexes;
 }
 
 // ===== ОТРИСОВКА КВАРТИР =====
@@ -317,6 +311,10 @@ async function load_Complex() {
     // Показываем загрузку
     container.innerHTML = '<div class="loading">Загрузка новостроек...</div>';
     
+    // Счётчик для отслеживания загруженных комплексов
+    let loadedComplexesCount = 0;
+    const totalBuildings = 0; // Будет обновлено после получения данных
+    
     try {
         // Загружаем список новостроек
         const response = await fetch(`/api/districts/${SLUG}/new-buildings`);
@@ -324,6 +322,9 @@ async function load_Complex() {
         
         // Очищаем контейнер
         container.innerHTML = '';
+        
+        // Сохраняем общее количество для отслеживания (опционально)
+        const expectedTotal = result.data.length;
         
         // Обрабатываем каждую новостройку
         for (const building of result.data) {
@@ -361,12 +362,13 @@ async function load_Complex() {
             const cardHtml = createComplexCard(complexData, building.id);
             container.insertAdjacentHTML('beforeend', cardHtml);
             
+            // Увеличиваем счётчик и обновляем глобальные счётчики после каждого добавленного комплекса
+            loadedComplexesCount++;
+            updateGlobalCounters();
+            
             // Отрисовываем квартиры
             renderApartments(complexKey, `${complexKey}ApartmentsGrid`, `${complexKey}Badge`);
         }
-        
-        // Обновляем глобальные счётчики
-        updateGlobalCounters();
         
         // Инициализируем обработчики
         initDropdowns();
@@ -375,6 +377,7 @@ async function load_Complex() {
     } catch (error) {
         console.error('Ошибка загрузки:', error);
         container.innerHTML = '<div class="error">Ошибка загрузки данных</div>';
+        updateGlobalCounters(); // Обновим счётчик (будет 0)
     }
 }
 
