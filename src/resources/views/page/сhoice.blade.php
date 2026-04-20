@@ -26,10 +26,10 @@
         <!-- СРОЧНОЕ ПРЕДЛОЖЕНИЕ -->
         <div class="urgent-block">
             <div class="urgent-text">
-                <h3>⚡ ОСТАЛОСЬ ВСЕГО 2 ОБЪЕКТА</h3>
-                <p>Квартиры в ЖК Солнечный по специальной цене</p>
+                <h3>⚡ОСТАЛОСЬ ВСЕГО 2 ОБЪЕКТА</h3>
+                <p>Квартиры по специальной цене</p>
             </div>
-            <button class="btn-large" id="urgentSelectBtn">🔥 ПОДОБРАТЬ КВАРТИРУ ➤</button>
+            <button class="btn-large" id="urgentSelectBtn">🔥 ПОДОБРАТЬ КВАРТИРУ</button>
         </div>
 
         <!-- ФОРМА ЗАЯВКИ -->
