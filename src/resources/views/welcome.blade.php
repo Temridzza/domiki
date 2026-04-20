@@ -25,7 +25,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
 
         /* ===== ЛЕВОЕ МЕНЮ (САЙДБАР) ===== */
         .sidebar {
-            width: 280px;
+            width: 320px;
             background: #1e293b;
             color: #e2e8f0;
             display: flex;
@@ -194,8 +194,11 @@ $action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
             <a href="?action=add_user" class="menu-item <?= $action == 'add_user' ? 'active' : '' ?>">
                 <i>👤</i> Добавить пользователя
             </a>
-            <a href="?action=add_product" class="menu-item <?= $action == 'add_product' ? 'active' : '' ?>">
+            <a href="?action=add_build" class="menu-item <?= $action == 'add_build' ? 'active' : '' ?>">
                 <i>🏠</i> Добавить Новостройку
+            </a>
+            <a href="?action=edit_build" class="menu-item <?= $action == 'edit_build' ? 'active' : '' ?>">
+                <i>🚧</i> Редактировать Новостройку
             </a>
             <a href="?action=settings" class="menu-item <?= $action == 'settings' ? 'active' : '' ?>">
                 <i>⚙️</i> Настройки
@@ -213,7 +216,8 @@ $action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
                 <?php
                     switch ($action) {
                         case 'add_user': echo '👥 Добавить пользователя'; break;
-                        case 'add_product': echo '🏠 Добавить Новостройку'; break;
+                        case 'add_build': echo '🏠 Добавить Новостройку'; break;
+                        case 'edit_build': echo '🚧 Редактировать данные Новостройки'; break;
                         case 'settings': echo '⚙️ Настройки системы'; break;
                         default: echo '📋 Панель управления';
                     }
@@ -254,20 +258,39 @@ $action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
                     ?>
                 </div>
             </div>
-        <?php elseif ($action == 'add_product'): ?>
+        <?php elseif ($action == 'add_build'): ?>
             <div class="form-container">
                 <form method="post" action="">
                     <div class="form-group">
-                        <label>Название товара</label>
+                        <label>Название Новостройки</label>
                         <input type="text" name="product_name" placeholder="Название">
                     </div>
                     <div class="form-group">
-                        <label>Цена (₽)</label>
-                        <input type="number" name="price" step="0.01" placeholder="0.00">
+                        <label>Выбор района</label>
+                        <select name="raion">
+                            <option>Дзержинский</option>
+                            <option>Заволжский</option>
+                            <option>Кировский</option>
+                            <option>Лененский</option>
+                            <option>Красно-Перекопский</option>
+                            <option>Фрунзенский</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label>Описание</label>
-                        <textarea rows="3" name="description" placeholder="Краткое описание..."></textarea>
+                        <label>Количество квартир</label>
+                        <label>1 комната</label>
+                        <input type="number" name="onecom" step="1" placeholder="0">
+                        <label>2 комнаты</label>
+                        <input type="number" name="twocom" step="1" placeholder="0">
+                        <label>3 комнаты</label>
+                        <input type="number" name="threecom" step="1" placeholder="0">
+                        <label>4 комнаты</label>
+                        <input type="number" name="fourcom" step="1" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Изображение для записи</label>
+                        <input type="file" name="image" accept="image/jpeg,image/png,image/gif,image/webp">
+                        <small class="text-muted">Поддерживаются JPG, PNG, GIF, WebP до 5 МБ</small>
                     </div>
                     <div class="form-group">
                         <label>Описание</label>
@@ -276,7 +299,53 @@ $action = isset($_GET['action']) ? $_GET['action'] : 'dashboard';
                     <button type="submit">🏠 Добавить Новостройку</button>
                 </form>
                 <div class="info-message mt-4">
-                    <?= ($_SERVER['REQUEST_METHOD'] === 'POST' && $action == 'add_product') ? "📦 Товар добавлен." : "Заполните информацию о товаре." ?>
+                    <?= ($_SERVER['REQUEST_METHOD'] === 'POST' && $action == 'add_product') ? "Добавлена Новостройка." : "Заполните информацию о товаре." ?>
+                </div>
+            </div>
+        <?php elseif ($action == 'edit_build'): ?>
+        <!-- Это надо заменит на выпадающий список-->
+            <div class="form-container">
+                <form method="post" action="">
+                    <div class="form-group">
+                        <label>Название Новостройки</label>
+                        <input type="text" name="product_name" placeholder="Название">
+                    </div>
+                    <!--  -->
+                    <div class="form-group">
+                        <label>Выбор района</label>
+                        <select name="raion">
+                            <option>Дзержинский</option>
+                            <option>Заволжский</option>
+                            <option>Кировский</option>
+                            <option>Лененский</option>
+                            <option>Красно-Перекопский</option>
+                            <option>Фрунзенский</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Количество квартир</label>
+                        <label>1 комната</label>
+                        <input type="number" name="onecom" step="1" placeholder="0">
+                        <label>2 комнаты</label>
+                        <input type="number" name="twocom" step="1" placeholder="0">
+                        <label>3 комнаты</label>
+                        <input type="number" name="threecom" step="1" placeholder="0">
+                        <label>4 комнаты</label>
+                        <input type="number" name="fourcom" step="1" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Изображение для записи</label>
+                        <input type="file" name="image" accept="image/jpeg,image/png,image/gif,image/webp">
+                        <small class="text-muted">Поддерживаются JPG, PNG, GIF, WebP до 5 МБ</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Описание</label>
+                        <textarea rows="3" name="description" placeholder="Краткое описание..."></textarea>
+                    </div>
+                    <button type="submit">🏠 Изменить данные новостройки</button>
+                </form>
+                <div class="info-message mt-4">
+                    <?= ($_SERVER['REQUEST_METHOD'] === 'POST' && $action == 'add_product') ? "Добавлена Новостройка." : "Заполните информацию о товаре." ?>
                 </div>
             </div>
         <?php elseif ($action == 'settings'): ?>
