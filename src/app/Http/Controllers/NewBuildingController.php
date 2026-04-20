@@ -369,5 +369,4 @@ class NewBuildingController extends Controller
         ]);
     }
 
-    
 }

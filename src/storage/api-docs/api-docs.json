@@ -681,6 +681,67 @@
                 ]
             }
         },
+        "/api/contact": {
+            "post": {
+                "tags": [
+                    "Contact"
+                ],
+                "summary": "Отправка заявки (обратная связь)",
+                "operationId": "e9765b0d55ee6e2bb9a66ef2714972f0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "phone"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Иван Иванов"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "maxLength": 20,
+                                        "example": "+79999999999"
+                                    },
+                                    "message": {
+                                        "type": "string",
+                                        "maxLength": 2000,
+                                        "example": "Хочу узнать подробнее о квартире"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Заявка успешно отправлена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Заявка успешно отправлена"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации"
+                    }
+                }
+            }
+        },
         "/api/districts": {
             "get": {
                 "tags": [
@@ -1307,6 +1368,10 @@
         {
             "name": "ApartmentTypes",
             "description": "ApartmentTypes"
+        },
+        {
+            "name": "Contact",
+            "description": "Contact"
         },
         {
             "name": "Districts",

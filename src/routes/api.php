@@ -2,11 +2,13 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\NewBuildingController;
 use App\Http\Controllers\ApartmentTypeController;
 use App\Http\Controllers\ApartmentController;
+use App\Http\Controllers\ContactController;
 
 // получение записей
 Route::get('/districts', [DistrictController::class, 'index']);
@@ -37,6 +39,11 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     Route::delete('/new-buildings/{id}', [NewBuildingController::class, 'destroy']);
     Route::delete('/apartment-types/{id}', [ApartmentTypeController::class, 'destroy']);
     Route::delete('/apartments/{id}', [ApartmentController::class, 'destroy']);
+});
+
+// отправка на почту
+Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
+    Route::post('/contact', [ContactController::class, 'send']);
 });
 
 
