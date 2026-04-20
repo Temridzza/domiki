@@ -33,6 +33,11 @@ Route::get('/сhoice/{slug}&{name}', function ($slug, $name) {
     ]);
 })->name('сhoice');
 
+// Панель управления
+Route::get('/panel', function () {
+    return view('page.panel');
+})->name('panel');
+
 // image
 Route::get('/storage/{path}', function ($path) {
     // Проверяем существование файла в storage/app/public
