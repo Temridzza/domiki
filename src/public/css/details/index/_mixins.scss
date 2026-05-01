@@ -1,0 +1,47 @@
+@use 'variables' as *;
+
+// Flex центрирование
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// Flex между
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+// Градиентный текст
+@mixin gradient-text($start, $end) {
+    background: linear-gradient(135deg, $start, $end);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+// Градиентный фон
+@mixin gradient-bg($start, $end) {
+    background: linear-gradient(135deg, $start, $end);
+}
+
+// Медиа-запросы
+@mixin mobile {
+    @media (max-width: 670px) {
+        @content;
+    }
+}
+
+@mixin mobile-small {
+    @media (max-width: 480px) {
+        @content;
+    }
+}
+
+@mixin mobile-tiny {
+    @media (max-width: 380px) {
+        @content;
+    }
+}

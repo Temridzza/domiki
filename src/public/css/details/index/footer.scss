@@ -1,95 +1,175 @@
-@use '../../base/variables' as *;
+@use 'variables' as *;
+@use 'mixins' as *;
 
-/* ========= ФУТЕР ========= */
-footer {
-  background: #ecf6ff;
-  margin-top: auto;
-  border-top: 2px solid #ccd3dc;
+/* ========= FOOTER ========= */
+.footer {
+    background: #ecf6ff;
+    margin-top: auto;
+    border-top: 2px solid $color-border;
+
+    &__container {
+        max-width: $container-max-width;
+        margin: 0 auto;
+        padding: 50px 40px 30px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 28px;
+        justify-content: space-between;
+    }
+
+    &__section {
+        &--info {
+            flex: 1;
+        }
+
+        &--phones {
+            flex-shrink: 0;
+        }
+    }
+
+    &__title {
+        font-size: 2rem;
+        margin-bottom: 12px;
+        color: $color-dark-bg;
+
+        &--hidden {
+            @include mobile {
+                display: none;
+            }
+        }
+    }
+
+    &__copyright {
+        text-align: center;
+        padding: 20px 20px 28px;
+        background: $color-copyright-bg;
+        border-top: 1px solid $color-border-light;
+
+        &-text {
+            color: $color-copyright-text;
+            font-size: 0.85rem;
+        }
+    }
 }
 
-.footer-contacts {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 50px 40px 30px;
-  gap: 28px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+/* ========= CONTACT-LIST ========= */
+.contact-list {
+    list-style: none;
+
+    &__item {
+        margin: 12px 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__icon {
+        flex-shrink: 0;
+    }
+
+    &__link {
+        color: inherit;
+        text-decoration: none;
+        transition: color $transition-fast;
+
+        &:hover {
+            color: $color-accent-hover;
+        }
+    }
 }
 
-// Информация
-.contacts-info {
-  flex: 1;
-
-  h4 {
-    font-size: 2rem;
-    margin-bottom: 12px;
-    color: $dark-bg;
-  }
-
-  p {
-    margin: 12px 0;
+/* ========= PHONE-LIST ========= */
+.phone-list {
+    list-style: none;
     display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-}
-
-// Номера телефонов
-.contacts-phone {
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  .big-phone {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: $hero-gradient-end;
-    display: block;
-    text-decoration: none;
-    transition: $transition-fast;
-    position: relative;
-    padding-left: 28px;
-
-    &::before {
-      content: "📞";
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.2rem;
-    }
-
-    &:hover {
-      color: #e68a2e;
-      transform: translateX(-4px);
-    }
-  }
-}
-
-// Авторское право
-.footer-copyright {
-  text-align: center;
-  padding: 20px 20px 28px;
-  background: #f2f6fa;
-  color: #6f8ea0;
-  font-size: 0.85rem;
-  border-top: 1px solid #e2eaf0;
-}
-
-/* ========= МЕДИА-ЗАПРОС ДЛЯ 650px ========= */
-@media (max-width: 670px) {
-  .footer-contacts {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
+    gap: 12px;
+
+    &__link {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: $color-hero-end;
+        text-decoration: none;
+        transition: $transition-fast;
+        position: relative;
+        padding-left: 28px;
+        display: inline-block;
+
+        &::before {
+            content: "📞";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+
+        &:hover {
+            color: $color-accent-hover;
+            transform: translateX(-4px);
+        }
+    }
 }
 
-/* ========= МЕДИА-ЗАПРОС ДЛЯ 370px ========= */
-@media (max-width: 380px) {
-  .contacts-phone .big-phone {
-    font-size: 1.35rem;
-  }
+/* ========= МЕДИА-ЗАПРОСЫ ========= */
+@include mobile {
+    .footer {
+        &__container {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px 30px 25px;
+        }
+
+        &__section {
+            &--info {
+                text-align: center;
+            }
+        }
+    }
+
+    .contact-list {
+        &__item {
+            justify-content: center;
+        }
+    }
+
+    .phone-list {
+        align-items: center;
+
+        &__link {
+            font-size: 1.4rem;
+        }
+    }
+}
+
+@include mobile-small {
+    .footer {
+        &__title {
+            font-size: 1.6rem;
+        }
+    }
+
+    .phone-list {
+        &__link {
+            font-size: 1.2rem;
+            padding-left: 24px;
+
+            &::before {
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+@include mobile-tiny {
+    .phone-list {
+        &__link {
+            font-size: 1.1rem;
+        }
+    }
+
+    .footer__copyright-text {
+        font-size: 0.7rem;
+    }
 }

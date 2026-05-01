@@ -1,6 +1,7 @@
 // ПОДКЛЮЧЕНИЕ
-@use "body.scss";
-@use "top-bar.scss";
-@use "footer.scss";
-
-
+@use 'variables';
+@use 'mixins';
+// ДОБАВЛЕНИЕ
+@use 'body';
+@use 'top-bar';
+@use 'footer';

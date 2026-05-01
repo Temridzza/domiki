@@ -1,21 +1,20 @@
+@use 'variables' as *;
+@use 'mixins' as *;
 
-
-// Сброс стилей
+/* Сброс стилей */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  background: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
-  font-family: 'Helvetica Neue', Roboto, 'Segoe UI', sans-serif;
+    background: $gradient-body;
+    font-family: 'Helvetica Neue', Roboto, 'Segoe UI', sans-serif;
 }
 
 .site-wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
-
-
