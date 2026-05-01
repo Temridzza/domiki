@@ -34,7 +34,8 @@
         </header>
 
         <!-- содержимое страницы -->
-
+        @yield('content')
+        
         <!-- ФУТЕР -->
         <footer class="footer">
             <div class="footer__container">
