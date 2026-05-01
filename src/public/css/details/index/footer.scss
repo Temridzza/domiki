@@ -130,7 +130,7 @@
 
     .contact-list {
         &__item {
-            justify-content: center;
+            align-items: flex-start;
         }
     }
 
@@ -163,9 +163,9 @@
 }
 
 @include mobile-tiny {
-    .phone-list {
-        &__link {
-            font-size: 1.1rem;
+    .contact-list {
+        &__item {
+            font-size: 0.9rem;
         }
     }
 

@@ -1,5 +1,4 @@
 @charset "UTF-8";
-/* Сброс стилей */
 * {
   margin: 0;
   padding: 0;
@@ -204,7 +203,7 @@ body {
     text-align: center;
   }
   .contact-list__item {
-    justify-content: center;
+    align-items: flex-start;
   }
   .phone-list {
     align-items: center;
@@ -226,8 +225,8 @@ body {
   }
 }
 @media (max-width: 380px) {
-  .phone-list__link {
-    font-size: 1.1rem;
+  .contact-list__item {
+    font-size: 0.9rem;
   }
   .footer__copyright-text {
     font-size: 0.7rem;

@@ -72,9 +72,7 @@
                 </div>
             </div>
 
-            <div class="footer__copyright">
-                <p class="footer__copyright-text">© {{ date('Y') }} Новостройки в Ярославле — напрямую от застройщика.</p>
-            </div>
+            
         </footer>
     </div>
     
