@@ -29,18 +29,44 @@
         </section>
 
         <!-- ФОРМА ЗАЯВКИ - появляется только после клика -->
-        <div class="form-section" id="applicationForm">
-            <div class="form-wrapper">
-                <h3>Оставьте заявку</h3>
-                <div class="form-desc">Подберем идеальный вариант и ответим на все вопросы</div>
-                <form id="contactForm">
-                    <div class="form-group-vertical">
-                        <input type="text" class="input-field" placeholder="Ваше имя" id="formName" required>
-                        <input type="tel" class="input-field" placeholder="Номер телефона" id="formPhone" required>
-                        <textarea class="input-field" placeholder="Ваши пожелания (количество комнат, бюджет, этаж, срок покупки...)" id="formWishes"></textarea>
+        <div class="form-section" id="applicationForm" style="display: none;">
+            <div class="form-section__wrapper">
+                <h3 class="form-section__title">Оставьте заявку</h3>
+                <p class="form-section__description">Подберем идеальный вариант и ответим на все вопросы</p>
+                
+                <form class="form-section__form" id="contactForm" novalidate>
+                    <div class="form-section__fields">
+                        <div class="form-field">
+                            <input 
+                                type="text" 
+                                class="form-field__input" 
+                                placeholder="Ваше имя" 
+                                id="formName" 
+                                required
+                            >
+                        </div>
+                        
+                        <div class="form-field">
+                            <input 
+                                type="tel" 
+                                class="form-field__input" 
+                                placeholder="Номер телефона" 
+                                id="formPhone" 
+                                required
+                            >
+                        </div>
+                        
+                        <div class="form-field">
+                            <textarea 
+                                class="form-field__textarea" 
+                                placeholder="Ваши пожелания (количество комнат, бюджет, этаж, срок покупки...)" 
+                                id="formWishes"
+                            ></textarea>
+                        </div>
                     </div>
-                    <button type="submit" class="btn-submit">ОТПРАВИТЬ ЗАЯВКУ</button>
-                    <p class="consent-text">Нажимая на кнопку, вы соглашаетесь с обработкой персональных данных</p>
+                    
+                    <button type="submit" class="form-section__submit">ОТПРАВИТЬ ЗАЯВКУ</button>
+                    <p class="form-section__consent">Нажимая на кнопку, вы соглашаетесь с обработкой персональных данных</p>
                 </form>
             </div>
         </div>

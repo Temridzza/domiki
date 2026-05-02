@@ -72,3 +72,27 @@ $districts-card-img-bg: #d9e3ec;
 $districts-card-img-height: 160px;
 $districts-card-img-height-tablet: 140px;
 $districts-card-img-height-mobile: 120px;
+
+// Form block
+$form-section-bg: #fafcff;
+$form-section-padding: 70px 32px 80px;
+$form-section-padding-mobile: 50px 20px 60px;
+$form-section-padding-small: 40px 16px 50px;
+
+$form-title-color: $color-dark-bg;
+$form-description-color: $color-text-muted;
+
+$form-input-border: $color-border-light;
+$form-input-border-focus: $color-accent;
+$form-input-bg: $color-card-bg;
+
+$form-submit-bg: $color-dark-bg;
+$form-submit-color: $color-text-light;
+$form-submit-hover: lighten($color-dark-bg, 8%);
+
+$form-consent-color: $color-text-muted-light;
+
+$form-success-bg: #d4edda;
+$form-success-color: #155724;
+$form-error-bg: #f8d7da;
+$form-error-color: #721c24;
