@@ -22,11 +22,11 @@
 
 <div class="page-content">
         <!-- БЛОК ВЫБЕРИТЕ РАЙОН -->
-        <div class="districts">
-            <h2>Выберите район</h2>
-            <div class="districts-sub">Престижные локации с развитой инфраструктурой</div>
-            <div class="district-grid-cards" id="districtsContainer"></div>
-        </div>
+        <section class="districts">
+            <h2 class="districts__title">Выберите район</h2>
+            <p class="districts__subtitle">Престижные локации с развитой инфраструктурой</p>
+            <div class="districts__grid" id="districtsContainer"></div>
+        </section>
 
         <!-- ФОРМА ЗАЯВКИ - появляется только после клика -->
         <div class="form-section" id="applicationForm">

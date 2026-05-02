@@ -53,3 +53,22 @@ $container-padding: 40px;
 $container-padding-mobile: 20px;
 $container-max-width: 1400px;
 $grid-gap: 32px;
+
+// Districts block
+$districts-padding: 70px 40px 60px;
+$districts-padding-tablet: 50px 30px 45px;
+$districts-padding-mobile: 40px 20px 35px;
+
+$districts-title-color: $color-dark-bg;
+$districts-subtitle-color: $color-text-muted;
+
+$districts-card-bg: $color-card-bg;
+$districts-card-shadow: $shadow-card;
+$districts-card-shadow-hover: $shadow-card-hover;
+$districts-card-radius: $border-radius-card;
+$districts-card-title-color: $color-hero-end;
+$districts-card-text-color: #658296;
+$districts-card-img-bg: #d9e3ec;
+$districts-card-img-height: 160px;
+$districts-card-img-height-tablet: 140px;
+$districts-card-img-height-mobile: 120px;

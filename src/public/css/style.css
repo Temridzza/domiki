@@ -362,29 +362,62 @@ body {
   max-width: 1400px;
   margin: 0 auto;
 }
-.districts h2 {
+.districts__title {
   font-size: 2.4rem;
   font-weight: 700;
   color: #0f2c38;
   margin-bottom: 16px;
 }
-
-.districts-sub {
+@media (max-width: 1023px) {
+  .districts__title {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 767px) {
+  .districts__title {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+  }
+}
+.districts__subtitle {
   color: #5f7e90;
   margin-bottom: 48px;
   font-size: 1.1rem;
 }
-
-.district-grid-cards {
+@media (max-width: 1023px) {
+  .districts__subtitle {
+    font-size: 1rem;
+    margin-bottom: 40px;
+  }
+}
+@media (max-width: 767px) {
+  .districts__subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 32px;
+  }
+}
+.districts__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
   max-width: 1200px;
   margin: 0 auto;
 }
+@media (max-width: 1023px) {
+  .districts__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+@media (max-width: 767px) {
+  .districts__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
 
 .district-card {
-  background: #fff;
+  background: #ffffff;
   border-radius: 32px;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
   transition: 0.3s ease;
@@ -397,84 +430,62 @@ body {
   transform: translateY(-8px);
   box-shadow: 0 25px 35px rgba(0, 0, 0, 0.1);
 }
-.district-card h3 {
-  font-size: 1.7rem;
-  font-weight: 700;
-  margin: 20px 0 8px;
-  color: #144d5e;
+@media (max-width: 767px) {
+  .district-card:hover {
+    transform: translateY(-4px);
+  }
 }
-.district-card p {
-  font-size: 0.9rem;
-  color: #658296;
-  padding: 0 16px;
-}
-
-.card-img {
+.district-card__image {
   height: 160px;
   background-size: cover;
   background-position: center;
   background-color: #d9e3ec;
 }
-
 @media (max-width: 1023px) {
-  .districts {
-    padding: 50px 30px 45px;
-  }
-  .districts h2 {
-    font-size: 2rem;
-  }
-  .districts-sub {
-    font-size: 1rem;
-    margin-bottom: 40px;
-  }
-  .district-grid-cards {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-  .district-card h3 {
-    font-size: 1.4rem;
-  }
-  .district-card p {
-    font-size: 0.85rem;
-  }
-  .card-img {
+  .district-card__image {
     height: 140px;
   }
 }
 @media (max-width: 767px) {
-  .districts {
-    padding: 40px 20px 35px;
-  }
-  .districts h2 {
-    font-size: 1.6rem;
-    margin-bottom: 12px;
-  }
-  .districts-sub {
-    font-size: 0.9rem;
-    margin-bottom: 32px;
-  }
-  .district-grid-cards {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .district-card {
-    padding-bottom: 20px;
-  }
-  .district-card:hover {
-    transform: translateY(-4px);
-  }
-  .district-card h3 {
-    font-size: 1.3rem;
-    margin: 16px 0 6px;
-  }
-  .district-card p {
-    font-size: 0.8rem;
-    padding: 0 12px;
-  }
-  .card-img {
+  .district-card__image {
     height: 120px;
   }
 }
+.district-card__title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 20px 0 8px;
+  color: #144d5e;
+}
+@media (max-width: 1023px) {
+  .district-card__title {
+    font-size: 1.7rem;
+  }
+}
+@media (max-width: 767px) {
+  .district-card__title {
+    font-size: 1.5rem;
+    margin: 16px 0 6px;
+  }
+}
+.district-card__description {
+  font-size: 0.9rem;
+  color: #658296;
+  padding: 0 16px;
+  margin: 0;
+}
+@media (max-width: 1023px) {
+  .district-card__description {
+    font-size: 0.85rem;
+  }
+}
+@media (max-width: 767px) {
+  .district-card__description {
+    font-size: 0.8rem;
+    padding: 0 12px;
+  }
+}
+
 .form-section {
   background: #fafcff;
   padding: 70px 32px 80px;
@@ -653,3 +664,5 @@ textarea.input-field {
     min-width: 100%;
   }
 }
+
+/*# sourceMappingURL=style.css.map */
