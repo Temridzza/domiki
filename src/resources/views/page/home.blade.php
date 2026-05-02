@@ -5,24 +5,22 @@
 @section('keywords', 'застройщик, ипотека, скидки')
 
 @section('content')
-    {{-- ПРИВЕТСТВЕННЫЙ БЛОК НА ВЕСЬ ЭКРАН --}}
-    <section class="hero-fullscreen">
-        <div class="hero-container">
-            
-            <div class="hero-text">
-                <h1>Новостройки в <span>Ярославле</span></h1>
-                <div class="hero-sub-line">
-                    <p>
-                        <span>🏗️ Напрямую от застройщика</span>
-                        <span>🔥 Скидки до конца месяца</span>
-                    </p>
-                </div>
-                <a href="#" class="btn-primary" @click.prevent="showFormAndScroll">ПОДОБРАТЬ КВАРТИРУ</a>
-            </div>
-        </div>
-    </section>
 
-    <div class="content-after-hero">
+{{-- ПРИВЕТСТВЕННЫЙ БЛОК НА ВЕСЬ ЭКРАН --}}
+<section class="hero">
+    <div class="hero__container">
+        <div class="hero__content">
+            <h1 class="hero__title">Новостройки в <span class="hero__title-accent">Ярославле</span></h1>
+            <div class="hero__badges">
+                <span class="hero__badge hero__badge--building">🏗️ Напрямую от застройщика</span>
+                <span class="hero__badge hero__badge--fire">🔥 Скидки до конца месяца</span>
+            </div>
+            <button class="hero__btn btn btn--primary" data-action="showForm">ПОДОБРАТЬ КВАРТИРУ</button>
+        </div>
+    </div>
+</section>
+
+<div class="page-content">
         <!-- БЛОК ВЫБЕРИТЕ РАЙОН -->
         <div class="districts">
             <h2>Выберите район</h2>

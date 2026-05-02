@@ -1,0 +1,78 @@
+@use 'variables' as *;
+
+// Flex
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+// Градиенты
+@mixin gradient-bg($start, $end, $deg: 135deg) {
+    background: linear-gradient($deg, $start, $end);
+}
+
+@mixin gradient-text($start, $end, $deg: 125deg) {
+    background: linear-gradient($deg, $start, $end);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+// Медиа-запросы
+@mixin desktop {
+    @media (max-width: 1200px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (max-width: 1023px) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media (max-width: 767px) {
+        @content;
+    }
+}
+
+@mixin mobile-small {
+    @media (max-width: 550px) {
+        @content;
+    }
+}
+
+@mixin mobile-tiny {
+    @media (max-width: 380px) {
+        @content;
+    }
+}
+
+// Анимации
+@mixin fade-in {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
