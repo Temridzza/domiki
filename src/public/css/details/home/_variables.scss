@@ -96,3 +96,31 @@ $form-success-bg: #d4edda;
 $form-success-color: #155724;
 $form-error-bg: #f8d7da;
 $form-error-color: #721c24;
+
+// Stats block
+$stats-bg: $color-stats-bg;
+$stats-padding: 60px 0;
+$stats-padding-mobile: 40px 0;
+
+$stats-card-bg: $color-card-bg;
+$stats-card-padding: 28px 16px;
+$stats-card-padding-mobile: 20px 12px;
+$stats-card-radius: $border-radius-stat;
+$stats-card-shadow: $shadow-stat;
+$stats-card-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.08);
+$stats-card-border: 1px solid $color-border-card;
+
+$stats-number-color: $color-accent-dark;
+$stats-number-size: 2.6rem;
+$stats-number-size-mobile: 2rem;
+$stats-number-size-small: 1.8rem;
+
+$stats-label-color: $color-hero-end;
+$stats-label-size: 1rem;
+$stats-label-size-mobile: 0.85rem;
+$stats-label-size-small: 0.8rem;
+
+$stats-sublabel-color: $color-text-muted;
+$stats-sublabel-size: 0.8rem;
+$stats-sublabel-size-mobile: 0.7rem;
+$stats-sublabel-size-small: 0.65rem;

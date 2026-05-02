@@ -72,9 +72,9 @@
         </div>
 
         <!-- АКЦИИ И СТАТИСТИКА -->
-        <div class="promo-stats">
-            <div class="promo-stats-inner" id="statsContainer"></div>
-        </div>
+        <section class="stats">
+            <div class="stats__container" id="statsContainer"></div>
+        </section>
     </div>
     
 @push('scripts')

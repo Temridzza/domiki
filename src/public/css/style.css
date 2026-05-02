@@ -651,14 +651,18 @@ body {
   }
 }
 
-.promo-stats {
+.stats {
   width: 100%;
   background: #fffaf0;
   padding: 60px 0;
   border-bottom: 1px solid #f0e7da;
 }
-
-.promo-stats-inner {
+@media (max-width: 767px) {
+  .stats {
+    padding: 40px 0;
+  }
+}
+.stats__container {
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
@@ -667,8 +671,13 @@ body {
   gap: 24px;
   padding: 0 40px;
 }
-
-.stat-card {
+@media (max-width: 767px) {
+  .stats__container {
+    padding: 0 20px;
+    gap: 16px;
+  }
+}
+.stats__card {
   flex: 1;
   min-width: 180px;
   text-align: center;
@@ -680,59 +689,71 @@ body {
   cursor: pointer;
   transition: 0.2s ease;
 }
-.stat-card:hover {
+.stats__card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
 }
-
-.stat-number {
+@media (max-width: 767px) {
+  .stats__card {
+    min-width: calc(50% - 16px);
+    padding: 20px 12px;
+    border-radius: 28px;
+  }
+}
+@media (max-width: 380px) {
+  .stats__card {
+    min-width: 100%;
+  }
+}
+.stats__number {
   font-size: 2.6rem;
   font-weight: 800;
   color: #e68a2e;
   margin-bottom: 8px;
   line-height: 1.2;
 }
-
-.stat-label {
+@media (max-width: 767px) {
+  .stats__number {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 550px) {
+  .stats__number {
+    font-size: 1.8rem;
+  }
+}
+.stats__label {
   font-weight: 700;
   font-size: 1rem;
-  color: #1f556b;
+  color: #144d5e;
   margin-bottom: 4px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-
-.stat-small {
-  font-size: 0.7rem;
+@media (max-width: 767px) {
+  .stats__label {
+    font-size: 0.85rem;
+  }
+}
+@media (max-width: 550px) {
+  .stats__label {
+    font-size: 0.8rem;
+    letter-spacing: 0.3px;
+  }
+}
+.stats__sublabel {
+  font-size: 0.8rem;
   color: #5f7e90;
   line-height: 1.4;
 }
-
-@media (max-width: 768px) {
-  .promo-stats {
-    padding: 40px 0;
-  }
-  .promo-stats-inner {
-    padding: 0 20px;
-    gap: 16px;
-  }
-  .stat-card {
-    min-width: calc(50% - 16px);
-    padding: 20px 12px;
-  }
-  .stat-number {
-    font-size: 2rem;
-  }
-  .stat-label {
-    font-size: 0.85rem;
-  }
-  .stat-small {
-    font-size: 0.65rem;
+@media (max-width: 767px) {
+  .stats__sublabel {
+    font-size: 0.7rem;
   }
 }
-@media (max-width: 480px) {
-  .stat-card {
-    min-width: 100%;
+@media (max-width: 550px) {
+  .stats__sublabel {
+    font-size: 0.65rem;
   }
 }
 
