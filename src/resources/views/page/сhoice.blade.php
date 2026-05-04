@@ -31,11 +31,11 @@
 
         <!-- СРОЧНОЕ ПРЕДЛОЖЕНИЕ -->
         <div class="urgent-block">
-            <div class="urgent-text">
-                <h3>⚡ОСТАЛОСЬ ВСЕГО 2 ОБЪЕКТА</h3>
-                <p>Квартиры по специальной цене</p>
+            <div class="urgent-block__content">
+                <h3 class="urgent-block__title">⚡ОСТАЛОСЬ ВСЕГО 2 ОБЪЕКТА</h3>
+                <p class="urgent-block__subtitle">Квартиры по специальной цене</p>
             </div>
-            <button class="btn-large" id="urgentSelectBtn">🔥 ПОДОБРАТЬ КВАРТИРУ</button>
+            <button class="urgent-block__button" id="urgentSelectBtn">🔥 ПОДОБРАТЬ КВАРТИРУ</button>
         </div>
 
         <!-- ФОРМА ЗАЯВКИ -->
