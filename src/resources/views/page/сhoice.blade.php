@@ -12,10 +12,17 @@
             <h1 class="header__title">{{ $districtName }} Район</h1>
         </div>
 
-        <div class="stats-row">
-            <div class="section-headline">НОВОСТРОЙКИ</div>
-            <div class="counters">
-                <div class="counter-item"><span>Всего:</span><span class="green-count" id="totalApartmentsCount">0</span></div>
+        <div class="stats">
+            <div class="stats__headline">НОВОСТРОЙКИ</div>
+            <div class="stats__counters">
+                <div class="counter-item">
+                    <span class="counter-item__label">Всего:</span>
+                    <span class="counter-item__value" 
+                        id="totalApartmentsCount"
+                        data-counter="complexes">
+                        0
+                    </span>
+                </div>
             </div>
         </div>
 
