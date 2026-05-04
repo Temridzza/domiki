@@ -5,12 +5,11 @@
 @section('description', 'О компании застройщике')
 
 @section('content')
-    <!-- ОСНОВНОЙ КОНТЕНТ С ЦЕНТРИРОВАНИЕМ -->
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
     <div class="main-content">
-        
         <!-- Шапка района -->
-        <div class="district-header">
-            <h1 class="district-title">{{ $districtName }} РАЙОН</h1>
+        <div class="header">
+            <h1 class="header__title">{{ $districtName }} Район</h1>
         </div>
 
         <div class="stats-row">

@@ -9,14 +9,14 @@ $primary-gradient-start: #1a2a3a;
 $primary-gradient-end: #0f1a24;
 $border-color: #cfdfe9;
 
-// ШАПКА РАЙОНА
-.district-header {
+// Шапка района
+.header {
   text-align: center;
   border-bottom: 2px solid $border-color;
   padding-bottom: 18px;
   margin-bottom: 32px;
 
-  .district-title {
+  &__title {
     font-size: 3rem;
     font-weight: 800;
     @include gradient-text($primary-gradient-start, $primary-gradient-end);
