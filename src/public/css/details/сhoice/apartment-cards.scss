@@ -23,7 +23,7 @@ $bg-light: #fafcff;
   transition: 0.2s ease;
 }
 
-// ========= БАЗОВАЯ КАРТОЧКА =========
+// ========= БЛОК: apartment-card =========
 .apartment-card {
   background: $bg-light;
   border-radius: 28px;
@@ -37,12 +37,74 @@ $bg-light: #fafcff;
   @include transition-fast;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
 
-  &.special-offer {
+  // Модификатор: special-offer
+  &_special-offer {
     background: linear-gradient(115deg, #fffaf0, #fef7e8);
     border-left: 8px solid $accent-hover;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  }
 
-    .apt-price {
+  // Модификатор: expanded
+  &_expanded {
+    flex-direction: column;
+    align-items: stretch;
+    background: $text-light;
+    border: 2px solid $hero-gradient-end;
+    box-shadow: 0 18px 32px -8px rgba(0, 0, 0, 0.1);
+    cursor: default;
+    padding: 20px;
+
+    &.apartment-card_special-offer {
+      background: linear-gradient(115deg, #fffaf0, #fef7e8);
+      border-left: 8px solid $accent-hover;
+    }
+  }
+
+  // Элемент: details
+  &__details {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+
+  // Элемент: type
+  &__type {
+    font-weight: 800;
+    font-size: 1.1rem;
+    min-width: 130px;
+    color: $dark-bg;
+  }
+
+  // Элемент: area
+  &__area {
+    background: $text-light;
+    padding: 4px 14px;
+    border-radius: 32px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $text-muted;
+    border: 1px solid #eef2f8;
+  }
+
+  // Элемент: floor
+  &__floor {
+    background: $text-light;
+    padding: 4px 14px;
+    border-radius: 32px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $text-muted;
+    border: 1px solid #eef2f8;
+  }
+
+  // Элемент: price
+  &__price {
+    font-weight: 800;
+    color: $hero-gradient-end;
+    font-size: 1.1rem;
+
+    .apartment-card_special-offer & {
       color: $accent-hover;
       font-size: 1.2rem;
 
@@ -53,89 +115,14 @@ $bg-light: #fafcff;
     }
   }
 
-  .apartment-details {
-    display: flex;
-    gap: 28px;
-    flex-wrap: wrap;
-    align-items: baseline;
-
-    .apt-type {
-      font-weight: 800;
-      font-size: 1.1rem;
-      min-width: 130px;
-      color: $dark-bg;
-    }
-
-    .apt-area,
-    .apt-floor {
-      background: $text-light;
-      padding: 4px 14px;
-      border-radius: 32px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: $text-muted;
-      border: 1px solid #eef2f8;
-    }
-
-    .apt-price {
-      font-weight: 800;
-      color: $hero-gradient-end;
-      font-size: 1.1rem;
-    }
-  }
-
-  .apt-actions {
+  // Элемент: actions
+  &__actions {
     display: flex;
     gap: 12px;
   }
 
-  .btn-sm {
-    background: $text-light;
-    border: 1px solid $border-color;
-    padding: 6px 20px;
-    border-radius: 60px;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 0.8rem;
-    color: $hero-gradient-end;
-    @include transition-fast;
-
-    &:hover {
-      background: $border-light;
-      border-color: $accent-color;
-    }
-
-    &-primary {
-      background: $accent-color;
-      border: none;
-      color: #1e2f3a;
-      font-weight: 800;
-
-      &:hover {
-        background: $accent-hover;
-        transform: scale(0.98);
-      }
-    }
-  }
-}
-
-// ========= РАСШИРЕННЫЙ РЕЖИМ =========
-.apartment-card.expanded {
-  flex-direction: column;
-  align-items: stretch;
-  background: $text-light;
-  border: 2px solid $hero-gradient-end;
-  box-shadow: 0 18px 32px -8px rgba(0, 0, 0, 0.1);
-  cursor: default;
-  padding: 20px;
-
-  &.special-offer {
-    background: linear-gradient(115deg, #fffaf0, #fef7e8);
-    border-left: 8px solid $accent-hover;
-  }
-
-  // Header
-  .expanded-header {
+  // Элемент: header (для expanded)
+  &__header {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -143,95 +130,102 @@ $bg-light: #fafcff;
     gap: 16px;
     margin-bottom: 20px;
     width: 100%;
-
-    .expanded-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      @include gradient-text($primary-gradient-start, $primary-gradient-end);
-    }
-
-    .expanded-actions {
-      display: flex;
-      gap: 12px;
-    }
   }
 
-  // Content (Desktop/Tablet)
-  .expanded-content {
+  // Элемент: title (для expanded)
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    @include gradient-text($primary-gradient-start, $primary-gradient-end);
+  }
+
+  // Элемент: header-actions (для expanded)
+  &__header-actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  // Элемент: content (для expanded)
+  &__content {
     display: flex;
     flex-wrap: wrap;
     gap: 28px;
     align-items: flex-start;
+  }
 
-    // Блок изображения - ОСНОВНЫЕ ИЗМЕНЕНИЯ ТУТ
-    .expanded-image {
-      flex: 0 0 360px;  // Увеличено с 180px до 360px
-      position: relative;  // Для абсолютного позиционирования внутреннего элемента
-      background: $bg-light;
-      border-radius: 28px;
-      overflow: hidden;  // Обрезаем всё, что выходит за границы
-      min-height: 240px;  // Увеличена минимальная высота
-      border: 1px solid $border-color;
-      
-      // Контейнер для изображения/плейсхолдера
-      .img-placeholder-lg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 28px;
-        
-        // Когда изображение отсутствует - показываем плейсхолдер
-        &:not([style*="background-image"]) {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-          font-size: 4rem;
-          color: $hero-gradient-end;
-          
-          span {
-            display: block;
-            font-size: 0.75rem;
-            color: $text-muted;
-            margin-top: 8px;
-          }
-        }
-      }
-    }
+  // Элемент: image (для expanded)
+  &__image {
+    flex: 0 0 360px;
+    position: relative;
+    background: $bg-light;
+    border-radius: 28px;
+    overflow: hidden;
+    min-height: 240px;
+    border: 1px solid $border-color;
+  }
 
-    .expanded-details-list {
-      flex: 1;
+  // Элемент: image-placeholder
+  &__image-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 28px;
+
+    // Когда изображение отсутствует
+    &_empty {
       display: flex;
       flex-direction: column;
-      gap: 14px;
-
-      .detail-row {
-        display: flex;
-        align-items: baseline;
-        gap: 24px;
-        flex-wrap: wrap;
-        border-bottom: 1px dashed #eef2f8;
-        padding-bottom: 8px;
-
-        .detail-label {
-          font-weight: 700;
-          color: $dark-bg;
-          min-width: 100px;
-        }
-
-        .detail-value {
-          color: $text-muted;
-          font-weight: 500;
-        }
-      }
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 4rem;
+      color: $hero-gradient-end;
     }
   }
 
-  // Close button
-  .close-expand-btn {
+  // Элемент: image-placeholder-text
+  &__image-placeholder-text {
+    display: block;
+    font-size: 0.75rem;
+    color: $text-muted;
+    margin-top: 8px;
+  }
+
+  // Элемент: details-list (для expanded)
+  &__details-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  // Элемент: detail-row
+  &__detail-row {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    flex-wrap: wrap;
+    border-bottom: 1px dashed #eef2f8;
+    padding-bottom: 8px;
+  }
+
+  // Элемент: detail-label
+  &__detail-label {
+    font-weight: 700;
+    color: $dark-bg;
+    min-width: 100px;
+  }
+
+  // Элемент: detail-value
+  &__detail-value {
+    color: $text-muted;
+    font-weight: 500;
+  }
+
+  // Элемент: close-btn
+  &__close-btn {
     background: $border-light;
     border: 1px solid $border-color;
     padding: 6px 20px;
@@ -251,67 +245,103 @@ $bg-light: #fafcff;
 
   // ========= МОБИЛЬНАЯ ВЕРСИЯ (≤815px) =========
   @media (max-width: 815px) {
-    padding: 16px;
+    &_expanded {
+      padding: 16px;
+    }
 
-    .expanded-header {
+    &__header {
       margin-bottom: 16px;
       gap: 12px;
-
-      .expanded-title {
-        font-size: 1.3rem;
-      }
     }
 
-    .expanded-content {
+    &__title {
+      font-size: 1.3rem;
+    }
+
+    &__content {
       flex-direction: column;
       gap: 20px;
+    }
 
-      .expanded-image {
-        flex: none;
-        width: 100%;
-        min-height: 200px;  // Немного меньше на мобильных
-        
-        .img-placeholder-lg {
-          border-radius: 28px;
-          
-          &:not([style*="background-image"]) {
-            font-size: 5rem;
-            
-            span {
-              font-size: 0.75rem;
-            }
-          }
-        }
-      }
+    &__image {
+      flex: none;
+      width: 100%;
+      min-height: 200px;
+    }
 
-      .expanded-details-list {
-        flex: none;
-        width: 100%;
-        gap: 16px;
+    &__image-placeholder {
+      border-radius: 28px;
 
-        .detail-row {
-          gap: 16px;
-          padding-bottom: 12px;
-
-          .detail-label {
-            min-width: 120px;
-            font-size: 0.95rem;
-          }
-
-          .detail-value {
-            font-size: 1rem;
-            flex: 1;
-          }
-        }
+      &_empty {
+        font-size: 5rem;
       }
     }
 
-    .close-expand-btn {
+    &__image-placeholder-text {
+      font-size: 0.75rem;
+    }
+
+    &__details-list {
+      flex: none;
+      width: 100%;
+      gap: 16px;
+    }
+
+    &__detail-row {
+      gap: 16px;
+      padding-bottom: 12px;
+    }
+
+    &__detail-label {
+      min-width: 120px;
+      font-size: 0.95rem;
+    }
+
+    &__detail-value {
+      font-size: 1rem;
+      flex: 1;
+    }
+
+    &__close-btn {
       width: 100%;
       justify-content: center;
       margin-top: 12px;
       padding: 10px 20px;
       font-size: 0.9rem;
+    }
+  }
+}
+
+// ========= БЛОК: btn =========
+.btn {
+  // Элемент: sm
+  &_sm {
+    background: $text-light;
+    border: 1px solid $border-color;
+    padding: 6px 20px;
+    border-radius: 60px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: $hero-gradient-end;
+    @include transition-fast;
+
+    &:hover {
+      background: $border-light;
+      border-color: $accent-color;
+    }
+  }
+
+  // Модификатор: primary
+  &_primary {
+    background: $accent-color;
+    border: none;
+    color: #1e2f3a;
+    font-weight: 800;
+
+    &:hover {
+      background: $accent-hover;
+      transform: scale(0.98);
     }
   }
 }

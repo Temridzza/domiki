@@ -57,12 +57,10 @@ function getRoomsText(rooms) {
 
 // ===== ОБНОВЛЕНИЕ ГЛОБАЛЬНЫХ СЧЁТЧИКОВ =====
 function updateGlobalCounters() {
-    // Получаем количество загруженных комплексов
     const complexCards = document.querySelectorAll('.complex-card');
     const totalComplexes = complexCards.length;
     
     const totalElement = document.getElementById('totalApartmentsCount');
-    
     if (totalElement) totalElement.innerText = totalComplexes;
 }
 
@@ -78,25 +76,25 @@ function renderApartments(complexKey, containerId, badgeId) {
     apartments.forEach((apt, idx) => {
         const card = document.createElement('div');
         card.className = 'apartment-card';
-        if (apt.special) card.classList.add('special-offer');
+        if (apt.special) card.classList.add('apartment-card_special-offer');
         card.setAttribute('data-apt-idx', idx);
         card.setAttribute('data-complex', complexKey);
         
         card.innerHTML = `
-            <div class="apartment-details">
-                <div class="apt-type">${apt.rooms}</div>
-                <div class="apt-area">${apt.area}м²</div>
-                <div class="apt-price">${apt.price}</div>
-                <div class="apt-floor">Этаж: ${apt.floor || 'разные'}</div>
+            <div class="apartment-card__details">
+                <div class="apartment-card__type">${apt.rooms}</div>
+                <div class="apartment-card__area">${apt.area}м²</div>
+                <div class="apartment-card__price">${apt.price}</div>
+                <div class="apartment-card__floor">Этаж: ${apt.floor || 'разные'}</div>
             </div>
-            <div class="apt-actions">
-                <button class="btn-sm view-detail-btn">Смотреть ▼</button>
-                <button class="btn-sm btn-sm-primary request-apartment-btn">Оставить заявку</button>
+            <div class="apartment-card__actions">
+                <button class="btn btn_sm apartment-card__view-btn">Смотреть ▼</button>
+                <button class="btn btn_sm btn_primary apartment-card__request-btn">Оставить заявку</button>
             </div>
         `;
         
-        const viewBtn = card.querySelector('.view-detail-btn');
-        const requestBtn = card.querySelector('.request-apartment-btn');
+        const viewBtn = card.querySelector('.apartment-card__view-btn');
+        const requestBtn = card.querySelector('.apartment-card__request-btn');
         
         viewBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -117,11 +115,11 @@ function renderApartments(complexKey, containerId, badgeId) {
 
 // ===== РАЗВОРОТ КАРТОЧКИ С ДЕТАЛЯМИ =====
 function expandCardByView(card, aptData, complexKey) {
-    if (card.classList.contains('expanded')) return;
+    if (card.classList.contains('apartment-card_expanded')) return;
     
     const originalHtml = card.innerHTML;
     card.setAttribute('data-original-html', originalHtml);
-    card.classList.add('expanded');
+    card.classList.add('apartment-card_expanded');
     card.innerHTML = '';
     
     const complexName = aptData.complexName || (complexKey === 'solar' ? 'ЖК Солнечный' : 'ЖК');
@@ -129,7 +127,6 @@ function expandCardByView(card, aptData, complexKey) {
     // Формируем путь к изображению
     let imageUrl = '';
     if (aptData.layout_image) {
-        // Проверяем, начинается ли путь с /storage/
         if (aptData.layout_image.startsWith('/storage/')) {
             imageUrl = aptData.layout_image;
         } else if (aptData.layout_image.startsWith('storage/')) {
@@ -139,76 +136,75 @@ function expandCardByView(card, aptData, complexKey) {
         }
     }
     
+    // Header
     const headerDiv = document.createElement('div');
-    headerDiv.className = 'expanded-header';
+    headerDiv.className = 'apartment-card__header';
     headerDiv.innerHTML = `
-        <div class="expanded-title">✨ ${aptData.rooms}</div>
-        <div class="expanded-actions">
-            <button class="btn-sm btn-sm-primary expanded-request-btn">Оставить заявку</button>
+        <div class="apartment-card__title">✨ ${aptData.rooms}</div>
+        <div class="apartment-card__header-actions">
+            <button class="btn btn_sm btn_primary apartment-card__expanded-request-btn">Оставить заявку</button>
         </div>
     `;
     
+    // Content
     const contentDiv = document.createElement('div');
-    contentDiv.className = 'expanded-content';
+    contentDiv.className = 'apartment-card__content';
     
-    // Создаём блок изображения
+    // Image block
     const imageDiv = document.createElement('div');
-    imageDiv.className = 'expanded-image';
-    // Устанавливаем стили, чтобы блок занимал всё пространство
-    imageDiv.style.position = 'relative';
-    imageDiv.style.overflow = 'hidden';
-    imageDiv.style.padding = '0'; // Убираем отступы
-    imageDiv.style.minHeight = '240px';
+    imageDiv.className = 'apartment-card__image';
     
     const imgPlaceholder = document.createElement('div');
-    imgPlaceholder.className = 'img-placeholder-lg';
-    imgPlaceholder.style.position = 'absolute';
-    imgPlaceholder.style.top = '0';
-    imgPlaceholder.style.left = '0';
-    imgPlaceholder.style.width = '100%';
-    imgPlaceholder.style.height = '100%';
+    imgPlaceholder.className = 'apartment-card__image-placeholder';
     
     if (imageUrl) {
-        // Если есть изображение - показываем его на весь блок
         imgPlaceholder.style.backgroundImage = `url('${imageUrl}')`;
         imgPlaceholder.style.backgroundSize = 'cover';
         imgPlaceholder.style.backgroundPosition = 'center';
         imgPlaceholder.style.backgroundRepeat = 'no-repeat';
         imgPlaceholder.innerHTML = '';
     } else {
-        // Если нет изображения - центрируем плейсхолдер
-        imgPlaceholder.style.display = 'flex';
-        imgPlaceholder.style.flexDirection = 'column';
-        imgPlaceholder.style.alignItems = 'center';
-        imgPlaceholder.style.justifyContent = 'center';
-        imgPlaceholder.style.textAlign = 'center';
-        imgPlaceholder.style.fontSize = '4rem';
-        imgPlaceholder.style.color = '#144d5e';
-        imgPlaceholder.style.backgroundColor = '#fafcff';
+        imgPlaceholder.classList.add('apartment-card__image-placeholder_empty');
         imgPlaceholder.innerHTML = `
             🏙️🌟
-            <span style="display: block; font-size: 0.75rem; color: #5f7e90; margin-top: 8px;">Планировка премиум</span>
+            <span class="apartment-card__image-placeholder-text">Планировка премиум</span>
         `;
     }
     
     imageDiv.appendChild(imgPlaceholder);
     
-    // Создаём блок с деталями
+    // Details block
     const detailsDiv = document.createElement('div');
-    detailsDiv.className = 'expanded-details-list';
+    detailsDiv.className = 'apartment-card__details-list';
     detailsDiv.innerHTML = `
-        <div class="detail-row"><div class="detail-label">📐 Площадь:</div><div class="detail-value">${aptData.area}м²</div></div>
-        <div class="detail-row"><div class="detail-label">💰 Цена:</div><div class="detail-value">${aptData.price}</div></div>
-        <div class="detail-row"><div class="detail-label">🏢 Этаж:</div><div class="detail-value">${aptData.floor || 'разные'}</div></div>
-        <div class="detail-row"><div class="detail-label">🏗️ Жилой комплекс:</div><div class="detail-value">${complexName}</div></div>
-        <div class="detail-row"><div class="detail-label">📝 Описание:</div><div class="detail-value">${aptData.desc || 'Отличная планировка, развитая инфраструктура.'}</div></div>
+        <div class="apartment-card__detail-row">
+            <div class="apartment-card__detail-label">📐 Площадь:</div>
+            <div class="apartment-card__detail-value">${aptData.area}м²</div>
+        </div>
+        <div class="apartment-card__detail-row">
+            <div class="apartment-card__detail-label">💰 Цена:</div>
+            <div class="apartment-card__detail-value">${aptData.price}</div>
+        </div>
+        <div class="apartment-card__detail-row">
+            <div class="apartment-card__detail-label">🏢 Этаж:</div>
+            <div class="apartment-card__detail-value">${aptData.floor || 'разные'}</div>
+        </div>
+        <div class="apartment-card__detail-row">
+            <div class="apartment-card__detail-label">🏗️ Жилой комплекс:</div>
+            <div class="apartment-card__detail-value">${complexName}</div>
+        </div>
+        <div class="apartment-card__detail-row">
+            <div class="apartment-card__detail-label">📝 Описание:</div>
+            <div class="apartment-card__detail-value">${aptData.desc || 'Отличная планировка, развитая инфраструктура.'}</div>
+        </div>
     `;
     
     contentDiv.appendChild(imageDiv);
     contentDiv.appendChild(detailsDiv);
     
+    // Close button
     const closeBtn = document.createElement('button');
-    closeBtn.className = 'close-expand-btn';
+    closeBtn.className = 'apartment-card__close-btn';
     closeBtn.textContent = 'Свернуть ▲';
     closeBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -219,7 +215,8 @@ function expandCardByView(card, aptData, complexKey) {
     card.appendChild(contentDiv);
     card.appendChild(closeBtn);
     
-    const expandedRequest = card.querySelector('.expanded-request-btn');
+    // Expanded request button handler
+    const expandedRequest = card.querySelector('.apartment-card__expanded-request-btn');
     if (expandedRequest) {
         expandedRequest.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -230,15 +227,15 @@ function expandCardByView(card, aptData, complexKey) {
 
 // ===== СВОРАЧИВАНИЕ КАРТОЧКИ =====
 function collapseCard(card, aptData, complexKey) {
-    if (!card.classList.contains('expanded')) return;
+    if (!card.classList.contains('apartment-card_expanded')) return;
     
     const original = card.getAttribute('data-original-html');
     if (original) {
         card.innerHTML = original;
-        card.classList.remove('expanded');
+        card.classList.remove('apartment-card_expanded');
         
-        const newViewBtn = card.querySelector('.view-detail-btn');
-        const newRequestBtn = card.querySelector('.request-apartment-btn');
+        const newViewBtn = card.querySelector('.apartment-card__view-btn');
+        const newRequestBtn = card.querySelector('.apartment-card__request-btn');
         
         if (newViewBtn) {
             newViewBtn.addEventListener('click', (e) => {
@@ -264,33 +261,33 @@ function createComplexCard(complex, index) {
     
     return `
         <div class="complex-card" data-building-id="${complex.id}">
-            <div class="complex-header">
-                <div class="complex-image">
-                    <div class="card-img" style="background-image: url('${imageUrl}'); background-size: cover; background-position: center; width: 100%; height: 100%;"></div>
+            <div class="complex-card__header">
+                <div class="complex-card__image">
+                    <div class="complex-card__image-img" style="background-image: url('${imageUrl}');"></div>
                 </div>
-                <div class="complex-info">
-                    <div class="info-row-1">
-                        <span class="complex-name">${escapeHtml(complex.name)}</span>
-                        <div class="price-deadline">
-                            <span class="price">${complex.price}</span>
-                            <span class="deadline">${complex.deadline}</span>
+                <div class="complex-card__info">
+                    <div class="complex-card__info-row">
+                        <span class="complex-card__name">${escapeHtml(complex.name)}</span>
+                        <div class="complex-card__price-deadline">
+                            <span class="complex-card__price">${complex.price}</span>
+                            <span class="complex-card__deadline">${complex.deadline}</span>
                         </div>
                     </div>
-                    <div class="info-row-2">
-                        <button class="btn-primary request-complex" data-complex="${escapeHtml(complex.name)}">ЗАЯВКА НА ЖК</button>
+                    <div class="complex-card__info-row complex-card__info-row_actions">
+                        <button class="btn-primary complex-card__request-btn" data-complex="${escapeHtml(complex.name)}">ЗАЯВКА НА ЖК</button>
                     </div>
                 </div>
             </div>
-            <div class="apartments-wrapper">
-                <div class="apartments-header">
-                    <div class="apartments-title">
+            <div class="complex-card__apartments-wrapper">
+                <div class="complex-card__apartments-header">
+                    <div class="complex-card__apartments-title">
                         <span>КВАРТИРЫ</span>
-                        <span class="apartment-badge" id="${uniqueId}Badge">0</span>
+                        <span class="complex-card__apartments-badge" id="${uniqueId}Badge">0</span>
                     </div>
-                    <button class="toggle-details-btn-header" data-target="${uniqueId}">ПОДРОБНЕЕ ▼</button>
+                    <button class="toggle-btn complex-card__toggle-btn" data-target="${uniqueId}">ПОДРОБНЕЕ ▼</button>
                 </div>
-                <div class="apartments-list" id="${uniqueId}ApartmentsList">
-                    <div class="apartments-grid" id="${uniqueId}ApartmentsGrid"></div>
+                <div class="complex-card__apartments-list" id="${uniqueId}ApartmentsList">
+                    <div class="complex-card__apartments-grid" id="${uniqueId}ApartmentsGrid"></div>
                 </div>
             </div>
         </div>
@@ -308,34 +305,21 @@ async function load_Complex() {
     const container = document.querySelector('.complexes-container');
     if (!container) return;
     
-    // Показываем загрузку
     container.innerHTML = '<div class="loading">Загрузка новостроек...</div>';
     
-    // Счётчик для отслеживания загруженных комплексов
     let loadedComplexesCount = 0;
-    const totalBuildings = 0; // Будет обновлено после получения данных
     
     try {
-        // Загружаем список новостроек
         const response = await fetch(`/api/districts/${SLUG}/new-buildings`);
         const result = await response.json();
         
-        // Очищаем контейнер
         container.innerHTML = '';
         
-        // Сохраняем общее количество для отслеживания (опционально)
-        const expectedTotal = result.data.length;
-        
-        // Обрабатываем каждую новостройку
         for (const building of result.data) {
-            // Загружаем типы квартир
             const apartmentTypes = await loadApartmentTypes(building.id);
-            
-            // Формируем цену
             const price = formatPrice(apartmentTypes);
             const deadline = formatDeadline(building.completion_date);
             
-            // Сохраняем данные о квартирах в глобальный объект
             const complexKey = `complex-${building.id}`;
             apartmentsData[complexKey] = apartmentTypes.map(type => ({
                 id: type.id,
@@ -350,7 +334,6 @@ async function load_Complex() {
                 layout_image: type.layout_image
             }));
             
-            // Создаём карточку
             const complexData = {
                 id: building.id,
                 name: building.name,
@@ -362,31 +345,27 @@ async function load_Complex() {
             const cardHtml = createComplexCard(complexData, building.id);
             container.insertAdjacentHTML('beforeend', cardHtml);
             
-            // Увеличиваем счётчик и обновляем глобальные счётчики после каждого добавленного комплекса
             loadedComplexesCount++;
             updateGlobalCounters();
             
-            // Отрисовываем квартиры
             renderApartments(complexKey, `${complexKey}ApartmentsGrid`, `${complexKey}Badge`);
         }
         
-        // Инициализируем обработчики
         initDropdowns();
         bindCommon();
         
     } catch (error) {
         console.error('Ошибка загрузки:', error);
         container.innerHTML = '<div class="error">Ошибка загрузки данных</div>';
-        updateGlobalCounters(); // Обновим счётчик (будет 0)
+        updateGlobalCounters();
     }
 }
 
 // ===== ИНИЦИАЛИЗАЦИЯ ВЫПАДАЮЩИХ СПИСКОВ =====
 function initDropdowns() {
-    const toggles = document.querySelectorAll('.toggle-details-btn-header');
+    const toggles = document.querySelectorAll('.complex-card__toggle-btn');
     
     toggles.forEach(btn => {
-        // Удаляем старые обработчики, чтобы избежать дублирования
         btn.removeEventListener('click', btn._listener);
         
         const handler = (e) => {
@@ -395,8 +374,10 @@ function initDropdowns() {
             const list = document.getElementById(`${target}ApartmentsList`);
             
             if (list) {
-                list.classList.toggle('open');
-                btn.innerHTML = list.classList.contains('open') ? 'ПОДРОБНЕЕ ▲ ' : 'ПОДРОБНЕЕ ▼';
+                list.classList.toggle('complex-card__apartments-list_open');
+                btn.innerHTML = list.classList.contains('complex-card__apartments-list_open') 
+                    ? 'ПОДРОБНЕЕ ▲' 
+                    : 'ПОДРОБНЕЕ ▼';
             }
         };
         
@@ -407,8 +388,7 @@ function initDropdowns() {
 
 // ===== ОБЩИЕ ОБРАБОТЧИКИ =====
 function bindCommon() {
-    // Обработчик для кнопок "ЗАЯВКА НА ЖК"
-    const requestComplexBtns = document.querySelectorAll('.request-complex');
+    const requestComplexBtns = document.querySelectorAll('.complex-card__request-btn');
     requestComplexBtns.forEach(btn => {
         btn.removeEventListener('click', btn._complexHandler);
         
