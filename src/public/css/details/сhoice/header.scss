@@ -1,15 +1,6 @@
-@mixin gradient-text($start, $end) {
-  background: linear-gradient(125deg, $start, $end);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
+@import 'variables';
+@import 'mixins';
 
-$primary-gradient-start: #1a2a3a;
-$primary-gradient-end: #0f1a24;
-$border-color: #cfdfe9;
-
-// Шапка района
 .header {
   text-align: center;
   border-bottom: 2px solid $border-color;
