@@ -39,21 +39,48 @@
         </div>
 
         <!-- ФОРМА ЗАЯВКИ -->
-        <div class="form-section" id="formSection">
-            <div class="form-wrapper">
-                <h3>ОСТАВЬТЕ ЗАЯВКУ</h3>
-                <div class="form-desc">Менеджер подберет лучший вариант с выгодой</div>
-                <form id="leadForm">
-                    <div class="form-group">
-                        <input type="text" class="input-field" placeholder="Ваше имя" id="userName" required>
-                        <input type="tel" class="input-field" placeholder="Номер телефона" id="userPhone" required>
-                        <textarea class="input-field" rows="2" placeholder="Количество комнат / бюджет / пожелания" id="userComment" style="border-radius: 28px;"></textarea>
-                        <button type="submit" class="btn-submit">ОТПРАВИТЬ ЗАЯВКУ</button>
+        <section class="form" id="formSection">
+            <div class="form__container">
+                <h3 class="form__title">ОСТАВЬТЕ ЗАЯВКУ</h3>
+                <p class="form__description">Менеджер подберет лучший вариант с выгодой</p>
+                
+                <form class="form__body" id="leadForm">
+                    <div class="form__fields">
+                        <div class="form__field-group">
+                            <input type="text" 
+                                class="form__input" 
+                                placeholder="Ваше имя" 
+                                id="userName" 
+                                name="userName"
+                                required>
+                        </div>
+                        
+                        <div class="form__field-group">
+                            <input type="tel" 
+                                class="form__input" 
+                                placeholder="Номер телефона" 
+                                id="userPhone" 
+                                name="userPhone"
+                                required>
+                        </div>
+                        
+                        <div class="form__field-group">
+                            <textarea class="form__input form__input--textarea" 
+                                    rows="3" 
+                                    placeholder="Количество комнат / бюджет / пожелания" 
+                                    id="userComment" 
+                                    name="userComment"></textarea>
+                        </div>
+                        
+                        <div class="form__field-group">
+                            <button type="submit" class="form__submit">ОТПРАВИТЬ ЗАЯВКУ</button>
+                        </div>
                     </div>
+                    
+                    <p class="form__agreement">Нажимая на кнопку, вы даете согласие на обработку данных</p>
                 </form>
-                <p style="font-size: 0.7rem; text-align: center; margin-top: 20px; color: #6f8ea0;">Нажимая на кнопку, вы даете согласие на обработку данных</p>
             </div>
-        </div>
+        </section>
     </div>
 
     <script src="{{ asset('js/choice/new-buildings.js') }}"> </script>
