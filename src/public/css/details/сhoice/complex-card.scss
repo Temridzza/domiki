@@ -1,4 +1,9 @@
 // ============================================
+// МОДУЛИ
+// ============================================
+@use 'sass:color';
+
+// ============================================
 // ПЕРЕМЕННЫЕ
 // ============================================
 $primary-gradient-start: #1a2a3a;
@@ -283,7 +288,7 @@ $transition-fast: 0.2s ease;
   color: $hero-gradient-end;
 
   &:hover {
-    background: darken($border-light, 3%);
+    background: color.adjust($border-light, $lightness: -3%);
     border-color: $accent-color;
     color: $dark-bg;
   }
