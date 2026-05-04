@@ -1,4 +1,5 @@
 // form.scss
+@use 'sass:color';
 @use 'variables' as *;
 @use 'mixins' as *;
 
@@ -75,7 +76,7 @@
     transition: all $transition-base;
 
     &:hover {
-      background: lighten($color-dark-bg, 8%);
+      background: color.adjust($color-dark-bg, $lightness: 8%);
     }
 
     &:active {
