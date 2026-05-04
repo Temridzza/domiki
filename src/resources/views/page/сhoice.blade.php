@@ -49,5 +49,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/new-buildings.js') }}"> </script>
+    <script src="{{ asset('js/choice/new-buildings.js') }}"> </script>
 @endsection
