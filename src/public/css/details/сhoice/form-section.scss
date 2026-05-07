@@ -1,68 +1,17 @@
-// ========= ПЕРЕМЕННЫЕ =========
+// ========= ПЕРЕМЕННЫЕ (остаются без изменений) =========
 $primary-gradient-start: #1a2a3a;
 $primary-gradient-end: #0f1a24;
-
 $hero-gradient-start: #0b2b3b;
 $hero-gradient-end: #144d5e;
 $accent-color: #f7b32b;
 $accent-hover: #ffa01e;
-$accent-gradient-start: #FFD966;
-$accent-gradient-end: #FFB347;
-$dark-bg: #0f2c38;
-$dark-hover: #1f556b;
 $text-light: #ffffff;
 $text-dark: #1e2f3a;
 $text-muted: #5f7e90;
-$border-light: #eef3fc;
 $border-color: #cfdfe9;
-
 $shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.05);
-$shadow-md: 0 12px 24px rgba(0, 0, 0, 0.2);
-$shadow-lg: 0 20px 30px rgba(0, 0, 0, 0.25);
-
 $transition-fast: 0.2s ease;
-$transition-normal: 0.3s ease;
-
-$border-radius-sm: 10px;
-$border-radius-md: 15px;
-$border-radius-lg: 32px;
-$border-radius-xl: 56px;
 $border-radius-full: 60px;
-
-// ========= МИКСИНЫ =========
-@mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@mixin flex-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-@mixin gradient-text($start, $end) {
-  background: linear-gradient(125deg, $start, $end);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-@mixin gradient-bg($start, $end, $deg: 135deg) {
-  background: linear-gradient($deg, $start, $end);
-}
-
-@mixin hover-lift($translateY: -4px) {
-  transition: $transition-normal;
-  &:hover {
-    transform: translateY($translateY);
-  }
-}
-
-@mixin card-shadow {
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
-}
 
 @mixin focus-ring($color: $accent-color) {
   &:focus {
@@ -72,8 +21,8 @@ $border-radius-full: 60px;
   }
 }
 
-// ФОРМА ЗАЯВКИ
-.form-section {
+// ========= БЛОК FORM (БЭМ) =========
+.form {
   background: #fafcff;
   border-radius: 42px;
   padding: 40px 36px;
@@ -81,104 +30,115 @@ $border-radius-full: 60px;
   border: 1px solid $border-color;
   box-shadow: $shadow-sm;
 
-  .form-wrapper {
-    h3 {
-      font-size: 2rem;
-      font-weight: 800;
-      @include gradient-text($primary-gradient-start, $primary-gradient-end);
-      margin-bottom: 8px;
-      text-align: center;
-    }
+  // ЭЛЕМЕНТ: container
+  &__container {
+    max-width: 100%;
+    margin: 0 auto;
+  }
 
-    .form-desc {
-      text-align: center;
-      color: $text-muted;
-      margin-bottom: 32px;
-      font-weight: 500;
-    }
+  // ЭЛЕМЕНТ: title
+  &__title {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(125deg, $primary-gradient-start, $primary-gradient-end);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 8px;
+    text-align: center;
+  }
 
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      max-width: 600px;
-      margin: 0 auto;
-    }
+  // ЭЛЕМЕНТ: description
+  &__description {
+    text-align: center;
+    color: $text-muted;
+    margin-bottom: 32px;
+    font-weight: 500;
+  }
 
-    .input-field {
-      width: 100%;
-      padding: 14px 22px;
-      border: 1px solid $border-color;
-      border-radius: $border-radius-full;
-      font-size: 1rem;
-      background: $text-light;
-      color: $text-dark;
-      transition: $transition-fast;
-      outline: none;
+  // ЭЛЕМЕНТ: body (форма)
+  &__body {
+    max-width: 600px;
+    margin: 0 auto;
+  }
 
-      @include focus-ring($accent-color);
+  // ЭЛЕМЕНТ: fields (контейнер для всех полей)
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
 
-      &::placeholder {
-        color: #6f8ea0;
-        opacity: 0.7;
-      }
-    }
+  // ЭЛЕМЕНТ: field-group (обёртка для каждого поля)
+  &__field-group {
+    width: 100%;
+  }
 
-    textarea.input-field {
-      border-radius: 28px;
-    }
+  // ЭЛЕМЕНТ: input (общий стиль для всех полей ввода)
+  &__input {
+    width: 100%;
+    padding: 14px 22px;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-full;
+    font-size: 1rem;
+    background: $text-light;
+    color: $text-dark;
+    transition: $transition-fast;
+    outline: none;
+    box-sizing: border-box;
 
-    .btn-submit {
-      background: $hero-gradient-start;
-      color: $text-light;
-      font-weight: 800;
-      padding: 14px 28px;
-      border-radius: $border-radius-full;
-      border: none;
-      font-size: 1rem;
-      cursor: pointer;
-      width: 100%;
-      transition: $transition-fast;
-      box-shadow: $shadow-sm;
+    @include focus-ring($accent-color);
 
-      &:hover {
-        background: $dark-hover;
-        transform: scale(1.01);
-      }
-    }
-
-    p {
-      font-size: 0.7rem;
-      text-align: center;
-      margin-top: 20px;
+    &::placeholder {
       color: #6f8ea0;
+      opacity: 0.7;
     }
+
+    // МОДИФИКАТОР: textarea
+    &--textarea {
+      border-radius: 28px;
+      resize: vertical;
+      font-family: inherit;
+    }
+  }
+
+  // ЭЛЕМЕНТ: submit (кнопка отправки)
+  &__submit {
+    background: $hero-gradient-start;
+    color: $text-light;
+    font-weight: 800;
+    padding: 14px 28px;
+    border-radius: $border-radius-full;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: $transition-fast;
+    box-shadow: $shadow-sm;
+
+    &:hover {
+      background: #1f556b;
+      transform: scale(1.01);
+    }
+  }
+
+  // ЭЛЕМЕНТ: agreement (текст согласия)
+  &__agreement {
+    font-size: 0.7rem;
+    text-align: center;
+    margin-top: 20px;
+    color: #6f8ea0;
   }
 }
 
-// АДАПТИВ
-
-
+// ========= АДАПТИВ (остаётся без изменений) =========
 @media (max-width: 760px) {
-  .site-wrapper {
-    padding: 18px;
+  .form {
+    padding: 30px 20px;
   }
-
-  .expanded-content {
-    flex-direction: column;
-  }
-
-  .expanded-image {
-    flex-basis: auto;
-    width: 100%;
-  }
-
-  .contacts-phone {
-    text-align: left !important;
-    width: 100%;
-  }
-
-  .footer-contacts {
-    flex-direction: column;
+  
+  .form__title {
+    font-size: 1.5rem;
   }
 }

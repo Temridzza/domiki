@@ -78,9 +78,9 @@
     </div>
     
 @push('scripts')
-    <script src="{{ asset('js/proces-stocks.js') }}"></script>
-    <script src="{{ asset('js/proces-card.js') }}"></script>
-    <script src="{{ asset('js/proces-form.js') }}"></script>
+    <script src="{{ asset('js/home/proces-stocks.js') }}"></script>
+    <script src="{{ asset('js/home/proces-card.js') }}"></script>
+    <script src="{{ asset('js/home/proces-form.js') }}"></script>
 @endpush
 
 @endsection

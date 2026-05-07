@@ -1,3 +1,4 @@
+// ===== ПЕРЕМЕННЫЕ =====
 $primary-gradient-start: #1a2a3a;
 $primary-gradient-end: #0f1a24;
 $border-radius-full: 60px;
@@ -8,6 +9,7 @@ $text-light: #ffffff;
 $dark-bg: #0f2c38;
 $shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
 
+// ===== МИКСИНЫ =====
 @mixin gradient-text($start, $end) {
   background: linear-gradient(125deg, $start, $end);
   background-clip: text;
@@ -15,7 +17,8 @@ $shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
   color: transparent;
 }
 
-.stats-row {
+// ===== БЛОК: stats =====
+.stats {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -27,38 +30,45 @@ $shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
   border-left: 5px solid $accent-color;
   box-shadow: $shadow-sm;
 
-  .section-headline {
+  // Элемент: headline
+  &__headline {
     font-size: 2.5rem;
     font-weight: 800;
     padding-left: 8px;
     @include gradient-text($primary-gradient-start, $primary-gradient-end);
   }
 
-  .counters {
+  // Элемент: counters
+  &__counters {
     display: flex;
     gap: 24px;
     background: $text-light;
     padding: 6px 20px;
     border-radius: $border-radius-full;
     border: 1px solid $border-color;
+  }
 
-    .counter-item {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      font-weight: 600;
-      color: $text-muted;
+  // Блок: counter-item (можно вынести отдельно при необходимости)
+  .counter-item {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-weight: 600;
+    color: $text-muted;
 
-      .green-count {
-        background: $dark-bg;
-        color: $text-light;
-        font-weight: 800;
-        padding: 4px 12px;
-        border-radius: 40px;
-        font-size: 1.2rem;
-        min-width: 55px;
-        text-align: center;
-      }
+    // &__label {
+    //   // стандартный текст
+    // }
+
+    &__value {
+      background: $dark-bg;
+      color: $text-light;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 1.2rem;
+      min-width: 55px;
+      text-align: center;
     }
   }
 
@@ -67,14 +77,14 @@ $shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
     flex-direction: column;
     gap: 16px;
     
-    .section-headline {
+    &__headline {
       font-size: 1.7rem;
       width: 100%;
       text-align: center;
       padding-left: 0;
     }
     
-    .counters {
+    &__counters {
       width: 100%;
       justify-content: center;
       gap: 32px;

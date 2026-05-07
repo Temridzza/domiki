@@ -1,0 +1,17 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+.header {
+  text-align: center;
+  border-bottom: 2px solid vars.$border-color;
+  padding-bottom: 18px;
+  margin-bottom: 32px;
+
+  &__title {
+    font-size: 3rem;
+    font-weight: 800;
+    @include mix.gradient-text(vars.$primary-gradient-start, vars.$primary-gradient-end);
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+}

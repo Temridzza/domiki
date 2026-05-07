@@ -1,4 +1,5 @@
-// Переменные
+// _variables.scss
+@use 'sass:color';
 
 // Основные цвета
 $color-primary-dark: #1a2a3a;
@@ -88,7 +89,7 @@ $form-input-bg: $color-card-bg;
 
 $form-submit-bg: $color-dark-bg;
 $form-submit-color: $color-text-light;
-$form-submit-hover: lighten($color-dark-bg, 8%);
+$form-submit-hover: color.adjust($color-dark-bg, $lightness: 8%);
 
 $form-consent-color: $color-text-muted-light;
 

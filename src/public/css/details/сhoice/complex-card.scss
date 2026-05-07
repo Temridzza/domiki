@@ -1,4 +1,9 @@
 // ============================================
+// МОДУЛИ
+// ============================================
+@use 'sass:color';
+
+// ============================================
 // ПЕРЕМЕННЫЕ
 // ============================================
 $primary-gradient-start: #1a2a3a;
@@ -40,7 +45,7 @@ $transition-fast: 0.2s ease;
 }
 
 // ============================================
-// ОСНОВНАЯ КАРТОЧКА ЖК
+// БЛОК: complex-card
 // ============================================
 .complex-card {
   background: $text-light;
@@ -51,376 +56,267 @@ $transition-fast: 0.2s ease;
   transition: $transition-fast;
   overflow: hidden;
 
-  // ХЕДЕР КАРТОЧКИ
-  .complex-header {
+  // Элемент: header
+  &__header {
     display: flex;
     gap: 32px;
     padding: 30px;
     flex-wrap: wrap;
     align-items: flex-start;
+  }
 
-    // ИЗОБРАЖЕНИЕ
-    .complex-image {
-      flex: 0 0 420px;
-      height: 260px;
-      border-radius: 28px;
-      border: 1px solid $border-color;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+  // Элемент: image
+  &__image {
+    flex: 0 0 420px;
+    height: 260px;
+    border-radius: 28px;
+    border: 1px solid $border-color;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-      .card-img {
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center;
-      }
-
-      &:hover {
-        transform: scale(1.02);
-        box-shadow: $shadow-md;
-      }
-    }
-
-    // ИНФОРМАЦИЯ О ЖК
-    .complex-info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      padding-top: 10px;
-      min-height: 200px;
-
-      .info-row-1 {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        flex: 1; 
-
-        .complex-name {
-          font-size: 1.9rem;
-          font-weight: 800;
-          @include gradient-text($primary-gradient-start, $primary-gradient-end);
-          line-height: 1.2;
-        }
-
-        .price-deadline {
-          display: flex;
-          gap: 18px;
-          background: $border-light;
-          padding: 8px 20px;
-          border-radius: $border-radius-full;
-
-          .price {
-            font-weight: 800;
-            color: $accent-hover;
-            font-size: 1.1rem;
-          }
-
-          .deadline {
-            color: $text-muted;
-            font-size: 0.95rem;
-            align-self: center;
-          }
-        }
-      }
-
-      .info-row-2 {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        width: 100%; 
-        margin-top: auto;  
-
-        .btn-primary {
-          background: $accent-color;
-          border: none;
-          padding: 12px 32px;
-          border-radius: $border-radius-full;
-          font-weight: 800;
-          color: $text-dark;
-          cursor: pointer;
-          transition: $transition-fast;
-          box-shadow: $shadow-sm;
-          letter-spacing: 0.5px;
-          white-space: nowrap;
-
-          &:hover {
-            background: $accent-hover;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 18px rgba(247, 179, 43, 0.3);
-          }
-        }
-      }
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: $shadow-md;
     }
   }
 
-  // БЛОК КВАРТИР
-  .apartments-wrapper {
+  // Элемент: image-img
+  &__image-img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+
+  // Элемент: info
+  &__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 10px;
+    min-height: 200px;
+  }
+
+  // Элемент: info-row (первый)
+  &__info-row {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+
+    // Модификатор: actions
+    &_actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      width: 100%;
+      margin-top: auto;
+    }
+  }
+
+  // Элемент: name
+  &__name {
+    font-size: 1.9rem;
+    font-weight: 800;
+    @include gradient-text($primary-gradient-start, $primary-gradient-end);
+    line-height: 1.2;
+  }
+
+  // Элемент: price-deadline
+  &__price-deadline {
+    display: flex;
+    gap: 18px;
+    background: $border-light;
+    padding: 8px 20px;
+    border-radius: $border-radius-full;
+  }
+
+  // Элемент: price
+  &__price {
+    font-weight: 800;
+    color: $accent-hover;
+    font-size: 1.1rem;
+  }
+
+  // Элемент: deadline
+  &__deadline {
+    color: $text-muted;
+    font-size: 0.95rem;
+    align-self: center;
+  }
+
+  // Элемент: apartments-wrapper
+  &__apartments-wrapper {
     margin: 0 30px 30px;
     border-top: 1px solid #eef2f8;
     padding-top: 24px;
-
-    .apartments-header {
-      @include flex-between;
-      margin-bottom: 0;  
-      padding-bottom: 20px;  
-      border-bottom: 1px solid #f0f4f8;  
-      flex-wrap: wrap;
-      gap: 16px;
-
-      .apartments-title {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-weight: 700;
-        font-size: 1.25rem;
-        color: $dark-bg;
-
-        .apartment-badge {
-          background: $hero-gradient-end;
-          padding: 6px 14px;
-          border-radius: $border-radius-lg;
-          color: $text-light;
-          font-weight: 800;
-          font-size: 0.9rem;
-        }
-      }
-
-      .toggle-details-btn-header {
-        background: $border-light;
-        border: 1px solid $border-color;
-        padding: 8px 24px;
-        border-radius: $border-radius-full;
-        font-weight: 700;
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: $transition-fast;
-        color: $hero-gradient-end;
-
-        &:hover {
-          background: darken($border-light, 3%);
-          border-color: $accent-color;
-          color: $dark-bg;
-        }
-      }
-    }
-
-    .apartments-list {
-      max-height: 0;
-      padding-top: 5px;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-
-      &.open {
-        max-height: 2000px;
-      }
-
-      .apartments-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-    }
   }
 
-  // КАРТОЧКИ КВАРТИР
-  .apartment-card {
-    background: $border-light;
-    border-radius: 24px;
-    padding: 24px;
+  // Элемент: apartments-header
+  &__apartments-header {
+    @include flex-between;
+    margin-bottom: 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f4f8;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  // Элемент: apartments-title
+  &__apartments-title {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 20px;
-    transition: all $transition-fast;
-    border: 1px solid transparent;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: $dark-bg;
+  }
 
-    &:hover {
-      border-color: $accent-color;
-      background: lighten($border-light, 1%);
-      transform: translateY(-2px);
-    }
+  // Элемент: apartments-badge
+  &__apartments-badge {
+    background: $hero-gradient-end;
+    padding: 6px 14px;
+    border-radius: $border-radius-lg;
+    color: $text-light;
+    font-weight: 800;
+    font-size: 0.9rem;
+  }
 
-    .apartment-details {
-      display: flex;
-      flex: 1;
-      gap: 28px;
-      flex-wrap: wrap;
-      align-items: center;
+  // Элемент: apartments-list
+  &__apartments-list {
+    max-height: 0;
+    padding-top: 5px;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
 
-      .apt-type {
-        font-weight: 700;
-        color: $text-dark;
-        font-size: 1.15rem;
-        white-space: nowrap;
-      }
-
-      .apt-area {
-        color: $hero-gradient-end;
-        font-weight: 600;
-        font-size: 1rem;
-      }
-
-      .apt-price {
-        font-weight: 800;
-        color: $accent-hover;
-        font-size: 1.25rem;
-        white-space: nowrap;
-      }
-
-      .apt-floor {
-        color: $text-muted;
-        font-size: 0.9rem;
-        white-space: nowrap;
-      }
-    }
-
-    .apt-actions {
-      display: flex;
-      gap: 12px;
-      flex-shrink: 0;
-
-      .btn-sm {
-        padding: 10px 20px;
-        border-radius: $border-radius-full;
-        font-weight: 600;
-        cursor: pointer;
-        transition: $transition-fast;
-        border: 1px solid $border-color;
-        background: $text-light;
-        color: $text-dark;
-        font-size: 0.9rem;
-
-        &:hover {
-          background: $border-light;
-          transform: translateY(-1px);
-        }
-      }
-
-      .btn-sm-primary {
-        background: $accent-color;
-        border-color: $accent-color;
-        color: $text-dark;
-
-        &:hover {
-          background: $accent-hover;
-          box-shadow: 0 4px 12px rgba(247, 179, 43, 0.3);
-        }
-      }
+    // Модификатор: open
+    &_open {
+      max-height: 2000px;
     }
   }
-}
 
-// ============================================
-// АДАПТИВНОСТЬ
-// ============================================
-@media (max-width: 992px) {
-  .complex-card {
-    .complex-header {
-      .complex-image {
-        flex: 0 0 350px;
-        height: 240px;
-      }
+  // Элемент: apartments-grid
+  &__apartments-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  // ========= МОБИЛЬНАЯ ВЕРСИЯ =========
+  @media (max-width: 992px) {
+    &__image {
+      flex: 0 0 350px;
+      height: 240px;
     }
   }
-}
 
-@media (max-width: 815px) {
-  .complex-card {
-    .complex-header {
+  @media (max-width: 815px) {
+    &__header {
       flex-direction: column;
       text-align: center;
       gap: 24px;
+    }
 
-      .complex-image {
-        flex: none;
-        width: 100%;
-        max-width: 400px;
-        height: 220px;
-        margin: 0 auto;
-      }
+    &__image {
+      flex: none;
+      width: 100%;
+      max-width: 400px;
+      height: 220px;
+      margin: 0 auto;
+    }
 
-      .complex-info {
-        width: 100%;
-        gap: 20px;
+    &__info {
+      width: 100%;
+      gap: 20px;
+    }
 
-        .info-row-1 {
-          align-items: center;
-          text-align: center;
-        }
+    &__info-row {
+      align-items: center;
+      text-align: center;
 
-        .info-row-2 {
-          justify-content: center;
-        }
+      &_actions {
+        justify-content: center;
       }
     }
 
-    .apartments-wrapper {
+    &__apartments-wrapper {
       margin: 0 20px 24px;
     }
-
-    .apartment-card {
-      flex-direction: column;
-      text-align: center;
-      padding: 20px;
-
-      .apartment-details {
-        justify-content: center;
-        gap: 16px;
-        order: 2;
-      }
-
-      .apt-actions {
-        order: 1;
-        width: 100%;
-        justify-content: center;
-      }
-    }
   }
-}
 
-@media (max-width: 480px) {
-  .complex-card {
+  @media (max-width: 480px) {
     margin-bottom: 24px;
 
-    .complex-header {
+    &__header {
       padding: 20px;
-
-      .complex-name {
-        font-size: 1.6rem;
-      }
-
-      .complex-image {
-        height: 180px;
-      }
     }
 
-    .apartments-wrapper {
+    &__name {
+      font-size: 1.6rem;
+    }
+
+    &__image {
+      height: 180px;
+    }
+
+    &__apartments-wrapper {
       margin: 0 16px 20px;
       padding-top: 20px;
     }
 
-    .apartment-details {
-      flex-direction: column;
-      gap: 12px !important;
-      text-align: center;
-    }
-
-    .apt-actions .btn-sm {
-      padding: 8px 16px;
-      font-size: 0.85rem;
-      flex: 1;
-      min-width: 120px;
-    }
-
-    .apartments-header {
+    &__apartments-header {
       flex-direction: column;
       align-items: stretch;
       gap: 12px;
-
-      .toggle-details-btn-header {
-        align-self: center;
-      }
     }
+  }
+}
+
+// ============================================
+// БЛОК: toggle-btn
+// ============================================
+.toggle-btn {
+  background: $border-light;
+  border: 1px solid $border-color;
+  padding: 8px 24px;
+  border-radius: $border-radius-full;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: $transition-fast;
+  color: $hero-gradient-end;
+
+  &:hover {
+    background: color.adjust($border-light, $lightness: -3%);
+    border-color: $accent-color;
+    color: $dark-bg;
+  }
+
+  @media (max-width: 480px) {
+    align-self: center;
+  }
+}
+
+// ============================================
+// БЛОК: btn-primary
+// ============================================
+.btn-primary {
+  background: $accent-color;
+  border: none;
+  padding: 12px 32px;
+  border-radius: $border-radius-full;
+  font-weight: 800;
+  color: $text-dark;
+  cursor: pointer;
+  transition: $transition-fast;
+  box-shadow: $shadow-sm;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+
+  &:hover {
+    background: $accent-hover;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(247, 179, 43, 0.3);
   }
 }
