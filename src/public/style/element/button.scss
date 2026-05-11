@@ -1,0 +1,168 @@
+// button.scss
+// ============================================
+// СТИЛИ КНОПОК
+// ============================================
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+@use 'sass:color';
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: $transition-base;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 12px 24px;
+  border-radius: $border-radius-xl;
+  white-space: nowrap;
+
+  &--primary {
+    background: $color-accent;
+    color: $color-primary-darker;
+    box-shadow: $shadow-sm;
+
+    &:hover {
+      background: $color-accent-hover;
+      transform: translateY(-2px);
+      box-shadow: $shadow-md;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  &--outline {
+    background: transparent;
+    border: 1px solid $color-border;
+    color: $color-primary-dark;
+
+    &:hover {
+      background: #f1f5f9;
+    }
+  }
+
+  &--danger {
+    background: $color-error;
+    color: white;
+
+    &:hover {
+      background: #c0392b;
+    }
+  }
+
+  &--gradient {
+    background: $gradient-hero;
+    color: white;
+    box-shadow: 0 4px 15px rgba($color-hero-start, 0.3);
+
+    &:hover {
+      background: linear-gradient(135deg, 
+        color.scale($color-hero-start, $lightness: 8%),
+        color.scale($color-hero-end, $lightness: 8%)
+      );
+      transform: translateY(-2px);
+    }
+  }
+
+  &--small {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+
+  &--full {
+    width: 100%;
+  }
+
+  &--icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  i {
+    font-size: 0.9em;
+  }
+
+  @include mobile {
+    font-size: 0.85rem;
+    padding: 10px 20px;
+  }
+}
+
+// Специфичный стиль для кнопки hero-блока (только на главной странице)
+// Возвращаем прежний желтый цвет $color-accent
+.hero .btn--primary {
+  background: $color-accent;
+  color: $color-primary-darker;
+  font-size: 1.1rem;
+  padding: 16px 36px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba($color-accent, 0.3);
+
+  &:hover {
+    background: $color-accent-hover;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  @include mobile {
+    font-size: 1rem;
+    padding: 14px 28px;
+  }
+}
+
+// Изолированные стили для кнопок в админ-панели
+.admin .btn,
+.admin-panel .btn {
+  &--primary,
+  &--outline,
+  &--danger {
+    white-space: nowrap;
+  }
+  
+  &--small {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+}
+
+// Кнопка отправки формы
+.form-section__submit {
+  background: $gradient-hero;
+  color: white;
+  box-shadow: 0 4px 15px rgba($color-hero-start, 0.3);
+  margin-top: 10px;
+  font-size: 1rem;
+  padding: 16px 32px;
+  letter-spacing: 0.5px;
+  
+  &:hover {
+    background: linear-gradient(135deg, 
+      color.scale($color-hero-start, $lightness: 8%),
+      color.scale($color-hero-end, $lightness: 8%)
+    );
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+  
+  i {
+    font-size: 1.1em;
+  }
+
+  @include mobile {
+    font-size: 0.9rem;
+    padding: 14px 24px;
+  }
+}

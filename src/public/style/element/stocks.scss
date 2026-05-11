@@ -1,0 +1,194 @@
+// stocks.scss
+// Базовые стили для home.html
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+// ===== СТИЛИ ДЛЯ HOME.HTML =====
+.stats {
+  width: 100%;
+  background: $color-stats-bg;
+  padding: 0;
+  margin-bottom: 0;
+
+  // Контейнер
+  &__container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 60px $container-padding;
+    border-bottom: 1px solid $color-border-card;
+  }
+
+  // Карточка статистики
+  &__card {
+    flex: 1;
+    min-width: 180px;
+    text-align: center;
+    background: $color-card-bg;
+    padding: 28px 16px;
+    border-radius: $border-radius-stat;
+    box-shadow: $shadow-stat;
+    border: 1px solid $color-border-card;
+    cursor: pointer;
+    transition: $transition-fast;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  // Число/значение
+  &__number {
+    font-size: 3rem;
+    font-weight: 900;
+    color: $color-accent-dark;
+    margin-bottom: 12px;
+    line-height: 1.1;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  // Заголовок карточки
+  &__label {
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: $color-hero-end;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  // Подпись мелким шрифтом
+  &__sublabel {
+    font-size: 0.9rem;
+    color: $color-text-muted;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+}
+/* ========= МЕДИА-ЗАПРОСЫ ========= */
+@include mobile {
+    .stats {
+        &__container {
+            padding: 40px $container-padding-mobile;
+            gap: 16px;
+        }
+        
+        &__card {
+            min-width: calc(50% - 16px);
+            padding: 20px 12px;
+            border-radius: 28px;
+        }
+        
+        &__number {
+            font-size: 2.4rem;
+        }
+        
+        &__label {
+            font-size: 1rem;
+        }
+        
+        &__sublabel {
+            font-size: 0.8rem;
+        }
+    }
+}
+
+@include mobile-small {
+    .stats {
+        &__number {
+            font-size: 1.8rem;
+        }
+        
+        &__label {
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
+        }
+        
+        &__sublabel {
+            font-size: 0.65rem;
+        }
+    }
+}
+
+@include mobile-tiny {
+    .stats {
+        &__card {
+            min-width: 100%;
+        }
+    }
+}
+
+// ===== СТИЛИ ДЛЯ CHOICE.HTML =====
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  background: #fffaf0;
+  padding: 12px 24px;
+  border-radius: 0;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  // Элемент: headline
+  &__headline {
+    font-size: 2.5rem;
+    font-weight: 800;
+    padding-left: 8px;
+    @include gradient-text($primary-gradient-start, $primary-gradient-end);
+  }
+
+  // Элемент: counters
+  &__counters {
+    display: flex;
+    gap: 24px;
+    background: $color-text-light;
+    padding: 6px 20px;
+    border-radius: 60px;
+    border: 1px solid $border-color;
+  }
+
+  // Блок: counter-item
+  .counter-item {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-weight: 600;
+    color: $color-text-muted;
+
+    &__value {
+      background: $color-dark-bg;
+      color: $color-text-light;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 1.2rem;
+      min-width: 55px;
+      text-align: center;
+    }
+  }
+
+  // Адаптив для мобильных устройств
+  @media (max-width: 580px) {
+    flex-direction: column;
+    gap: 16px;
+    padding: 12px 16px;
+    
+    &__headline {
+      font-size: 1.7rem;
+      width: 100%;
+      text-align: center;
+    }
+    
+    &__counters {
+      width: 100%;
+      justify-content: center;
+      gap: 32px;
+    }
+  }
+}

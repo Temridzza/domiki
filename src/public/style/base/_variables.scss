@@ -1,0 +1,90 @@
+// ============================================
+// БАЗОВЫЕ ПЕРЕМЕННЫЕ 
+// ============================================
+
+// Цветовая палитра
+$color-primary-dark: #1a2a3a;
+$color-primary-darker: #0f1a24;
+$color-accent: #f7b32b;
+$color-accent-hover: #ffa01e;
+$color-accent-dark: #e68a2e;
+$color-dark-bg: #0f2c38;
+$color-hero-start: #0b2b3b;
+$color-hero-end: #144d5e;
+// используется в apartment-cards, complex-card
+$hero-gradient-end: #2c4a6e; 
+
+$color-text-light: #ffffff;
+$color-text-dark: #000000;
+$color-text-muted: #5f7e90;
+$color-text-muted-light: #6f8ea0;
+
+$color-border: #ccd3dc;
+$color-border-light: #eef2f8;
+// используется в apartment-cards, complex-card, header, stocks
+$border-color: #cfdfe9; 
+$color-border-card: #ffe0b5;
+
+$color-error: #e74c3c;
+
+$color-card-bg: #ffffff;
+$color-stats-bg: #fffaf0;
+// используется в apartment-cards
+$bg-light: #fafcff; 
+// используется в apartment-cards, complex-card
+$border-light: #eef3fc; 
+$color-copyright-bg: #f2f6fa;
+$color-copyright-text: #6f8ea0;
+
+// Алиасы (ссылаются на основные цвета)
+$primary-gradient-start: $color-primary-dark;
+$primary-gradient-end: $color-primary-darker;
+$accent-color: $color-accent;
+$urgent-gradient-start: $color-hero-start;
+$urgent-gradient-end: $color-hero-end;
+
+// Градиенты
+$gradient-primary: linear-gradient(145deg, #1a2a3a, #0f1a24);
+$gradient-body: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
+$gradient-hero: linear-gradient(135deg, $color-hero-start, $color-hero-end);
+
+// Тени
+$shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 12px 24px rgba(0, 0, 0, 0.2);
+$shadow-lg: 0 20px 30px rgba(0, 0, 0, 0.25);
+$shadow-card: 0 15px 30px rgba(0, 0, 0, 0.05);
+$shadow-card-hover: 0 25px 35px rgba(0, 0, 0, 0.1);
+$shadow-stat: 0 8px 20px rgba(0, 0, 0, 0.03);
+
+// Скругления
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 56px;
+$border-radius-2xl: 60px;
+$border-radius-card: 32px;
+$border-radius-stat: 36px;
+
+// Переходы
+$transition-fast: 0.2s ease;
+$transition-base: 0.3s ease;
+
+// Размеры и отступы
+$container-padding: 40px;
+$container-padding-mobile: 20px;
+$container-max-width: 1400px;
+$grid-gap: 32px;
+
+// Districts specific variables
+$districts-padding: 80px 0;
+$districts-title-color: $color-dark-bg;
+$districts-subtitle-color: $color-text-muted;
+$districts-card-bg: $color-card-bg;
+$districts-card-radius: $border-radius-card;
+$districts-card-shadow: $shadow-card;
+$districts-card-shadow-hover: $shadow-card-hover;
+$districts-card-img-height: 240px;
+$districts-card-img-height-tablet: 200px;
+$districts-card-img-height-mobile: 180px;
+$districts-card-img-bg: #f5f5f5;
+$districts-card-title-color: $color-dark-bg;
+$districts-card-text-color: $color-text-muted;

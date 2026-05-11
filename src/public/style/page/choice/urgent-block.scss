@@ -1,0 +1,130 @@
+@use '../../base/variables' as vars;
+@use '../../base/mixins' as mix;
+
+// ========= ЛОКАЛЬНЫЕ ПЕРЕМЕННЫЕ =========
+$border-radius-full: 60px;
+
+.urgent-block {
+  background: linear-gradient(115deg, vars.$urgent-gradient-start, vars.$urgent-gradient-end);
+  border-radius: $border-radius-full;
+  padding: 32px 40px;
+  margin: 48px 0 56px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  color: vars.$color-text-light; // Было vars.$text-light — такой переменной нет
+  box-shadow: 0 12px 28px rgba(11, 43, 59, 0.2);
+  border: 1px solid rgba(247, 179, 43, 0.3);
+  transition: box-shadow vars.$transition-base;
+
+  &:hover {
+    box-shadow: 0 16px 36px rgba(11, 43, 59, 0.25);
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 260px;
+  }
+
+  &__title {
+    font-size: 1.9rem;
+    font-weight: 900;
+    margin: 0 0 8px; // Сброшены дефолтные отступы, оставлен только нижний
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    line-height: 1.2;
+  }
+
+  &__subtitle {
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0.9;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  &__button {
+    background: vars.$accent-color;
+    padding: 14px 36px;
+    border-radius: $border-radius-full;
+    font-weight: 800;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: 
+      background vars.$transition-fast,
+      transform vars.$transition-fast,
+      box-shadow vars.$transition-fast;
+    color: vars.$color-text-dark; // Было vars.$text-dark — исправлено
+    box-shadow: vars.$shadow-md;
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    &:hover {
+      background: vars.$color-accent-hover; // Было $accent-hover без префикса vars.
+      transform: scale(1.02);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    &:active {
+      transform: scale(0.98);
+      box-shadow: vars.$shadow-sm;
+    }
+
+    @include mix.focus-ring(vars.$accent-color);
+  }
+
+  // ========= АДАПТИВ =========
+  @include mix.tablet {
+    padding: 28px 32px;
+    margin: 36px 0 44px;
+    gap: 20px;
+
+    &__title {
+      font-size: 1.6rem;
+    }
+
+    &__button {
+      padding: 12px 28px;
+      font-size: 0.95rem;
+    }
+  }
+
+  @include mix.mobile {
+    padding: 24px 20px;
+    margin: 28px 0 36px;
+    border-radius: 40px; // Уменьшаем скругление на мобилках
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+
+    &__title {
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+
+    &__subtitle {
+      font-size: 0.9rem;
+    }
+
+    &__button {
+      width: 100%;
+      text-align: center;
+      padding: 14px 24px;
+    }
+  }
+
+  @include mix.mobile-small {
+    padding: 20px 16px;
+    border-radius: 32px;
+
+    &__title {
+      font-size: 1.25rem;
+    }
+
+    &__subtitle {
+      font-size: 0.85rem;
+    }
+  }
+}

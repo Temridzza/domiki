@@ -1,0 +1,349 @@
+// ============================================
+// МОДУЛИ
+// ============================================
+@use 'sass:color';
+
+@use '../../base/variables' as vars;
+@use '../../base/mixins' as mix;
+
+// ============================================
+// ЛОКАЛЬНЫЕ ПЕРЕМЕННЫЕ
+// ============================================
+$border-radius-lg: 32px;
+$card-border-color: #eef2f8; // Цвет границ внутри карточки
+
+// ============================================
+// ЛОКАЛЬНЫЕ МИКСИНЫ
+// ============================================
+
+// ============================================
+// БЛОК: complex-card
+// ============================================
+.complex-card {
+  background: vars.$color-text-light;
+  border-radius: $border-radius-lg;
+  margin-bottom: 40px;
+  @include mix.card-shadow;
+  border: 1px solid $card-border-color;
+  transition: vars.$transition-fast;
+  overflow: hidden;
+
+  // ========================================
+  // Элемент: header
+  // ========================================
+  &__header {
+    display: flex;
+    gap: 32px;
+    padding: 30px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  // ========================================
+  // Элемент: image
+  // ========================================
+  &__image {
+    flex: 0 0 420px;
+    height: 260px;
+    border-radius: 28px;
+    border: 1px solid vars.$border-color;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    // Интерактивность изображения
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: vars.$shadow-md;
+    }
+
+    // Доступность: клавиатурная навигация
+    &:focus-visible {
+      outline: 2px solid vars.$color-accent;
+      outline-offset: 2px;
+    }
+  }
+
+  // Внутреннее изображение
+  &__image-img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    display: block; // убираем лишние отступы у инлайн элементов
+  }
+
+  // ========================================
+  // Элемент: info
+  // ========================================
+  &__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 10px;
+    min-height: 200px;
+  }
+
+  // Контейнер для рядов информации и действий
+  &__info-row {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+
+    // Модификатор: actions
+    &_actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      width: 100%;
+      margin-top: auto;
+      gap: 16px; // чтобы кнопки не слипались
+    }
+  }
+
+  // ========================================
+  // Элемент: name
+  // ========================================
+  &__name {
+    font-size: 1.9rem;
+    font-weight: 800;
+    @include mix.gradient-text(vars.$primary-gradient-start, vars.$primary-gradient-end);
+    line-height: 1.2;
+    word-break: break-word; // предотвращает переполнение
+  }
+
+  // ========================================
+  // Элемент: price-deadline
+  // ========================================
+  &__price-deadline {
+    display: flex;
+    gap: 18px;
+    background: vars.$border-light;
+    padding: 8px 20px;
+    border-radius: vars.$border-radius-2xl;
+    align-self: flex-start; // чтобы блок не растягивался на всю ширину
+    flex-wrap: wrap;
+  }
+
+  &__price {
+    font-weight: 800;
+    color: vars.$color-accent-hover;
+    font-size: 1.1rem;
+    white-space: nowrap;
+  }
+
+  &__deadline {
+    color: vars.$color-text-muted;
+    font-size: 0.95rem;
+    align-self: center;
+  }
+
+  // ========================================
+  // Элемент: apartments-wrapper (секция с квартирами)
+  // ========================================
+  &__apartments-wrapper {
+    margin: 0 30px 30px;
+    border-top: 1px solid $card-border-color;
+    padding-top: 24px;
+  }
+
+  // Заголовок секции с квартирами
+  &__apartments-header {
+    @include mix.flex-between;
+    margin-bottom: 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f4f8;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  &__apartments-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: vars.$color-dark-bg;
+  }
+
+  // Бейдж с количеством
+  &__apartments-badge {
+    background: vars.$hero-gradient-end;
+    padding: 6px 14px;
+    border-radius: $border-radius-lg;
+    color: vars.$color-text-light;
+    font-weight: 800;
+    font-size: 0.9rem;
+  }
+
+  // Список квартир (скрываемый)
+  &__apartments-list {
+    max-height: 0;
+    padding-top: 5px;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+
+    // Модификатор: open
+    &_open {
+      max-height: 2000px;
+    }
+  }
+
+  // Сетка для карточек квартир
+  &__apartments-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  // ========================================
+  // АДАПТИВ: tablet (≤992px)
+  // ========================================
+  @media (max-width: 992px) {
+    &__image {
+      flex: 0 0 350px;
+      height: 240px;
+    }
+  }
+
+  // ========================================
+  // АДАПТИВ: планшеты и маленькие ноутбуки (≤815px)
+  // ========================================
+  @media (max-width: 815px) {
+    &__header {
+      flex-direction: column;
+      text-align: center;
+      gap: 24px;
+    }
+
+    &__image {
+      flex: none;
+      width: 100%;
+      max-width: 400px;
+      height: 220px;
+      margin: 0 auto;
+    }
+
+    &__info {
+      width: 100%;
+      gap: 20px;
+    }
+
+    &__info-row {
+      align-items: center;
+      text-align: center;
+
+      &_actions {
+        justify-content: center;
+      }
+    }
+
+    // Центрируем price-deadline на мобилках
+    &__price-deadline {
+      align-self: center;
+      justify-content: center;
+    }
+
+    &__apartments-wrapper {
+      margin: 0 20px 24px;
+    }
+  }
+
+  // ========================================
+  // АДАПТИВ: мобильные устройства (≤480px)
+  // ========================================
+  @media (max-width: 480px) {
+    margin-bottom: 24px;
+
+    &__header {
+      padding: 20px;
+    }
+
+    &__name {
+      font-size: 1.6rem;
+    }
+
+    &__image {
+      height: 180px;
+    }
+
+    &__apartments-wrapper {
+      margin: 0 16px 20px;
+      padding-top: 20px;
+    }
+
+    &__apartments-header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+  }
+}
+
+// ============================================
+// БЛОК: toggle-btn
+// ============================================
+.toggle-btn {
+  background: vars.$border-light;
+  border: 1px solid vars.$border-color;
+  padding: 8px 24px;
+  border-radius: vars.$border-radius-2xl;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: vars.$transition-fast;
+  color: vars.$hero-gradient-end;
+  white-space: nowrap;
+
+  &:hover {
+    background: color.adjust(vars.$border-light, $lightness: -3%);
+    border-color: vars.$color-accent;
+    color: vars.$color-dark-bg;
+  }
+
+  &:focus-visible {
+    @include mix.focus-ring(vars.$color-accent);
+  }
+
+  @media (max-width: 480px) {
+    align-self: center;
+    width: 100%; // на мобилке кнопка на всю ширину
+    text-align: center;
+  }
+}
+
+// ============================================
+// БЛОК: btn-primary
+// ============================================
+.btn-primary {
+  background: vars.$color-accent;
+  border: none;
+  padding: 12px 32px;
+  border-radius: vars.$border-radius-2xl;
+  font-weight: 800;
+  color: vars.$color-text-dark;
+  cursor: pointer;
+  transition: vars.$transition-fast;
+  box-shadow: vars.$shadow-sm;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: vars.$color-accent-hover;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(247, 179, 43, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: vars.$shadow-sm;
+  }
+
+  &:focus-visible {
+    @include mix.focus-ring(vars.$color-accent);
+  }
+}

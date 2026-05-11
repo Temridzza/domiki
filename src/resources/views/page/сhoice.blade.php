@@ -39,48 +39,31 @@
         </div>
 
         <!-- ФОРМА ЗАЯВКИ -->
-        <section class="form" id="formSection">
-            <div class="form__container">
-                <h3 class="form__title">ОСТАВЬТЕ ЗАЯВКУ</h3>
-                <p class="form__description">Менеджер подберет лучший вариант с выгодой</p>
-                
-                <form class="form__body" id="leadForm">
-                    <div class="form__fields">
-                        <div class="form__field-group">
-                            <input type="text" 
-                                class="form__input" 
-                                placeholder="Ваше имя" 
-                                id="userName" 
-                                name="userName"
-                                required>
-                        </div>
-                        
-                        <div class="form__field-group">
-                            <input type="tel" 
-                                class="form__input" 
-                                placeholder="Номер телефона" 
-                                id="userPhone" 
-                                name="userPhone"
-                                required>
-                        </div>
-                        
-                        <div class="form__field-group">
-                            <textarea class="form__input form__input--textarea" 
-                                    rows="3" 
-                                    placeholder="Количество комнат / бюджет / пожелания" 
-                                    id="userComment" 
-                                    name="userComment"></textarea>
-                        </div>
-                        
-                        <div class="form__field-group">
-                            <button type="submit" class="form__submit">ОТПРАВИТЬ ЗАЯВКУ</button>
-                        </div>
-                    </div>
+        <section class="form-section" id="formSection">
+            <div class="form-section__wrapper">
+                <h3 class="form-section__title">ОСТАВЬТЕ ЗАЯВКУ</h3>
+                <p class="form-section__description">Менеджер подберет лучший вариант с выгодой</p>
                     
-                    <p class="form__agreement">Нажимая на кнопку, вы даете согласие на обработку данных</p>
+                <form class="form-section__form" id="leadForm">
+                    <div class="form-section__fields">
+                        <div class="form-field">
+                            <input type="text" class="form-field__input" placeholder="Ваше имя" id="userName" name="userName" required>
+                        </div>
+                        <div class="form-field">
+                            <input type="tel" class="form-field__input" placeholder="Номер телефона" id="userPhone" name="userPhone" required>
+                        </div>
+                        <div class="form-field">
+                            <textarea class="form-field__textarea" placeholder="Количество комнат / бюджет / пожелания" id="userComment" name="userComment"></textarea>
+                        </div>
+                        <button type="submit" class="form-section__submit btn btn--primary btn--full">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>ОТПРАВИТЬ ЗАЯВКУ</span>
+                        </button>
+                    </div>
+                    <p class="form-section__consent">Нажимая на кнопку, вы даете согласие на обработку данных</p>
                 </form>
             </div>
-        </section>
+        </section>    
     </div>
 
     <script src="{{ asset('js/choice/new-buildings.js') }}"> </script>

@@ -1,0 +1,329 @@
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+@use 'sass:color';
+
+// ========= ЛОКАЛЬНЫЕ ПЕРЕМЕННЫЕ =========
+// Все переменные перенесены в базовые
+
+// ========= БЛОК: apartment-card =========
+.apartment-card {
+  background: $bg-light;
+  border-radius: $border-radius-md;
+  padding: 16px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid $border-color;
+  transition: $transition-fast;
+  box-shadow: $shadow-sm;
+
+  // Модификатор: special-offer
+  &_special-offer {
+    background: linear-gradient(115deg, $color-stats-bg, color.scale($color-stats-bg, $lightness: 2%));
+    border-left: 8px solid $color-accent-hover;
+    box-shadow: $shadow-md;
+  }
+
+  // Модификатор: expanded
+  &_expanded {
+    flex-direction: column;
+    align-items: stretch;
+    background: $color-text-light;
+    border: 2px solid $hero-gradient-end;
+    box-shadow: 0 18px 32px -8px rgba(0, 0, 0, 0.1);
+    cursor: default;
+    padding: 20px;
+
+    &.apartment-card_special-offer {
+      background: linear-gradient(115deg, $color-stats-bg, color.scale($color-stats-bg, $lightness: 2%));
+      border-left: 8px solid $color-accent-hover;
+    }
+  }
+
+  // Элемент: details
+  &__details {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+
+  // Элемент: type
+  &__type {
+    font-weight: 800;
+    font-size: 1.1rem;
+    min-width: 130px;
+    color: $color-dark-bg;
+  }
+
+  // Элемент: area
+  &__area {
+    background: $color-text-light;
+    padding: 4px 14px;
+    border-radius: 32px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $color-text-muted;
+    border: 1px solid $color-border-light;
+  }
+
+  // Элемент: floor
+  &__floor {
+    background: $color-text-light;
+    padding: 4px 14px;
+    border-radius: 32px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $color-text-muted;
+    border: 1px solid $color-border-light;
+  }
+
+  // Элемент: price
+  &__price {
+    font-weight: 800;
+    color: $hero-gradient-end;
+    font-size: 1.1rem;
+
+    .apartment-card_special-offer & {
+      color: $color-accent-hover;
+      font-size: 1.2rem;
+
+      &::before {
+        content: "🔥 ";
+        font-weight: 900;
+      }
+    }
+  }
+
+  // Элемент: actions
+  &__actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  // Элемент: header (для expanded)
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  // Элемент: title (для expanded)
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    @include gradient-text($primary-gradient-start, $primary-gradient-end);
+  }
+
+  // Элемент: header-actions (для expanded)
+  &__header-actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  // Элемент: content (для expanded)
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    align-items: flex-start;
+  }
+
+  // Элемент: image (для expanded)
+  &__image {
+    flex: 0 0 360px;
+    position: relative;
+    background: $bg-light;
+    border-radius: $border-radius-md;
+    overflow: hidden;
+    min-height: 240px;
+    border: 1px solid $border-light;
+  }
+
+  // Элемент: image-placeholder
+  &__image-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 28px;
+
+    // Когда изображение отсутствует
+    &_empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 4rem;
+      color: $hero-gradient-end;
+    }
+  }
+
+  // Элемент: image-placeholder-text
+  &__image-placeholder-text {
+    display: block;
+    font-size: 0.75rem;
+    color: $color-text-muted;
+    margin-top: 8px;
+  }
+
+  // Элемент: details-list (для expanded)
+  &__details-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  // Элемент: detail-row
+  &__detail-row {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    flex-wrap: wrap;
+    border-bottom: 1px dashed $color-border-light;
+    padding-bottom: 8px;
+  }
+
+  // Элемент: detail-label
+  &__detail-label {
+    font-weight: 700;
+    color: $color-dark-bg;
+    min-width: 100px;
+  }
+
+  // Элемент: detail-value
+  &__detail-value {
+    color: $color-text-muted;
+    font-weight: 500;
+  }
+
+  // Элемент: close-btn
+  &__close-btn {
+    background: $border-light;
+    border: 1px solid $border-color;
+    padding: 6px 20px;
+    border-radius: $border-radius-2xl;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-top: 16px;
+    align-self: flex-start;
+    color: $hero-gradient-end;
+    transition: $transition-fast;
+
+    &:hover {
+      background: $color-border-light;
+      border-color: $accent-color;
+    }
+  }
+
+  // ========= МОБИЛЬНАЯ ВЕРСИЯ (≤815px) =========
+  @media (max-width: 815px) {
+    &_expanded {
+      padding: 16px;
+    }
+
+    &__header {
+      margin-bottom: 16px;
+      gap: 12px;
+    }
+
+    &__title {
+      font-size: 1.3rem;
+    }
+
+    &__content {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    &__image {
+      flex: none;
+      width: 100%;
+      min-height: 200px;
+    }
+
+    &__image-placeholder {
+      border-radius: 28px;
+
+      &_empty {
+        font-size: 5rem;
+      }
+    }
+
+    &__image-placeholder-text {
+      font-size: 0.75rem;
+    }
+
+    &__details-list {
+      flex: none;
+      width: 100%;
+      gap: 16px;
+    }
+
+    &__detail-row {
+      gap: 16px;
+      padding-bottom: 12px;
+    }
+
+    &__detail-label {
+      min-width: 120px;
+      font-size: 0.95rem;
+    }
+
+    &__detail-value {
+      font-size: 1rem;
+      flex: 1;
+    }
+
+    &__close-btn {
+      width: 100%;
+      justify-content: center;
+      margin-top: 12px;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// ========= БЛОК: btn =========
+.btn {
+  // Элемент: sm
+  &_sm {
+    background: $color-text-light;
+    border: 1px solid $border-color;
+    padding: 6px 20px;
+    border-radius: $border-radius-2xl;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: $hero-gradient-end;
+    transition: $transition-fast;
+
+    &:hover {
+      background: $border-light;
+      border-color: $accent-color;
+    }
+  }
+
+  // Модификатор: primary
+  &_primary {
+    background: $accent-color;
+    border: none;
+    color: #1e2f3a;
+    font-weight: 800;
+
+    &:hover {
+      background: $color-accent-hover;
+      transform: scale(0.98);
+    }
+  }
+}

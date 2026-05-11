@@ -9,7 +9,7 @@
     <meta name="description" content="@yield('description', 'Новостройки в Ярославле — поиск и покупка квартир')">
     <meta name="keywords" content="@yield('keywords', 'застройщик, ипотека, скидки')">
 
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.10/dist/cdn.min.js"></script>

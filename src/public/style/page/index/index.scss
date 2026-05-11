@@ -1,0 +1,24 @@
+// Базовые стили
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+
+// Компоненты\
+@use 'top-bar';
+@use 'footer';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: $gradient-body;
+    font-family: 'Helvetica Neue', Roboto, 'Segoe UI', sans-serif;
+}
+
+.site-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
