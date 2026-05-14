@@ -1,18 +1,22 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
+| Здесь вы можете зарегистрировать веб-маршруты для своего приложения. Эти
+| маршруты загружаются RouteServiceProvider, и все они будут
+| отнесены к группе промежуточного программного обеспечения "web". 
+| Сделайте что-нибудь замечательное!
 */
 
+// Домашняя страница ===============
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+})->name('home');
+
+Route::get('/home', function () {
+    return redirect()->route('home');
 });
+//==================================
