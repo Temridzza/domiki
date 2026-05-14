@@ -20,3 +20,18 @@ Route::get('/home', function () {
     return redirect()->route('home');
 });
 //==================================
+
+// Страница выбора =================
+Route::get('/choice/{slug}', function ($slug) {
+    // Передачя аргумента
+    return view('page.choice', [
+        'districtSlug' => $slug,
+    ]);
+})->name('choice');
+//==================================
+
+// Админ панель ====================
+Route::get('/panel', function () {
+    return view('page.panel');
+})->name('panel');
+//==================================
