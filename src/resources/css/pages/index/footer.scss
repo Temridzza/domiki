@@ -1,0 +1,110 @@
+// Базовые стили
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+
+/* ========= FOOTER ========= */
+.footer {
+    background: #ecf6ff;
+    margin-top: auto;
+    border-top: 2px solid $color-footer-border;
+
+    &__container {
+        max-width: $container-max-width;
+        margin: 0 auto;
+        padding: 50px 40px 30px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 28px;
+        justify-content: space-between;
+    }
+
+    &__section {
+        &--info {
+            flex: 1;
+        }
+
+        &--phones {
+            flex-shrink: 0;
+        }
+    }
+
+    &__title {
+        font-size: 2rem;
+        margin-bottom: 12px;
+        color: $color-footer-dark-bg;
+    }
+
+    &__copyright {
+        text-align: center;
+        padding: 20px 20px 28px;
+        background: lighten($color-footer-copyright-bg, 3%);
+        border-top: 1px solid $color-footer-border-light;
+
+        &-text {
+            color: darken($color-footer-copyright-text, 15%);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+    }
+}
+
+/* ========= CONTACT-LIST ========= */
+.contact-list {
+    list-style: none;
+
+    &__item {
+        margin: 12px 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__icon {
+        flex-shrink: 0;
+    }
+
+    &__link {
+        color: inherit;
+        text-decoration: none;
+        transition: color $transition-fast;
+
+        &:hover {
+            color: $color-link-hover;
+        }
+    }
+}
+
+/* ========= PHONE-LIST ========= */
+.phone-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &__link {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: $color-footer-phone-link;
+        text-decoration: none;
+        transition: $transition-fast;
+        position: relative;
+        padding-left: 28px;
+        display: inline-block;
+
+        &::before {
+            content: "📞";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+
+        &:hover {
+            color: $color-link-hover;
+            transform: translateX(-4px);
+        }
+    }
+}

@@ -1,0 +1,3 @@
+
+# Генерация файла css файла из scss.
+sass --watch style.scss:style.css --no-source-map

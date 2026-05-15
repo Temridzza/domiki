@@ -1,0 +1,64 @@
+// Flex-утилиты
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+// Градиенты
+@mixin gradient-bg($start, $end, $deg: 135deg) {
+    background: linear-gradient($deg, $start, $end);
+}
+
+@mixin gradient-text($start, $end, $deg: 125deg) {
+    background: linear-gradient($deg, $start, $end);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+// ====== Медиа-запросы ======
+// Мобильные устройства
+@mixin mobile-s {
+    @media (max-width: 320px) {
+        @content;
+    }
+}
+
+@mixin mobile-m {
+    @media (max-width: 370px) {
+        @content;
+    }
+}
+
+@mixin mobile-l {
+    @media (max-width: 425px) {
+        @content;
+    }
+}
+
+// Планшеты
+@mixin tablet {
+    @media (max-width: 768px) {
+        @content;
+    }
+}
+
+// Ноутбуки
+@mixin laptop {
+    @media (max-width: 1024px) {
+        @content;
+    }
+}
+
+@mixin laptop-l {
+    @media (max-width: 1440px) {
+        @content;
+    }
+}

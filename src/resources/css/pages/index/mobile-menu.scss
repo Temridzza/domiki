@@ -1,0 +1,148 @@
+// Базовые стили
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+
+/* ====== Мобильное меню ====== */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s;
+
+    &--open {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    &__container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 85%;
+        max-width: 320px;
+        height: 100%;
+        background-color: #fff;
+        box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-out;
+
+        .mobile-menu--open & {
+            transform: translateX(0);
+        }
+    }
+
+    &__nav {
+        padding: 20px 16px;
+    }
+
+    &__section {
+        margin-bottom: 24px;
+    }
+
+    &__title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: $color-logo-primary-dark;
+        border-left: 4px solid $color-link-hover;
+        padding-left: 12px;
+    }
+
+    &__list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    &__item {
+        padding: 12px 16px;
+        margin-bottom: 8px;
+        background-color: #f9fafb;
+        border-radius: $border-radius-md;
+        cursor: pointer;
+        transition: background-color $transition-fast;
+
+        &:hover {
+            background-color: darken(#f9fafb, 3%);
+        }
+    }
+
+    &__item-name {
+        font-weight: 500;
+        display: block;
+        color: $color-logo-primary-dark;
+    }
+
+    &__item-desc {
+         font-size: 0.75rem;
+    color: lighten($color-logo-primary-dark, 30%);
+    display: block;
+    margin-top: 4px;
+    line-height: 1.4;        
+    word-break: break-word;   
+    }
+
+    &__divider {
+        height: 1px;
+        background-color: $color-footer-border;
+        margin: 16px 0;
+    }
+
+    &__admin-link {
+        display: block;
+        padding: 12px 16px;
+        @include gradient-bg($color-burger-bg-start, $color-burger-bg-end);
+        color: white;
+        font-weight: 600;
+        text-align: center;
+        border-radius: $border-radius-md;
+        text-decoration: none;
+        transition: background $transition-fast;
+
+        &:hover {
+            @include gradient-bg(darken($color-burger-bg-start, 5%), darken($color-burger-bg-end, 5%));
+        }
+    }
+
+    &__loader,
+    &__empty,
+    &__error {
+        padding: 12px;
+        text-align: center;
+        color: lighten($color-logo-primary-dark, 30%);
+        font-size: 0.875rem;
+    }
+
+    &__error {
+        color: #ef4444;
+    }
+}
+
+// Адаптивность для мобильных устройств
+@include mobile-l {
+    .mobile-menu__container {
+        width: 100%;
+        max-width: none;
+    }
+
+    .mobile-menu__nav {
+        padding: 16px;
+    }
+
+    .mobile-menu__title {
+        font-size: 1.1rem;
+    }
+}
+
+@include tablet {
+    .mobile-menu__item-desc {
+        font-size: 0.7rem;
+    }
+}

@@ -1,0 +1,66 @@
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+
+/* ========= TOP-BAR ========= */
+.top-bar {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(5px);
+    box-shadow: $shadow-sm;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    &__container {
+        max-width: $container-max-width;
+        margin: 0 auto;
+        padding: 0.9rem $container-padding;
+        @include flex-between;
+    }
+}
+
+/* ========= LOGO ========= */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    transition: opacity $transition-fast;
+
+    &:hover {
+        opacity: 0.85;
+    }
+
+    &__icon-wrapper {
+        flex-shrink: 0;
+    }
+
+    &__icon {
+        width: 60px;
+        height: 60px;
+        @include gradient-bg($color-logo-primary-dark, $color-logo-primary-darker);
+        border-radius: $border-radius-md;
+        @include flex-center;
+        box-shadow: 0 10px 15px -6px rgba(0, 0, 0, 0.2);
+        transition: transform $transition-fast;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        svg {
+            width: 40px;
+            height: 40px;
+            filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+        }
+    }
+
+    &__text {
+        font-size: 2.2rem;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+        @include gradient-text(#1f2e3a, #2c4b5e);
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+    }
+}
