@@ -1,4 +1,4 @@
-// Базовые стили
+@use "sass:color";
 @use '../../base/variables' as *;
 @use '../../base/mixins' as *;
 
@@ -37,11 +37,11 @@
     &__copyright {
         text-align: center;
         padding: 20px 20px 28px;
-        background: lighten($color-footer-copyright-bg, 3%);
+        background: color.adjust($color-footer-copyright-bg, $lightness: 3%);
         border-top: 1px solid $color-footer-border-light;
 
         &-text {
-            color: darken($color-footer-copyright-text, 15%);
+            color: color.adjust($color-footer-copyright-text, $lightness: -15%);
             font-size: 0.9rem;
             font-weight: 500;
             letter-spacing: 0.3px;

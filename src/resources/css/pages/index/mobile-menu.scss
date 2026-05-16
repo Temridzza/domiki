@@ -1,4 +1,4 @@
-// Базовые стили
+@use "sass:color";
 @use '../../base/variables' as *;
 @use '../../base/mixins' as *;
 
@@ -70,7 +70,7 @@
         transition: background-color $transition-fast;
 
         &:hover {
-            background-color: darken(#f9fafb, 3%);
+            background-color: color.adjust(#f9fafb, $lightness: -3%);
         }
     }
 
@@ -82,7 +82,7 @@
 
     &__item-desc {
          font-size: 0.75rem;
-    color: lighten($color-logo-primary-dark, 30%);
+    color: color.adjust($color-logo-primary-dark, $lightness: 30%);
     display: block;
     margin-top: 4px;
     line-height: 1.4;        
@@ -107,7 +107,7 @@
         transition: background $transition-fast;
 
         &:hover {
-            @include gradient-bg(darken($color-burger-bg-start, 5%), darken($color-burger-bg-end, 5%));
+            @include gradient-bg(color.adjust($color-burger-bg-start, $lightness: -5%), color.adjust($color-burger-bg-end, $lightness: -5%));
         }
     }
 
@@ -116,7 +116,7 @@
     &__error {
         padding: 12px;
         text-align: center;
-        color: lighten($color-logo-primary-dark, 30%);
+        color: color.adjust($color-logo-primary-dark, $lightness: 30%);
         font-size: 0.875rem;
     }
 
