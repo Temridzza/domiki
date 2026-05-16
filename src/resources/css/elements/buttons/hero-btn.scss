@@ -1,0 +1,24 @@
+@use 'sass:color';
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+
+.hero__btn--primary {
+  background: $color-accent;
+  color: $main-color-dark;
+  
+  font-size: 1.65rem;
+  font-weight: $btn-font-weight;        
+  letter-spacing: $btn-letter-spacing;  
+  padding: 24px 54px;
+  border-radius: $border-radius-xl;     
+  transition: $transition-normal;       
+  box-shadow: 0 4px 15px rgba($color-accent, 0.3);
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: $color-link-hover;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+}

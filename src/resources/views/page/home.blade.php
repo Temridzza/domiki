@@ -6,9 +6,17 @@
 
 @section('content')
 
-<div class="container">
-    <h1>Добро пожаловать в Domiki!</h1>
-    <p>Это стартовая страница вашего приложения Laravel, запущенного в Docker.</p>
-</div>
+<section class="hero">
+    <div class="hero__container">
+        <div class="hero__content">
+            <h1 class="hero__title">Новостройки в <span class="hero__title-accent">Ярославле</span></h1>
+            <div class="hero__badges">
+                <span class="hero__badge hero__badge--building">🏗️ Напрямую от застройщика</span>
+                <span class="hero__badge hero__badge--fire">🔥 Скидки до конца месяца</span>
+            </div>
+            <button class="hero__btn hero__btn--primary" data-action="showForm">ПОДОБРАТЬ КВАРТИРУ</button>
+        </div>
+    </div>
+</section>
 
 @endsection

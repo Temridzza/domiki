@@ -1,10 +1,12 @@
 @use '../base/variables';
-
+// index
 @use 'index/top-bar';
 @use 'index/mobile-menu';
 @use 'index/footer';
+// home
+@use 'home/hero-block';
 
-
+// =====================
 * {
     margin: 0;
     padding: 0;

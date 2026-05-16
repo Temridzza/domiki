@@ -1,0 +1,70 @@
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+
+/* ========= HERO БЛОК ========= */
+.hero {
+    min-height: 100vh;
+    @include gradient-bg($main-color-dark, $main-color-darker);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+
+    &__container {
+        max-width: $container-max-width;
+        margin: 0 auto;
+        width: 100%;
+        padding: 60px $container-padding;
+    }
+
+    &__content {
+        color: $color-text-light;
+        z-index: 2;
+    }
+
+    &__title {
+        font-size: 4rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin-bottom: 20px;
+
+        &-accent {
+            @include gradient-text(#FFD966, #FFB347);
+        }
+    }
+
+    &__badges {
+        margin: 16px 0 32px 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        row-gap: 12px;
+    }
+
+    &__badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.8rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        padding: 6px 20px 6px 18px;
+        border-radius: $border-radius-xl;
+        backdrop-filter: blur(2px);
+        color: $color-text-light;
+
+        &--building {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        &--fire {
+            background: rgba(247, 179, 43, 0.2);
+        }
+    }
+
+    // Кнопка
+    &__btn {
+        margin-top: 12px;
+    }
+}
