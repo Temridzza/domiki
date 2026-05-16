@@ -1,22 +1,16 @@
 // Градиент для body
 $gradient-body: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
 
-// Цвета логотипа
-$color-logo-primary-dark: #1a2a3a;
-$color-logo-primary-darker: #0f1a24;
-
-// Цвета бургер-кнопки
-$color-burger-bg-start: #1a2a3a;
-$color-burger-bg-end: #0f1a24;
-$color-burger-line: #ffa01e;
+/*===== Цвета index =====*/
+$main-color-dark: #1a2a3a;
+$main-color-darker: #0f1a24;
 
 // Цвета футера
 $color-footer-border: #ccd3dc;
-$color-footer-dark-bg: #0f2c38;
 $color-footer-copyright-bg: #f2f6fa;
 $color-footer-copyright-text: #6f8ea0;
 $color-footer-border-light: #eef2f8;
-$color-footer-phone-link: #144d5e;
+/*======================*/
 
 // Цвета ссылок и акцентов
 $color-link-hover: #ffa01e;

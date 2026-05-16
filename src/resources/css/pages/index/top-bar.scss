@@ -17,6 +17,8 @@
         margin: 0 auto;
         padding: 0.9rem $container-padding;
         @include flex-between;
+        box-sizing: border-box;
+        width: 100%;
     }
 }
 
@@ -39,7 +41,7 @@
     &__icon {
         width: 60px;
         height: 60px;
-        @include gradient-bg($color-logo-primary-dark, $color-logo-primary-darker);
+        @include gradient-bg($main-color-dark, $main-color-darker);
         border-radius: $border-radius-md;
         @include flex-center;
         box-shadow: 0 10px 15px -6px rgba(0, 0, 0, 0.2);
@@ -62,5 +64,75 @@
         letter-spacing: -0.3px;
         @include gradient-text(#1f2e3a, #2c4b5e);
         text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+    }
+}
+
+/* ========= АДАПТИВНЫЕ ПРАВКИ ========= */
+// Планшеты (≤768px)
+@include tablet {
+    .top-bar {
+        &__container {
+            padding: 0.7rem 20px;
+        }
+    }
+
+    .logo {
+        &__icon {
+            width: 45px;
+            height: 45px;
+
+            svg {
+                width: 28px;
+                height: 28px;
+            }
+        }
+
+        &__text {
+            font-size: 1.6rem;
+        }
+    }
+}
+
+// Большие мобильные (≤425px)
+@include mobile-l {
+    .top-bar {
+        &__container {
+            padding: 0.5rem 15px;
+        }
+    }
+
+    .logo {
+        &__icon {
+            width: 36px;
+            height: 36px;
+
+            svg {
+                width: 22px;
+                height: 22px;
+            }
+        }
+
+        &__text {
+            font-size: 1.2rem;
+        }
+    }
+}
+
+// Очень маленькие экраны (≤320px)
+@include mobile-s {
+    .top-bar {
+        &__container {
+            padding: 0.5rem 12px; 
+        }
+    }
+
+    .logo {
+        &__icon-wrapper {
+            display: none; 
+        }
+
+        &__text {
+            font-size: 1rem; 
+        }
     }
 }
