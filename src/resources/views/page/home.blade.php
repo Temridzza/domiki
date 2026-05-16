@@ -19,4 +19,12 @@
     </div>
 </section>
 
+<div class="page-content">
+    <section class="districts">
+        <h2 class="districts__title">Выберите район</h2>
+        <p class="districts__subtitle">Престижные локации с развитой инфраструктурой</p>
+        <div class="districts__grid" id="districtsContainer"></div>        
+    </section>
+</div>
+
 @endsection

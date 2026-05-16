@@ -4,8 +4,13 @@ $gradient-body: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
 
 $main-color-dark: #144d5e;
 $main-color-darker: #0f1a24;
+$main-color-white:#ffffff; 
 
 $color-text-light: #ffffff;
+$color-text-muted: #5f7e90;
+
+// карты
+$card-img-bg: #f5f5f5;
 
 // Цвета футера
 $color-footer-border: #ccd3dc;
@@ -20,18 +25,25 @@ $color-link-hover: #ffa01e;
 // Тени
 $shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.05);
 $shadow-md: 0 12px 24px rgba(0, 0, 0, 0.2);
+$shadow-card: 0 15px 30px rgba(0, 0, 0, 0.05);
+$shadow-card-hover: 0 25px 35px rgba(0, 0, 0, 0.1);
 /*======================*/
 
 // Скругления
 $border-radius-md: 8px;
 $border-radius-xl: 60px;
+$border-radius-card: 32px;
  
 /*===== Размеры и отступы =====*/
 $container-padding: 40px;
 $container-max-width: 1400px;
-// Кнопки
+// hero кнопка 
 $btn-font-weight: 700;        
-$btn-letter-spacing: 0.5px;   
+$btn-letter-spacing: 0.5px;  
+// Карточка района
+$districts-padding: 80px 0;
+$grid-gap: 32px;
+
 /*=============================*/
 
 // Переходы

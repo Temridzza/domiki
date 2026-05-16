@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +35,17 @@ Route::get('/choice/{slug}', function ($slug) {
 Route::get('/panel', function () {
     return view('page.panel');
 })->name('panel');
+//==================================
+
+// Вывод изображение================
+Route::get('/storage/{path}', function ($path) {
+    // Проверяем существование файла в storage/app/public
+    if (Storage::disk('public')->exists($path)) {
+        // Возвращаем файл с правильным MIME-типом
+        return response()->file(Storage::disk('public')->path($path));
+    }
+    
+    // Если файл не найден
+    return response()->file(public_path('images/default.png'));
+})->where('path', '.*');
 //==================================

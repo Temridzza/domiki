@@ -1,0 +1,73 @@
+@use 'sass:color';
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+
+
+/* ========= DISTRICTS КАРТЫ ========= */
+.districts {
+  padding: $districts-padding;
+  text-align: center;
+  max-width: $container-max-width;
+  margin: 15px auto;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  &__title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: $main-color-darker;
+    margin-bottom: 16px;
+  }
+
+  &__subtitle {
+    color: $color-text-muted;
+    margin-bottom: 48px;
+    font-size: 1.1rem;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $grid-gap;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+.district-card {
+  background: $main-color-white;
+  border-radius: $border-radius-card;
+  box-shadow: $shadow-card;
+  transition: $transition-normal;
+  cursor: pointer;
+  text-align: center;
+  padding-bottom: 24px;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $shadow-card-hover;
+  }
+
+  &__image {
+    height: 240px;
+    background-size: cover;
+    background-position: center;
+    background-color: $card-img-bg;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 20px 0 8px;
+    color: $main-color-darker;
+  }
+
+  &__description {
+    font-size: 0.9rem;
+    color: $color-text-muted;
+    padding: 0 16px;
+    margin: 0 5px; 
+  }
+}
+
