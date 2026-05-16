@@ -89,6 +89,36 @@
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
+@media (max-width: 1024px) {
+  .hero__btn--primary {
+    font-size: 1.4rem;
+    padding: 20px 45px;
+  }
+}
+@media (max-width: 768px) {
+  .hero__btn--primary {
+    font-size: 1.2rem;
+    padding: 16px 36px;
+  }
+}
+@media (max-width: 425px) {
+  .hero__btn--primary {
+    font-size: 1rem;
+    padding: 12px 28px;
+  }
+}
+@media (max-width: 370px) {
+  .hero__btn--primary {
+    font-size: 0.9rem;
+    padding: 10px 24px;
+  }
+}
+@media (max-width: 320px) {
+  .hero__btn--primary {
+    font-size: 0.85rem;
+    padding: 8px 20px;
+  }
+}
 /* ========= TOP-BAR ========= */
 .top-bar {
   width: 100%;
@@ -544,6 +574,85 @@
   margin-top: 12px;
 }
 
+@media (max-width: 1024px) {
+  .hero__title {
+    font-size: 3.2rem;
+  }
+  .hero__badge {
+    font-size: 1.4rem;
+    padding: 5px 18px 5px 16px;
+  }
+  .hero__container {
+    padding: 50px 30px;
+  }
+}
+@media (max-width: 768px) {
+  .hero {
+    min-height: 90vh;
+  }
+  .hero__title {
+    font-size: 2.8rem;
+    margin-bottom: 16px;
+  }
+  .hero__badges {
+    margin: 12px 0 24px 0;
+    gap: 16px;
+    row-gap: 10px;
+  }
+  .hero__badge {
+    font-size: 1.2rem;
+    padding: 4px 16px 4px 14px;
+    gap: 8px;
+  }
+  .hero__container {
+    padding: 40px 24px;
+  }
+}
+@media (max-width: 425px) {
+  .hero__title {
+    font-size: 2rem;
+  }
+  .hero__badges {
+    margin: 8px 0 20px 0;
+    gap: 12px;
+  }
+  .hero__badge {
+    font-size: 1rem;
+    padding: 4px 14px;
+  }
+  .hero__container {
+    padding: 40px 20px;
+  }
+}
+@media (max-width: 370px) {
+  .hero__title {
+    font-size: 1.8rem;
+  }
+  .hero__badge {
+    font-size: 0.9rem;
+    padding: 3px 12px;
+  }
+  .hero__container {
+    padding: 30px 16px;
+  }
+}
+@media (max-width: 320px) {
+  .hero__title {
+    font-size: 1.6rem;
+    line-height: 1.3;
+  }
+  .hero__badge {
+    font-size: 0.8rem;
+    padding: 3px 10px;
+    gap: 6px;
+  }
+  .hero__badges {
+    gap: 10px;
+  }
+  .hero__container {
+    padding: 25px 16px;
+  }
+}
 * {
   margin: 0;
   padding: 0;
