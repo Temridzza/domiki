@@ -1839,6 +1839,125 @@
     padding: 12px 0;
   }
 }
+.urgent-block {
+  background: linear-gradient(115deg, #144d5e, #0f1a24);
+  border-radius: 32px;
+  padding: 32px 40px;
+  margin: 48px 0 56px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(247, 179, 43, 0.3);
+  transition: 0.15s ease-in-out;
+}
+.urgent-block:hover {
+  box-shadow: 0 25px 35px rgba(0, 0, 0, 0.1);
+}
+.urgent-block__content {
+  flex: 1;
+  min-width: 260px;
+}
+.urgent-block__title {
+  font-size: 1.9rem;
+  font-weight: 900;
+  margin: 0 0 8px 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  line-height: 1.2;
+}
+.urgent-block__subtitle {
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.9;
+  margin: 0;
+  line-height: 1.5;
+}
+.urgent-block__button {
+  background: #f7b32b;
+  padding: 14px 36px;
+  border-radius: 60px;
+  font-weight: 800;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
+  color: #0f1a24;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.urgent-block__button:hover {
+  background: #ffa01e;
+  transform: scale(1.02);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+.urgent-block__button:active {
+  transform: scale(0.98);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+@media (max-width: 768px) {
+  .urgent-block {
+    padding: 28px 32px;
+    margin: 36px 0 44px;
+    gap: 20px;
+  }
+  .urgent-block__title {
+    font-size: 1.6rem;
+  }
+  .urgent-block__button {
+    padding: 12px 28px;
+    font-size: 0.95rem;
+  }
+}
+@media (max-width: 425px) {
+  .urgent-block {
+    padding: 24px 20px;
+    margin: 28px 0 36px;
+    border-radius: 8px;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .urgent-block__content {
+    text-align: center;
+  }
+  .urgent-block__title {
+    font-size: 1.4rem;
+    margin-bottom: 6px;
+  }
+  .urgent-block__subtitle {
+    font-size: 0.9rem;
+  }
+  .urgent-block__button {
+    width: 100%;
+    text-align: center;
+    padding: 12px 24px;
+  }
+}
+@media (max-width: 370px) {
+  .urgent-block {
+    padding: 20px 16px;
+    border-radius: 8px;
+  }
+  .urgent-block__title {
+    font-size: 1.25rem;
+  }
+  .urgent-block__subtitle {
+    font-size: 0.85rem;
+  }
+}
+@media (max-width: 320px) {
+  .urgent-block {
+    padding: 16px 12px;
+  }
+  .urgent-block__title {
+    font-size: 1.1rem;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
