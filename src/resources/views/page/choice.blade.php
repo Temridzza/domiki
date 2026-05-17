@@ -17,6 +17,9 @@
             </div>
         </div>
     </div>
+
+    <div class="complexes-container" data-slug="{{ $districtSlug }}"></div>
+    
 </div>
 
 <script>

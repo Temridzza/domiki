@@ -8,6 +8,7 @@ import { renderDistrictsCards } from './home/districts-grid';
 import { initFormHandler } from './home/form';
 import { renderStocks } from './home/stocks';
 import { fetchAndUpdateTotalCount } from './choice/count';
+import { initChoiceBuildings } from './choice/new-buildings';
 
 // Инициализация после загрузки DOM
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,5 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // choice
     if (window.districtSlug) {
         fetchAndUpdateTotalCount(window.districtSlug);
+        // Инициализация страницы выбора района
+        if (document.querySelector('.complexes-container')) {
+            initChoiceBuildings();
+        }
     }
 });
