@@ -1,0 +1,40 @@
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+
+/* ========= КНОПКА ФОРМЫ ========= */
+.form_btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: $btn-font-weight;
+  letter-spacing: $btn-letter-spacing;
+  transition: all $transition-slow;
+  text-transform: uppercase;
+  
+  // Первичная кнопка с градиентом
+  &--primary {
+    @include gradient-bg($main-color-dark, $main-color-darker);
+    color: $color-text-light;
+    border-radius: $border-radius-xl;
+    padding: 16px 32px;
+    font-size: 1rem;
+    
+    &:hover {
+      background: $color-link-hover;
+      transform: translateY(-2px);
+      box-shadow: $shadow-md;
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  // Полная ширина
+  &--full {
+    width: 100%;
+  }
+}

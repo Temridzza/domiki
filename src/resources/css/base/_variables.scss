@@ -4,13 +4,15 @@ $gradient-body: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
 
 $main-color-dark: #144d5e;
 $main-color-darker: #0f1a24;
-$main-color-white:#ffffff; 
+$main-color-white:#ffffff;
 
 $color-text-light: #ffffff;
 $color-text-muted: #5f7e90;
 
 // карты
 $card-img-bg: #f5f5f5;
+$color-border-card: #ffe0b5;
+$color-border-light: #eef2f8;
 
 // Цвета футера
 $color-footer-border: #ccd3dc;
@@ -19,6 +21,7 @@ $color-footer-copyright-text: #6f8ea0;
 $color-footer-border-light: #eef2f8;
 
 // Цвета ссылок и акцентов
+$color-error: #e74c3c;
 $color-accent: #f7b32b;
 $color-link-hover: #ffa01e;
 
