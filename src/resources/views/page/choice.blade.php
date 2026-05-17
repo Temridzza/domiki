@@ -4,9 +4,10 @@
 
 @section('content')
 
-<div class="container">
-    <h1>Вы на стронице выбора для {{$districtSlug}}</h1>
-    <p>Это страница вашего приложения Laravel, запущенного в Docker.</p>
+<div class=".site-wrapper">
+    <div class="header">
+        <h1 class="header__title">{{ $districtSlug }} Район</h1>
+    </div>
 </div>
 
 @endsection

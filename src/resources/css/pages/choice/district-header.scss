@@ -1,0 +1,29 @@
+@use '../../base/variables' as vars;
+@use '../../base/mixins' as mix;
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;        
+  position: relative;         
+
+  &__title {
+    margin: 0;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    
+    // Градиентный текст
+    @include mix.gradient-text(vars.$main-color-dark, vars.$main-color-darker);
+  }
+
+  // Декоративная линия после заголовка
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    max-width: vars.$container-max-width;   
+    height: 3px;
+    background-color: vars.$color-border-silvery;
+    margin: 18px auto 0;                    
+  }
+}

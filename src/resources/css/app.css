@@ -1224,6 +1224,31 @@
     line-height: 1.4;
   }
 }
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+  position: relative;
+}
+.header__title {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  background: linear-gradient(125deg, #144d5e, #0f1a24);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.header::after {
+  content: "";
+  display: block;
+  width: 100%;
+  max-width: 1400px;
+  height: 3px;
+  background-color: #cfdfe9;
+  margin: 18px auto 0;
+}
+
 * {
   margin: 0;
   padding: 0;

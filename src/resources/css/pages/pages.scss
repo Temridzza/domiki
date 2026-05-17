@@ -6,6 +6,8 @@
 // home
 @use 'home/hero-block';
 @use 'home/districts-grid';
+// choice
+@use 'choice/district-header';
 
 // =====================
 * {
@@ -19,6 +21,7 @@ body {
     font-family: 'Helvetica Neue', Roboto, 'Segoe UI', sans-serif;
 }
 
+// Стили для блоков
 .site-wrapper {
     display: flex;
     flex-direction: column;
