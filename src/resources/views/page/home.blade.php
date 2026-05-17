@@ -26,12 +26,12 @@
         <div class="districts__grid" id="districtsContainer"></div>        
     </section>
 
-    <div class="form-section">
+    <div class="form-section form-section--hidden">
         <div class="form-section__wrapper">
             <h2 class="form-section__title">Оставьте заявку</h2>
             <p class="form-section__description">Мы подберём лучшие варианты под ваш бюджет</p>
             
-            <form class="form-section__form" id="leadForm">
+            <form id="leadForm">
                 <div class="form-section__fields">
                     <div class="form-field">
                         <input type="text" class="form-field__input" placeholder="Ваше имя" id="userName" name="userName" required>
@@ -46,6 +46,7 @@
                         <i class="fas fa-paper-plane"></i>
                         <span>ОТПРАВИТЬ ЗАЯВКУ</span>
                     </button>
+                    <div class="form-section__message" style="display: none;"></div>
                 </div>
                 <p class="form-section__consent">Нажимая на кнопку, вы даете согласие на обработку данных</p>
             </form>

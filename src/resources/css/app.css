@@ -172,6 +172,9 @@
   width: calc(100% - 40px);
   box-sizing: border-box;
 }
+.form-section--hidden {
+  display: none;
+}
 .form-section__wrapper {
   max-width: 700px;
   margin: 0 auto;
