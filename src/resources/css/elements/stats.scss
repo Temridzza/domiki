@@ -1,6 +1,8 @@
 @use '../base/variables' as *;
 @use '../base/mixins' as *;
+
 @use './stats/stocks';
+@use './stats/counter';
 
 // ===== ОБЩИЙ БЛОК СТАТИСТИКИ (переиспользуемый) =====
 .stats {
