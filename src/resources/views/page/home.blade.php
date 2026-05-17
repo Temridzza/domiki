@@ -52,6 +52,10 @@
             </form>
         </div>
     </div>
+
+    <section class="stats">
+        <div class="stats__container" id="statsContainer"></div>
+    </section>
 </div>
 
 @endsection

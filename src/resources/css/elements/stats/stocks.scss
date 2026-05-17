@@ -1,0 +1,122 @@
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+
+// ===== КАРТОЧКИ АКЦИЙ (специфичные для home) =====
+.stats__card {
+  flex: 1;
+  min-width: 180px;
+  text-align: center;
+  background: $main-color-white;
+  padding: 28px 16px;
+  border-radius: $border-radius-card;
+  box-shadow: $shadow-card;
+  border: 1px solid $color-border-card;
+  cursor: pointer;
+  transition: $transition-fast;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.stats__number {
+  font-size: 3rem;
+  font-weight: 900;
+  color: $color-accent;
+  margin-bottom: 12px;
+  line-height: 1.1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stats__label {
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: $main-color-dark;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stats__sublabel {
+  font-size: 0.9rem;
+  color: $color-text-muted;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+// ===== АДАПТИВ ДЛЯ КАРТОЧЕК =====
+@include laptop {
+  .stats__card {
+    min-width: 160px;
+    padding: 24px 12px;
+  }
+  .stats__number {
+    font-size: 2.5rem;
+  }
+  .stats__label {
+    font-size: 1rem;
+  }
+  .stats__sublabel {
+    font-size: 0.85rem;
+  }
+}
+
+@include tablet {
+  .stats__card {
+    flex: 0 1 calc(50% - 10px);
+    min-width: auto;
+    padding: 20px 16px;
+  }
+  .stats__number {
+    font-size: 2.2rem;
+  }
+  .stats__label {
+    font-size: 0.95rem;
+  }
+}
+
+@include mobile-l {
+  .stats__card {
+    flex: 0 1 calc(50% - 8px);
+    padding: 18px 12px;
+  }
+  .stats__number {
+    font-size: 2rem;
+  }
+  .stats__label {
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+  }
+  .stats__sublabel {
+    font-size: 0.8rem;
+  }
+}
+
+@include mobile-m {
+  .stats__card {
+    flex: 0 1 100%;
+    padding: 16px 12px;
+  }
+  .stats__number {
+    font-size: 1.8rem;
+  }
+  .stats__label {
+    font-size: 0.85rem;
+  }
+}
+
+@include mobile-s {
+  .stats__card {
+    padding: 14px 10px;
+  }
+  .stats__number {
+    font-size: 1.6rem;
+  }
+  .stats__label {
+    font-size: 0.8rem;
+  }
+  .stats__sublabel {
+    font-size: 0.75rem;
+  }
+}

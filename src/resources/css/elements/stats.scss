@@ -1,0 +1,22 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+@use './stats/stocks';
+
+// ===== ОБЩИЙ БЛОК СТАТИСТИКИ (переиспользуемый) =====
+.stats {
+  width: 100%;
+  background: $main-color-yellow;
+  padding: 0;
+  margin-bottom: 0;
+
+  &__container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 60px $container-padding;
+    border-bottom: 1px solid $color-border-card;
+  }
+}
