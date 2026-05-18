@@ -2,6 +2,10 @@
 
 @section('title', 'Новостройки в Ярославле')
 
+@section('style')
+    @vite('resources/css/app.css')
+@endsection
+
 @section('content')
 <div class="site-wrapper">
     <div class="header">
@@ -50,4 +54,8 @@
 <script>
     window.districtSlug = @json($districtSlug);
 </script>
+@endsection
+
+@section('scripts')
+    @vite('resources/js/app.js')
 @endsection

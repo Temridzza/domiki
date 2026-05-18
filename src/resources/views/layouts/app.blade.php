@@ -18,8 +18,8 @@
 
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.10/dist/cdn.min.js"></script>
         
-        <!-- Vite CSS -->
-        @vite('resources/css/app.css')
+        <!-- Blade CSS -->
+        @yield('style')
     </head>
     <body>
         <div class="site-wrapper">
@@ -107,7 +107,7 @@
                 </div>
             </footer>
         </div>
-        <!-- Vite JS -->
-        @vite('resources/js/app.js')
+        <!-- Blade js -->
+        @yield('scripts')
     </body>
 </html>

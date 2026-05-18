@@ -4,6 +4,10 @@
 @section('description', 'Новостройки в Ярославле — поиск и покупка квартир')
 @section('keywords', 'застройщик, ипотека, скидки')
 
+@section('style')
+    @vite('resources/css/app.css')
+@endsection
+
 @section('content')
 
 <section class="hero">
@@ -58,4 +62,8 @@
     </section>
 </div>
 
+@endsection
+
+@section('scripts')
+    @vite('resources/js/app.js')
 @endsection
