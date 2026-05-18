@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const isValid = await testAdminBearer(token);
 
         if (isValid) {
-            initAdminPanel();
+            initAdminPanel(token);   // ← передаём токен
         } else {
             showError('Неверный токен. Попробуйте ещё раз.');
         }

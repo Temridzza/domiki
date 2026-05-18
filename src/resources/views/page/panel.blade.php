@@ -28,17 +28,14 @@
     <div class="admin-menu">
         <nav class="admin-menu__nav">
             <ul class="admin-menu__list">
-                <li class="admin-menu__item" data-tab="districts">Районы</li>
+                <li class="admin-menu__item" data-tab="recordsDistricts">Районы</li>
                 <li class="admin-menu__item" data-tab="types">Типы новостроек</li>
                 <li class="admin-menu__item" data-tab="buildings">Новостройки</li>
                 <li class="admin-menu__item" data-tab="flats">Квартиры</li>
             </ul>
         </nav>
         <div class="admin-menu__content">
-            <div id="districts" class="admin-menu__pane admin-menu__pane--active">
-                <h2>Интерфейс для работы с Районами</h2>
-                <p>Здесь будет управление районами.</p>
-            </div>
+            <div id="recordsDistricts" class="admin-menu__pane admin-menu__pane--active"></div>
             <div id="types" class="admin-menu__pane">
                 <h2>Интерфейс для работы с Типами новостроек</h2>
                 <p>Здесь будет управление типами новостроек.</p>

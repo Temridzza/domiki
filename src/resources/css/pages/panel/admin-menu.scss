@@ -1,5 +1,6 @@
 @use '../../base/variables' as *;
 @use '../../base/mixins' as *;
+@use 'sass:color';
 
 /* ===== Админ панель после входа ===== */
 .admin-panel-content {
@@ -18,7 +19,6 @@
     overflow: hidden;
 }
 
-/* Навигация */
 .admin-menu__nav {
     background: $main-color-dark;
     padding: 0 20px;
@@ -53,7 +53,6 @@
     }
 }
 
-/* Контентная область */
 .admin-menu__content {
     padding: 32px;
     background: $main-color-white;
@@ -81,6 +80,112 @@
         color: $color-text-muted;
         line-height: 1.5;
     }
+}
+
+/* ===== Форма для управления записями (старые стили) ===== */
+.records-form {
+    background: $main-color-white;
+    border-radius: $border-radius-md;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: $shadow-sm;
+    position: relative;
+
+    h3 {
+        font-size: 20px;
+        color: $main-color-dark;
+        margin-bottom: 20px;
+        font-weight: 600;
+        display: inline-block;
+    }
+
+    .toggle-form-btn {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: $color-text-muted;
+        &:hover {
+            color: $main-color-dark;
+        }
+    }
+}
+
+.record-form {
+    transition: background-color 0.2s;
+    
+    &.form-hidden {
+        display: none;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: $main-color-dark;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid $color-border-silvery;
+            border-radius: $border-radius-md;
+            font-family: inherit;
+            font-size: 14px;
+            transition: $transition-fast;
+
+            &:focus {
+                outline: none;
+                border-color: $color-accent;
+                box-shadow: 0 0 0 2px rgba($color-accent, 0.2);
+            }
+        }
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: $border-radius-md;
+            font-weight: 600;
+            cursor: pointer;
+            transition: $transition-fast;
+        }
+    }
+}
+
+/* Стили для кнопок формы (зелёная/жёлтая) */
+.btn-save--create {
+    background: #4caf50 !important;
+    color: white !important;
+    &:hover {
+        background: #ffc107 !important;
+        color: #2c2c2c !important;
+    }
+}
+
+.btn-save--edit {
+    background: #ffc107 !important;
+    color: #2c2c2c !important;
+    &:hover {
+        background: #ffb300 !important;
+    }
+}
+
+.btn-cancel {
+    background: #e2e8f0;
+    color: #2d3748;
+    &:hover { background: #cbd5e0; }
 }
 
 /* Адаптивность */

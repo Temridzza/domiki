@@ -2301,7 +2301,6 @@
   overflow: hidden;
 }
 
-/* Навигация */
 .admin-menu__nav {
   background: #144d5e;
   padding: 0 20px;
@@ -2336,7 +2335,6 @@
   background-color: rgba(247, 179, 43, 0.1);
 }
 
-/* Контентная область */
 .admin-menu__content {
   padding: 32px;
   background: #ffffff;
@@ -2361,6 +2359,105 @@
   font-size: 16px;
   color: #5f7e90;
   line-height: 1.5;
+}
+
+/* ===== Форма для управления записями (старые стили) ===== */
+.records-form {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+.records-form h3 {
+  font-size: 20px;
+  color: #144d5e;
+  margin-bottom: 20px;
+  font-weight: 600;
+  display: inline-block;
+}
+.records-form .toggle-form-btn {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #5f7e90;
+}
+.records-form .toggle-form-btn:hover {
+  color: #144d5e;
+}
+
+.record-form {
+  transition: background-color 0.2s;
+}
+.record-form.form-hidden {
+  display: none;
+}
+.record-form .form-group {
+  margin-bottom: 16px;
+}
+.record-form .form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #144d5e;
+}
+.record-form .form-group input, .record-form .form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cfdfe9;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  transition: 0.15s ease-in-out;
+}
+.record-form .form-group input:focus, .record-form .form-group textarea:focus {
+  outline: none;
+  border-color: #f7b32b;
+  box-shadow: 0 0 0 2px rgba(247, 179, 43, 0.2);
+}
+.record-form .form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+.record-form .form-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
+}
+
+/* Стили для кнопок формы (зелёная/жёлтая) */
+.btn-save--create {
+  background: #4caf50 !important;
+  color: white !important;
+}
+.btn-save--create:hover {
+  background: #ffc107 !important;
+  color: #2c2c2c !important;
+}
+
+.btn-save--edit {
+  background: #ffc107 !important;
+  color: #2c2c2c !important;
+}
+.btn-save--edit:hover {
+  background: #ffb300 !important;
+}
+
+.btn-cancel {
+  background: #e2e8f0;
+  color: #2d3748;
+}
+.btn-cancel:hover {
+  background: #cbd5e0;
 }
 
 /* Адаптивность */
@@ -2405,6 +2502,107 @@
     padding: 20px;
   }
 }
+/* ===== Карточки записей (районов, новостроек и т.д.) ===== */
+.records-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.record-card {
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  transition: 0.25s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+.record-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 35px rgba(0, 0, 0, 0.1);
+}
+.record-card__image {
+  height: 180px;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.record-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.record-card__image .no-image {
+  color: #5f7e90;
+  font-size: 14px;
+}
+.record-card__content {
+  padding: 16px;
+  flex: 1;
+}
+.record-card__content h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #144d5e;
+  margin-bottom: 8px;
+}
+.record-card__content .record-card__slug {
+  font-size: 12px;
+  color: #5f7e90;
+  margin-bottom: 8px;
+  font-family: monospace;
+}
+.record-card__content .record-card__description,
+.record-card__content .record-card__advantages {
+  font-size: 14px;
+  color: #2c3e44;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+.record-card__actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-top: 1px solid #eef2f8;
+  background: #fafcfc;
+}
+.record-card__actions button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
+}
+.record-card__actions button.btn-edit {
+  background: #f7b32b;
+  color: #2c2c2c;
+}
+.record-card__actions button.btn-edit:hover {
+  background: rgb(240.1381818182, 163.1127272727, 9.0618181818);
+}
+.record-card__actions button.btn-delete {
+  background: #e74c3c;
+  color: white;
+}
+.record-card__actions button.btn-delete:hover {
+  background: rgb(222.7808219178, 45.698630137, 27.4191780822);
+}
+
+.loading, .error, .empty {
+  text-align: center;
+  padding: 40px;
+  font-size: 16px;
+  color: #5f7e90;
+}
+
+.error {
+  color: #e74c3c;
+}
+
 * {
   margin: 0;
   padding: 0;

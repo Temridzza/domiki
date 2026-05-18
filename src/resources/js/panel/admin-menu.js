@@ -1,4 +1,10 @@
-export function initAdminPanel() {
+import { initRecordsDistricts } from './records/records-districts';
+
+let adminToken = null;
+
+export function initAdminPanel(token) {
+    adminToken = token;
+
     const loginOverlay = document.getElementById('loginOverlay');
     const adminContent = document.querySelector('.admin-panel-content');
 
@@ -21,6 +27,11 @@ export function initAdminPanel() {
                 item.classList.remove('admin-menu__item--active');
             }
         });
+
+        // Если переключились на вкладку районов – инициализируем интерфейс
+        if (tabId === 'recordsDistricts') {
+            initRecordsDistricts(adminToken);
+        }
     }
 
     menuItems.forEach(item => {
@@ -30,6 +41,7 @@ export function initAdminPanel() {
         });
     });
 
+    // Активируем первую вкладку (районы)
     if (menuItems.length) {
         const firstTab = menuItems[0].getAttribute('data-tab');
         if (firstTab) switchTab(firstTab);
