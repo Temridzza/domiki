@@ -1,4 +1,5 @@
-import { testAdminBearer } from './panel/bearer-login.js';
+import { testAdminBearer } from './panel/bearer-login';
+import { initAdminPanel } from './panel/admin-menu';
 
 document.addEventListener('DOMContentLoaded', () => {
     const loginOverlay = document.getElementById('loginOverlay');
@@ -9,25 +10,20 @@ document.addEventListener('DOMContentLoaded', () => {
     async function handleLogin() {
         const token = bearerInput.value.trim();
 
-        // Если поле пустое — показываем ошибку и не идём дальше
         if (!token) {
             showError('Введите Bearer токен');
             return;
         }
 
-        // Вызываем функцию проверки токена (пока всегда true, если token не пуст)
         const isValid = await testAdminBearer(token);
 
         if (isValid) {
-            // Успешный вход: скрываем оверлей
-            if (loginOverlay) loginOverlay.style.display = 'none';
-            console.log('Доступ разрешён, панель управления открыта');
+            initAdminPanel();
         } else {
             showError('Неверный токен. Попробуйте ещё раз.');
         }
     }
 
-    // Функция для показа ошибки
     function showError(message) {
         if (loginError) {
             loginError.textContent = message;
@@ -37,12 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Обработчик кнопки
     if (submitBtn) {
         submitBtn.addEventListener('click', handleLogin);
     }
 
-    // Обработчик нажатия Enter в поле ввода
     if (bearerInput) {
         bearerInput.addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
@@ -52,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Скрываем ошибку, когда пользователь начинает печатать
     if (bearerInput && loginError) {
         bearerInput.addEventListener('input', () => {
             loginError.classList.add('login__error--hidden');

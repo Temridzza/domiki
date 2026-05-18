@@ -1,0 +1,133 @@
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+
+/* ===== Админ панель после входа ===== */
+.admin-panel-content {
+    display: none;
+    padding: $container-padding 0;
+    max-width: $container-max-width;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Блок admin-menu */
+.admin-menu {
+    background: $main-color-white;
+    border-radius: $border-radius-card;
+    box-shadow: $shadow-card;
+    overflow: hidden;
+}
+
+/* Навигация */
+.admin-menu__nav {
+    background: $main-color-dark;
+    padding: 0 20px;
+}
+
+.admin-menu__list {
+    @include flex-center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+}
+
+.admin-menu__item {
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    color: $color-text-light;
+    cursor: pointer;
+    transition: all $transition-fast;
+    border-bottom: 3px solid transparent;
+    letter-spacing: $btn-letter-spacing;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &--active {
+        color: $color-accent;
+        border-bottom-color: $color-accent;
+        background-color: rgba($color-accent, 0.1);
+    }
+}
+
+/* Контентная область */
+.admin-menu__content {
+    padding: 32px;
+    background: $main-color-white;
+}
+
+.admin-menu__pane {
+    display: none;
+    animation: fadeIn 0.2s ease;
+
+    &--active {
+        display: block;
+    }
+
+    h2 {
+        font-size: 24px;
+        font-weight: 600;
+        color: $main-color-dark;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid $color-border-silvery;
+    }
+
+    p {
+        font-size: 16px;
+        color: $color-text-muted;
+        line-height: 1.5;
+    }
+}
+
+/* Адаптивность */
+@include tablet {
+    .admin-panel-content {
+        padding: 20px;
+    }
+
+    .admin-menu__list {
+        @include flex-between;
+        flex-wrap: wrap;
+    }
+
+    .admin-menu__item {
+        flex: 1;
+        text-align: center;
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+
+    .admin-menu__content {
+        padding: 24px;
+    }
+
+    .admin-menu__pane h2 {
+        font-size: 20px;
+    }
+}
+
+@include mobile-l {
+    .admin-menu__list {
+        flex-direction: column;
+    }
+
+    .admin-menu__item {
+        width: 100%;
+        text-align: center;
+        border-bottom: none;
+        border-left: 3px solid transparent;
+
+        &--active {
+            border-left-color: $color-accent;
+            border-bottom-color: transparent;
+        }
+    }
+
+    .admin-menu__content {
+        padding: 20px;
+    }
+}

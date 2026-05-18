@@ -24,9 +24,35 @@
     </div>
 </div>
 
-<div class="container">
-    <h1>📌 Админ панель</h1>
-    <p>Не забыть сделать.</p>
+<div class="admin-panel-content" style="display: none;">
+    <div class="admin-menu">
+        <nav class="admin-menu__nav">
+            <ul class="admin-menu__list">
+                <li class="admin-menu__item" data-tab="districts">Районы</li>
+                <li class="admin-menu__item" data-tab="types">Типы новостроек</li>
+                <li class="admin-menu__item" data-tab="buildings">Новостройки</li>
+                <li class="admin-menu__item" data-tab="flats">Квартиры</li>
+            </ul>
+        </nav>
+        <div class="admin-menu__content">
+            <div id="districts" class="admin-menu__pane admin-menu__pane--active">
+                <h2>Интерфейс для работы с Районами</h2>
+                <p>Здесь будет управление районами.</p>
+            </div>
+            <div id="types" class="admin-menu__pane">
+                <h2>Интерфейс для работы с Типами новостроек</h2>
+                <p>Здесь будет управление типами новостроек.</p>
+            </div>
+            <div id="buildings" class="admin-menu__pane">
+                <h2>Интерфейс для работы с Новостройками</h2>
+                <p>Здесь будет управление новостройками.</p>
+            </div>
+            <div id="flats" class="admin-menu__pane">
+                <h2>Интерфейс для работы с Квартирами</h2>
+                <p>Здесь будет управление квартирами.</p>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 
