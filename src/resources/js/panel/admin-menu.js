@@ -1,4 +1,5 @@
 import { initRecordsDistricts } from './records/records-districts';
+import { initRecordsTypes } from './records/records-types';  // добавили
 
 let adminToken = null;
 
@@ -28,9 +29,10 @@ export function initAdminPanel(token) {
             }
         });
 
-        // Если переключились на вкладку районов – инициализируем интерфейс
         if (tabId === 'recordsDistricts') {
             initRecordsDistricts(adminToken);
+        } else if (tabId === 'recordsTypes') {
+            initRecordsTypes(adminToken);   // новая вкладка
         }
     }
 
@@ -41,7 +43,6 @@ export function initAdminPanel(token) {
         });
     });
 
-    // Активируем первую вкладку (районы)
     if (menuItems.length) {
         const firstTab = menuItems[0].getAttribute('data-tab');
         if (firstTab) switchTab(firstTab);

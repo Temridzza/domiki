@@ -4,11 +4,12 @@ export async function initRecordsDistricts(token) {
 
     container.innerHTML = '';
 
+    // ---- Создание элементов с уникальными id ----
     const formCard = document.createElement('div');
     formCard.className = 'records-form';
     formCard.innerHTML = `
         <h3>Добавить / редактировать район</h3>
-        <button type="button" class="toggle-form-btn" id="toggleFormBtn">−</button>
+        <button type="button" class="toggle-form-btn" id="toggleDistrictsForm">−</button>
         <form id="districtForm" class="record-form">
             <input type="hidden" id="districtId" value="">
             <div class="form-group">
@@ -28,8 +29,8 @@ export async function initRecordsDistricts(token) {
                 <input type="file" id="image" accept="image/*">
             </div>
             <div class="form-actions">
-                <button type="submit" id="submitBtn" class="btn-save btn-save--create">➕ Создать район</button>
-                <button type="button" class="btn-cancel" id="cancelEditBtn">Отменить</button>
+                <button type="submit" class="btn-save btn-save--create" id="submitDistrictBtn">➕ Создать район</button>
+                <button type="button" class="btn-cancel" id="cancelDistrictBtn">Отменить</button>
             </div>
         </form>
     `;
@@ -41,7 +42,36 @@ export async function initRecordsDistricts(token) {
     container.appendChild(formCard);
     container.appendChild(listContainer);
 
-    // ----- Утилиты -----
+    // ---- Локальные ссылки на элементы (уникальные id) ----
+    const form = formCard.querySelector('#districtForm');
+    const toggleBtn = formCard.querySelector('#toggleDistrictsForm');
+    const submitBtn = formCard.querySelector('#submitDistrictBtn');
+    const cancelBtn = formCard.querySelector('#cancelDistrictBtn');
+    const districtIdInput = formCard.querySelector('#districtId');
+    const nameInput = formCard.querySelector('#name');
+    const descriptionInput = formCard.querySelector('#description');
+    const advantagesInput = formCard.querySelector('#advantages');
+    const imageInput = formCard.querySelector('#image');
+
+    let formVisible = true;
+
+    // Сворачивание формы
+    const toggleForm = () => {
+        formVisible = !formVisible;
+        if (formVisible) {
+            form.classList.remove('form-hidden');
+            toggleBtn.textContent = '−';
+        } else {
+            form.classList.add('form-hidden');
+            toggleBtn.textContent = '+';
+        }
+    };
+    toggleBtn.addEventListener('click', toggleForm);
+
+    // ---- Отмена редактирования / сброс формы (исправлено!) ----
+    cancelBtn.addEventListener('click', resetForm);
+
+    // ---- Утилиты ----
     function showNotification(message, type = 'success') {
         const notif = document.createElement('div');
         notif.className = `admin-notification admin-notification--${type}`;
@@ -78,41 +108,30 @@ export async function initRecordsDistricts(token) {
     }
 
     function highlightForm(isEditMode) {
-        const form = document.querySelector('#districtForm');
         if (isEditMode) {
             form.style.backgroundColor = '#fff9c4';
             form.style.transition = 'background-color 0.2s';
+            submitBtn.classList.remove('btn-save--create');
+            submitBtn.classList.add('btn-save--edit');
+            submitBtn.textContent = '✏️ Сохранить изменения';
         } else {
             form.style.backgroundColor = '';
-        }
-        const btn = document.getElementById('submitBtn');
-        if (isEditMode) {
-            btn.classList.remove('btn-save--create');
-            btn.classList.add('btn-save--edit');
-            btn.textContent = '✏️ Сохранить изменения';
-        } else {
-            btn.classList.remove('btn-save--edit');
-            btn.classList.add('btn-save--create');
-            btn.textContent = '➕ Создать район';
+            submitBtn.classList.remove('btn-save--edit');
+            submitBtn.classList.add('btn-save--create');
+            submitBtn.textContent = '➕ Создать район';
         }
     }
 
-    // ----- Сворачивание формы -----
-    const toggleBtn = document.getElementById('toggleFormBtn');
-    const districtForm = document.getElementById('districtForm');
-    let formVisible = true;
-    toggleBtn.addEventListener('click', () => {
-        formVisible = !formVisible;
-        if (formVisible) {
-            districtForm.classList.remove('form-hidden');
-            toggleBtn.textContent = '−';
-        } else {
-            districtForm.classList.add('form-hidden');
-            toggleBtn.textContent = '+';
-        }
-    });
+    function resetForm() {
+        districtIdInput.value = '';
+        nameInput.value = '';
+        descriptionInput.value = '';
+        advantagesInput.value = '';
+        imageInput.value = '';
+        highlightForm(false);
+    }
 
-    // ----- Загрузка районов -----
+    // ---- Загрузка списка районов ----
     async function loadDistricts() {
         try {
             const response = await fetch('/api/districts', {
@@ -128,12 +147,11 @@ export async function initRecordsDistricts(token) {
                 throw new Error('Ошибка загрузки');
             }
         } catch (err) {
-            console.error('Ошибка загрузки районов:', err);
+            console.error(err);
             listContainer.innerHTML = '<div class="error">Не удалось загрузить районы</div>';
         }
     }
 
-    // ----- Отображение карточек -----
     function renderDistricts(districts) {
         if (!districts.length) {
             listContainer.innerHTML = '<div class="empty">Нет районов. Создайте первый.</div>';
@@ -158,7 +176,7 @@ export async function initRecordsDistricts(token) {
         `).join('');
         listContainer.innerHTML = cardsHtml;
 
-        document.querySelectorAll('.btn-edit').forEach(btn => {
+        listContainer.querySelectorAll('.btn-edit').forEach(btn => {
             btn.addEventListener('click', () => {
                 fillFormForEdit(
                     btn.dataset.id,
@@ -168,41 +186,30 @@ export async function initRecordsDistricts(token) {
                 );
             });
         });
-        document.querySelectorAll('.btn-delete').forEach(btn => {
+        listContainer.querySelectorAll('.btn-delete').forEach(btn => {
             btn.addEventListener('click', () => deleteDistrict(btn.dataset.id));
         });
     }
 
     function fillFormForEdit(id, name, description, advantages) {
-        document.getElementById('districtId').value = id;
-        document.getElementById('name').value = name;
-        document.getElementById('description').value = description;
-        document.getElementById('advantages').value = advantages;
-        document.getElementById('image').value = '';
+        districtIdInput.value = id;
+        nameInput.value = name;
+        descriptionInput.value = description;
+        advantagesInput.value = advantages;
+        imageInput.value = '';
         highlightForm(true);
-        document.getElementById('name').focus();
+        nameInput.focus();
+        if (!formVisible) toggleForm();
     }
 
-    function resetForm() {
-        document.getElementById('districtId').value = '';
-        document.getElementById('name').value = '';
-        document.getElementById('description').value = '';
-        document.getElementById('advantages').value = '';
-        document.getElementById('image').value = '';
-        highlightForm(false);
-    }
-
-    document.getElementById('cancelEditBtn').addEventListener('click', () => resetForm());
-
-    // ----- Создание / обновление -----
-    const form = document.getElementById('districtForm');
+    // ---- Создание / обновление (с _method=PUT) ----
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const id = document.getElementById('districtId').value;
-        let name = document.getElementById('name').value.trim();
-        const description = document.getElementById('description').value.trim();
-        const advantages = document.getElementById('advantages').value.trim();
-        const imageFile = document.getElementById('image').files[0];
+        const id = districtIdInput.value;
+        let name = nameInput.value.trim();
+        const description = descriptionInput.value.trim();
+        const advantages = advantagesInput.value.trim();
+        const imageFile = imageInput.files[0];
 
         if (!name) {
             showNotification('Введите название района', 'error');
@@ -236,18 +243,16 @@ export async function initRecordsDistricts(token) {
         try {
             const response = await fetch(url, {
                 method,
-                headers: { 'Authorization': `Bearer ${token}` },
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
                 body: formData
             });
 
             if (response.ok) {
                 resetForm();
                 await loadDistricts();
-                if (actionType === 'create') {
-                    showNotification(`Район "${name}" успешно создан`, 'success');
-                } else {
-                    showNotification(`Район "${name}" обновлён`, 'success');
-                }
+                showNotification(actionType === 'create' ? `Район "${name}" создан` : `Район "${name}" обновлён`, 'success');
             } else {
                 let errorMsg = 'Ошибка сохранения';
                 try {
@@ -261,7 +266,7 @@ export async function initRecordsDistricts(token) {
         }
     });
 
-    // ----- Удаление -----
+    // ---- Удаление ----
     async function deleteDistrict(id) {
         if (!confirm('Удалить район? Это действие нельзя отменить.')) return;
         try {
@@ -269,8 +274,7 @@ export async function initRecordsDistricts(token) {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/json'
                 }
             });
             if (response.ok) {
