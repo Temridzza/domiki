@@ -1,5 +1,6 @@
 import { initRecordsDistricts } from './records/records-districts';
-import { initRecordsTypes } from './records/records-types';  // добавили
+import { initRecordsTypes } from './records/records-types';
+import { initRecordsBuildings } from './records/records-buildings';  // новый импорт
 
 let adminToken = null;
 
@@ -29,10 +30,13 @@ export function initAdminPanel(token) {
             }
         });
 
+        // Загрузка соответствующего модуля при активации вкладки
         if (tabId === 'recordsDistricts') {
             initRecordsDistricts(adminToken);
         } else if (tabId === 'recordsTypes') {
-            initRecordsTypes(adminToken);   // новая вкладка
+            initRecordsTypes(adminToken);
+        } else if (tabId === 'recordsBuildings') {
+            initRecordsBuildings(adminToken);
         }
     }
 
@@ -43,6 +47,7 @@ export function initAdminPanel(token) {
         });
     });
 
+    // Активация первой вкладки по умолчанию
     if (menuItems.length) {
         const firstTab = menuItems[0].getAttribute('data-tab');
         if (firstTab) switchTab(firstTab);
