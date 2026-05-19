@@ -2361,7 +2361,7 @@
   line-height: 1.5;
 }
 
-/* ===== Форма для управления записями (старые стили) ===== */
+/* ===== Форма для управления записями ===== */
 .records-form {
   background: #ffffff;
   border-radius: 8px;
@@ -2406,7 +2406,7 @@
   margin-bottom: 6px;
   color: #144d5e;
 }
-.record-form .form-group input, .record-form .form-group textarea {
+.record-form .form-group input, .record-form .form-group textarea, .record-form .form-group select {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #cfdfe9;
@@ -2415,10 +2415,14 @@
   font-size: 14px;
   transition: 0.15s ease-in-out;
 }
-.record-form .form-group input:focus, .record-form .form-group textarea:focus {
+.record-form .form-group input:focus, .record-form .form-group textarea:focus, .record-form .form-group select:focus {
   outline: none;
   border-color: #f7b32b;
   box-shadow: 0 0 0 2px rgba(247, 179, 43, 0.2);
+}
+.record-form .form-group select:disabled {
+  background-color: #f3f4f6;
+  cursor: not-allowed;
 }
 .record-form .form-actions {
   display: flex;
@@ -2460,8 +2464,10 @@
   background: #cbd5e0;
 }
 
-/* ===== Группы новостроек для типов квартир ===== */
-.buildings-accordion, .apartment-types-list {
+/* ===== Группы новостроек для типов квартир (общие) ===== */
+.buildings-accordion,
+.apartment-types-list,
+.flats-list {
   margin-top: 20px;
 }
 
@@ -2524,6 +2530,7 @@
   display: block;
 }
 
+/* ===== Стили для типов квартир (сетка карточек) ===== */
 .apartment-types-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -2629,6 +2636,205 @@
   color: #5f7e90;
 }
 
+/* ===== Стили для квартир (группировка по типам) ===== */
+.apartment-type-group {
+  background: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+.apartment-type-group__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
+}
+.apartment-type-group__header:hover {
+  background: #f3f4f6;
+}
+.apartment-type-group__info {
+  flex: 1;
+}
+.apartment-type-group__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #144d5e;
+  margin: 0 0 4px;
+}
+.apartment-type-group__count {
+  font-size: 12px;
+  color: #5f7e90;
+}
+.apartment-type-group__toggle {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #5f7e90;
+}
+.apartment-type-group__toggle:hover {
+  color: #144d5e;
+}
+.apartment-type-group__content {
+  display: none;
+  padding: 16px;
+  border-top: 1px solid #eef2f8;
+}
+.apartment-type-group--open .apartment-type-group__content {
+  display: block;
+}
+
+.flats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.flat-card {
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  transition: 0.25s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+.flat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 35px rgba(0, 0, 0, 0.1);
+}
+.flat-card__content {
+  padding: 12px;
+}
+.flat-card__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #144d5e;
+  margin-bottom: 8px;
+}
+.flat-card__details {
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  color: #5f7e90;
+  margin-bottom: 8px;
+}
+.flat-card__details i {
+  margin-right: 4px;
+}
+.flat-card__price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #f7b32b;
+  margin-bottom: 8px;
+}
+.flat-card__status {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 12px;
+  display: inline-block;
+}
+.flat-card__status.status-available {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.flat-card__status.status-reserved {
+  background: #fff3e0;
+  color: #ed6c02;
+}
+.flat-card__status.status-sold {
+  background: #ffebee;
+  color: #c62828;
+}
+.flat-card__actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-top: 1px solid #eef2f8;
+  background: #fafcfc;
+}
+.flat-card__actions button {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
+}
+.flat-card__actions button.flat-edit {
+  background: #f7b32b;
+  color: #2c2c2c;
+}
+.flat-card__actions button.flat-edit:hover {
+  background: rgb(240.1381818182, 163.1127272727, 9.0618181818);
+}
+.flat-card__actions button.flat-delete {
+  background: #e74c3c;
+  color: white;
+}
+.flat-card__actions button.flat-delete:hover {
+  background: rgb(222.7808219178, 45.698630137, 27.4191780822);
+}
+
+.empty-flats {
+  text-align: center;
+  padding: 20px;
+  color: #5f7e90;
+}
+
+/* ===== Адаптивность ===== */
+@media (max-width: 768px) {
+  .admin-panel-content {
+    padding: 20px;
+  }
+  .admin-menu__list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .admin-menu__item {
+    flex: 1;
+    text-align: center;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+  .admin-menu__content {
+    padding: 24px;
+  }
+  .admin-menu__pane h2 {
+    font-size: 20px;
+  }
+  .flats-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+@media (max-width: 425px) {
+  .admin-menu__list {
+    flex-direction: column;
+  }
+  .admin-menu__item {
+    width: 100%;
+    text-align: center;
+    border-bottom: none;
+    border-left: 3px solid transparent;
+  }
+  .admin-menu__item--active {
+    border-left-color: #f7b32b;
+    border-bottom-color: transparent;
+  }
+  .admin-menu__content {
+    padding: 20px;
+  }
+  .flats-grid {
+    grid-template-columns: 1fr;
+  }
+}
 /* Адаптивность */
 @media (max-width: 768px) {
   .admin-panel-content {

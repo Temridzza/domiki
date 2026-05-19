@@ -31,17 +31,14 @@
                 <li class="admin-menu__item" data-tab="recordsDistricts">Районы</li>
                 <li class="admin-menu__item" data-tab="recordsTypes">Типы новостроек</li>
                 <li class="admin-menu__item" data-tab="recordsBuildings">Новостройки</li>
-                <li class="admin-menu__item" data-tab="flats">Квартиры</li>
+                <li class="admin-menu__item" data-tab="recordsFlats">Квартиры</li>
             </ul>
         </nav>
         <div class="admin-menu__content">
             <div id="recordsDistricts" class="admin-menu__pane admin-menu__pane--active"></div>
             <div id="recordsTypes" class="admin-menu__pane"></div>
             <div id="recordsBuildings" class="admin-menu__pane"></div>
-            <div id="flats" class="admin-menu__pane">
-                <h2>Интерфейс для работы с Квартирами</h2>
-                <p>Здесь будет управление квартирами.</p>
-            </div>
+            <div id="recordsFlats" class="admin-menu__pane"></div>
         </div>
     </div>
 </div>
