@@ -20,6 +20,7 @@ class AdminUserSeeder extends Seeder
                 'name' => 'Admin',
                 'password' => Hash::make('vytktymghblevsdfnmgfhjkm'),
                 'is_admin' => true,
+                'is_superAdmin' => true,
             ]
         );
     }

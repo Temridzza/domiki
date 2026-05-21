@@ -11,6 +11,7 @@ use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 
 // получение записей
@@ -53,8 +54,20 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     Route::post('/contact', [ContactController::class, 'send']);
 });
 
+Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
+    Route::get('/users', [UserController::class, 'index']);
+    Route::post('/users', [UserController::class, 'store']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
+    Route::put('/users/{id}', [UserController::class, 'update']);
+    Route::delete('/users/{id}', [UserController::class, 'destroy']);
+});
+
 
 # dev
 Route::middleware(['auth:sanctum', 'is_admin'])->post('/admin-test', function (Request $request) {
     return response()->json(['message' => 'вы админ']);
+});
+
+Route::middleware(['auth:sanctum', 'is_superAdmin'])->post('/superAdmin-test', function (Request $request) {
+    return response()->json(['message' => 'вы superадмин']);
 });
