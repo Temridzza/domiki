@@ -742,6 +742,117 @@
                 }
             }
         },
+        "/api/catalog": {
+            "get": {
+                "tags": [
+                    "Districts"
+                ],
+                "summary": "Получить районы с новостройками",
+                "operationId": "ddb67df8b53b2018b6627e3c6f062533",
+                "responses": {
+                    "200": {
+                        "description": "Список районов с новостройками",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Центральный"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "central"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Описание района"
+                                                    },
+                                                    "advantages": {
+                                                        "type": "string",
+                                                        "example": "Инфраструктура, транспорт"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "districts/image.png"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2026-04-10 12:00:00"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2026-04-10 12:00:00"
+                                                    },
+                                                    "new_buildings": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
+                                                                "title": {
+                                                                    "type": "string",
+                                                                    "example": "ЖК Парус"
+                                                                },
+                                                                "slug": {
+                                                                    "type": "string",
+                                                                    "example": "jk-parus"
+                                                                },
+                                                                "description": {
+                                                                    "type": "string",
+                                                                    "example": "Современный жилой комплекс"
+                                                                },
+                                                                "price_from": {
+                                                                    "type": "integer",
+                                                                    "example": 4500000
+                                                                },
+                                                                "image": {
+                                                                    "type": "string",
+                                                                    "example": "buildings/parus.png"
+                                                                },
+                                                                "district_id": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
+                                                                "created_at": {
+                                                                    "type": "string",
+                                                                    "example": "2026-04-10 12:00:00"
+                                                                },
+                                                                "updated_at": {
+                                                                    "type": "string",
+                                                                    "example": "2026-04-10 12:00:00"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/districts": {
             "get": {
                 "tags": [

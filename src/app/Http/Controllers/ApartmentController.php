@@ -19,21 +19,29 @@ class ApartmentController extends Controller
      *
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             required={"apartment_type_id","floor","entrance","number"},
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 required={"apartment_type_id","floor","entrance","number"},
      *
-     *             @OA\Property(property="apartment_type_id", type="integer", example=1),
-     *             @OA\Property(property="floor", type="integer", example=5),
-     *             @OA\Property(property="entrance", type="integer", example=2),
-     *             @OA\Property(property="number", type="string", example="45A"),
+     *                 @OA\Property(property="apartment_type_id", type="integer", example=1),
+     *                 @OA\Property(property="floor", type="integer", example=5),
+     *                 @OA\Property(property="entrance", type="integer", example=2),
+     *                 @OA\Property(property="number", type="string", example="45A"),
+     *                 @OA\Property(property="price", type="integer", example=120000, nullable=true),
      *
-     *             @OA\Property(property="price", type="integer", example=120000, nullable=true),
+     *                 @OA\Property(
+     *                     property="status",
+     *                     type="string",
+     *                     enum={"available","reserved","sold"},
+     *                     example="available"
+     *                 ),
      *
-     *             @OA\Property(
-     *                 property="status",
-     *                 type="string",
-     *                 enum={"available","reserved","sold"},
-     *                 example="available"
+     *                 @OA\Property(
+     *                     property="layout_image",
+     *                     type="string",
+     *                     format="binary"
+     *                 )
      *             )
      *         )
      *     ),
@@ -52,7 +60,8 @@ class ApartmentController extends Controller
      *                 @OA\Property(property="entrance", type="integer", example=2),
      *                 @OA\Property(property="number", type="string", example="45A"),
      *                 @OA\Property(property="price", type="integer", example=120000),
-     *                 @OA\Property(property="status", type="string", example="available")
+     *                 @OA\Property(property="status", type="string", example="available"),
+     *                 @OA\Property(property="layout_image", type="string", example="apartments/image.png")
      *             )
      *         )
      *     ),
@@ -70,7 +79,6 @@ class ApartmentController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        // 1. Валидация
         $data = $request->validate([
             'apartment_type_id' => 'required|exists:apartment_types,id',
 
@@ -81,17 +89,21 @@ class ApartmentController extends Controller
             'price' => 'nullable|integer|min:0',
 
             'status' => 'nullable|in:available,reserved,sold',
+
+            'layout_image' => 'nullable|image|max:2048',
         ]);
 
-        // 2. Получаем тип квартиры
         $apartmentType = ApartmentType::findOrFail($data['apartment_type_id']);
 
-        // 3. Если цена не указана — берём базовую
         if (!isset($data['price'])) {
             $data['price'] = $apartmentType->base_price;
         }
 
-        // 4. Создание квартиры
+        if ($request->hasFile('layout_image')) {
+            $data['layout_image'] = $request->file('layout_image')
+                ->store('apartments', 'public');
+        }
+
         $apartment = Apartment::create($data);
 
         return response()->json([
@@ -180,7 +192,8 @@ class ApartmentController extends Controller
      *                     @OA\Property(property="entrance", type="integer", example=2),
      *                     @OA\Property(property="number", type="string", example="45A"),
      *                     @OA\Property(property="price", type="integer", example=120000),
-     *                     @OA\Property(property="status", type="string", example="available")
+     *                     @OA\Property(property="status", type="string", example="available"),
+     *                     @OA\Property(property="layout_image", type="string", example="apartments/image.png")
      *                 )
      *             )
      *         )
@@ -194,12 +207,10 @@ class ApartmentController extends Controller
      */
     public function indexByType(Request $request, int $apartmentTypeId)
     {
-        // проверим, что тип существует
-        $type = \App\Models\ApartmentType::findOrFail($apartmentTypeId);
+        $type = ApartmentType::findOrFail($apartmentTypeId);
 
-        $query = \App\Models\Apartment::where('apartment_type_id', $apartmentTypeId);
+        $query = Apartment::where('apartment_type_id', $apartmentTypeId);
 
-        // 🔍 фильтры (по желанию)
         if ($request->has('status')) {
             $query->where('status', $request->status);
         }
@@ -216,7 +227,6 @@ class ApartmentController extends Controller
             $query->where('price', '<=', $request->max_price);
         }
 
-        // сортировка (например по цене)
         if ($request->has('sort')) {
             $direction = $request->get('direction', 'asc');
             $query->orderBy($request->sort, $direction);
@@ -249,15 +259,18 @@ class ApartmentController extends Controller
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
      *             @OA\Schema(
-     *                 required={"_method"},
-     *
-     *                 @OA\Property(property="_method", type="string", example="PUT"),
      *                 @OA\Property(property="apartment_type_id", type="integer", example=1),
      *                 @OA\Property(property="floor", type="integer", example=5),
      *                 @OA\Property(property="entrance", type="integer", example=2),
      *                 @OA\Property(property="number", type="string", example="45A"),
      *                 @OA\Property(property="price", type="integer", example=5500000),
-     *                 @OA\Property(property="status", type="string", example="available")
+     *                 @OA\Property(property="status", type="string", example="available"),
+     *
+     *                 @OA\Property(
+     *                     property="layout_image",
+     *                     type="string",
+     *                     format="binary"
+     *                 )
      *             )
      *         )
      *     ),
@@ -273,7 +286,8 @@ class ApartmentController extends Controller
      *                 @OA\Property(property="id", type="integer", example=1),
      *                 @OA\Property(property="floor", type="integer", example=5),
      *                 @OA\Property(property="price", type="integer", example=5500000),
-     *                 @OA\Property(property="status", type="string", example="available")
+     *                 @OA\Property(property="status", type="string", example="available"),
+     *                 @OA\Property(property="layout_image", type="string", example="apartments/image.png")
      *             )
      *         )
      *     ),
@@ -296,7 +310,19 @@ class ApartmentController extends Controller
             'price' => 'nullable|integer|min:0',
 
             'status' => 'sometimes|in:available,reserved,sold',
+
+            'layout_image' => 'nullable|image|max:2048',
         ]);
+
+        if ($request->hasFile('layout_image')) {
+
+            if ($apartment->layout_image) {
+                Storage::disk('public')->delete($apartment->layout_image);
+            }
+
+            $data['layout_image'] = $request->file('layout_image')
+                ->store('apartments', 'public');
+        }
 
         $apartment->update($data);
 
@@ -327,6 +353,10 @@ class ApartmentController extends Controller
     public function destroy($id)
     {
         $apartment = Apartment::findOrFail($id);
+
+        if ($apartment->layout_image) {
+            Storage::disk('public')->delete($apartment->layout_image);
+        }
 
         $apartment->delete();
 

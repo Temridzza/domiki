@@ -9,6 +9,7 @@ use App\Http\Controllers\NewBuildingController;
 use App\Http\Controllers\ApartmentTypeController;
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Controller;
 
 // получение записей
 Route::get('/districts', [DistrictController::class, 'index']);
@@ -16,6 +17,8 @@ Route::get('/new-buildings', [NewBuildingController::class, 'index']);
 Route::get('/districts/{slug}/new-buildings', [NewBuildingController::class, 'byDistrict']);
 Route::get('/buildings/{buildingId}/apartment-types', [ApartmentTypeController::class, 'byBuilding']);
 Route::get('/apartment-types/{id}/apartments', [ApartmentController::class, 'indexByType']);
+
+Route::get('/catalog', [Controller::class, 'districtsWithBuildings']);
 
 // создание записей под админом
 Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {

@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\ApartmentType;
 use Illuminate\Support\Facades\Storage;
 
-
 class ApartmentTypeController extends Controller
 {
     /**
@@ -36,7 +35,6 @@ class ApartmentTypeController extends Controller
      *                 @OA\Property(property="area", type="integer", example=45),
      *                 @OA\Property(property="base_price", type="integer", example=120000),
      *                 @OA\Property(property="rooms", type="integer", example=2),
-     *                 @OA\Property(property="layout_image", type="string", example="layouts/image.png"),
      *
      *                 @OA\Property(
      *                     property="available_count",
@@ -72,23 +70,13 @@ class ApartmentTypeController extends Controller
      *
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\MediaType(
-     *             mediaType="multipart/form-data",
-     *             @OA\Schema(
-     *                 required={"building_id","area","base_price","rooms"},
+     *         @OA\JsonContent(
+     *             required={"building_id","area","base_price","rooms"},
      *
-     *                 @OA\Property(property="building_id", type="integer", example=1),
-     *                 @OA\Property(property="area", type="integer", example=45),
-     *                 @OA\Property(property="base_price", type="integer", example=120000),
-     *                 @OA\Property(property="rooms", type="integer", example=2),
-     *
-     *                 @OA\Property(
-     *                     property="layout_image",
-     *                     type="string",
-     *                     format="binary",
-     *                     description="Планировка квартиры"
-     *                 )
-     *             )
+     *             @OA\Property(property="building_id", type="integer", example=1),
+     *             @OA\Property(property="area", type="integer", example=45),
+     *             @OA\Property(property="base_price", type="integer", example=120000),
+     *             @OA\Property(property="rooms", type="integer", example=2)
      *         )
      *     ),
      *
@@ -101,8 +89,7 @@ class ApartmentTypeController extends Controller
      *             @OA\Property(property="building_id", type="integer", example=1),
      *             @OA\Property(property="area", type="integer", example=45),
      *             @OA\Property(property="base_price", type="integer", example=120000),
-     *             @OA\Property(property="rooms", type="integer", example=2),
-     *             @OA\Property(property="layout_image", type="string", example="layouts/image.png")
+     *             @OA\Property(property="rooms", type="integer", example=2)
      *         )
      *     ),
      *
@@ -120,18 +107,11 @@ class ApartmentTypeController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'building_id'   => 'required|exists:new_buildings,id',
-            'area'          => 'required|integer|min:1',
-            'base_price'    => 'required|integer|min:0',
-            'rooms'         => 'required|integer|min:1',
-            'layout_image'  => 'nullable|image|max:2048',
+            'building_id' => 'required|exists:new_buildings,id',
+            'area' => 'required|integer|min:1',
+            'base_price' => 'required|integer|min:0',
+            'rooms' => 'required|integer|min:1',
         ]);
-
-        // загрузка изображения
-        if ($request->hasFile('layout_image')) {
-            $data['layout_image'] = $request->file('layout_image')
-                ->store('apartmentType', 'public');
-        }
 
         $apartmentType = ApartmentType::create($data);
 
@@ -154,23 +134,11 @@ class ApartmentTypeController extends Controller
      *
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\MediaType(
-     *             mediaType="multipart/form-data",
-     *             @OA\Schema(
-     *                 required={"_method"},
-     *
-     *                 @OA\Property(property="_method", type="string", example="PUT"),
-     *                 @OA\Property(property="building_id", type="integer", example=1),
-     *                 @OA\Property(property="area", type="integer", example=45),
-     *                 @OA\Property(property="base_price", type="integer", example=5000000),
-     *                 @OA\Property(property="rooms", type="integer", example=2),
-     *
-     *                 @OA\Property(
-     *                     property="layout_image",
-     *                     type="string",
-     *                     format="binary"
-     *                 )
-     *             )
+     *         @OA\JsonContent(
+     *             @OA\Property(property="building_id", type="integer", example=1),
+     *             @OA\Property(property="area", type="integer", example=45),
+     *             @OA\Property(property="base_price", type="integer", example=5000000),
+     *             @OA\Property(property="rooms", type="integer", example=2)
      *         )
      *     ),
      *
@@ -187,20 +155,7 @@ class ApartmentTypeController extends Controller
             'area' => 'sometimes|integer|min:1',
             'base_price' => 'sometimes|integer|min:0',
             'rooms' => 'sometimes|integer|min:0',
-
-            'layout_image' => 'nullable|image|max:2048',
         ]);
-
-        // 🏠 Обновление планировки
-        if ($request->hasFile('layout_image')) {
-
-            if ($type->layout_image && $type->layout_image !== 'default.png') {
-                Storage::disk('public')->delete($type->layout_image);
-            }
-
-            $data['layout_image'] = $request->file('layout_image')
-                ->store('apartment-types', 'public');
-        }
 
         $type->update($data);
 
@@ -231,11 +186,6 @@ class ApartmentTypeController extends Controller
     public function destroy($id)
     {
         $type = ApartmentType::findOrFail($id);
-
-        // удаляем планировку
-        if ($type->layout_image && $type->layout_image !== 'default.png') {
-            Storage::disk('public')->delete($type->layout_image);
-        }
 
         $type->delete();
 

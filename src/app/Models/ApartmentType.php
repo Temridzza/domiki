@@ -14,7 +14,6 @@ class ApartmentType extends Model
         'area',
         'base_price',
         'rooms',
-        'layout_image',
     ];
 
     public function building()
