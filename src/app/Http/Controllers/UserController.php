@@ -8,6 +8,18 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/api/users",
+     *     tags={"Users"},
+     *     summary="Получить список пользователей",
+     *     security={{"sanctum":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Список пользователей"
+     *     )
+     * )
+     */
     public function index()
     {
         return response()->json([
@@ -15,6 +27,33 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/users",
+     *     tags={"Users"},
+     *     summary="Создать пользователя",
+     *     security={{"sanctum":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"name","email","password"},
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="password", type="string"),
+     *             @OA\Property(property="is_admin", type="boolean"),
+     *             @OA\Property(property="is_superAdmin", type="boolean")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Пользователь создан"
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Ошибка валидации"
+     *     )
+     * )
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -46,6 +85,29 @@ class UserController extends Controller
         ]);
     }
 
+
+    /**
+     * @OA\Get(
+     *     path="/api/users/{id}",
+     *     tags={"Users"},
+     *     summary="Получить пользователя по ID",
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Пользователь найден"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Не найден"
+     *     )
+     * )
+     */
     public function show($id)
     {
         return response()->json([
@@ -53,6 +115,38 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Put(
+     *     path="/api/users/{id}",
+     *     tags={"Users"},
+     *     summary="Обновить пользователя",
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=false,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="password", type="string"),
+     *             @OA\Property(property="is_admin", type="boolean"),
+     *             @OA\Property(property="is_superAdmin", type="boolean")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Пользователь обновлён"
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Нет доступа"
+     *     )
+     * )
+     */
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -98,6 +192,28 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/api/users/{id}",
+     *     tags={"Users"},
+     *     summary="Удалить пользователя",
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Удалён"
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Нет доступа"
+     *     )
+     * )
+     */
     public function destroy(Request $request, $id)
     {
         $user = User::findOrFail($id);
