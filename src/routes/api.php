@@ -9,6 +9,10 @@ use App\Http\Controllers\NewBuildingController;
 use App\Http\Controllers\ApartmentTypeController;
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+
 
 // получение записей
 Route::get('/districts', [DistrictController::class, 'index']);
@@ -16,7 +20,11 @@ Route::get('/new-buildings', [NewBuildingController::class, 'index']);
 Route::get('/districts/{slug}/new-buildings', [NewBuildingController::class, 'byDistrict']);
 Route::get('/buildings/{buildingId}/apartment-types', [ApartmentTypeController::class, 'byBuilding']);
 Route::get('/apartment-types/{id}/apartments', [ApartmentController::class, 'indexByType']);
+// все новостройки
+Route::get('/catalog', [Controller::class, 'districtsWithBuildings']);
 
+// авторизация
+Route::post('/login', [AuthController::class, 'login']);
 // создание записей под админом
 Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     Route::post('/districts', [DistrictController::class, 'store']); 
@@ -46,8 +54,20 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     Route::post('/contact', [ContactController::class, 'send']);
 });
 
+Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
+    Route::get('/users', [UserController::class, 'index']);
+    Route::post('/users', [UserController::class, 'store']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
+    Route::put('/users/{id}', [UserController::class, 'update']);
+    Route::delete('/users/{id}', [UserController::class, 'destroy']);
+});
+
 
 # dev
 Route::middleware(['auth:sanctum', 'is_admin'])->post('/admin-test', function (Request $request) {
     return response()->json(['message' => 'вы админ']);
+});
+
+Route::middleware(['auth:sanctum', 'is_superAdmin'])->post('/superAdmin-test', function (Request $request) {
+    return response()->json(['message' => 'вы superадмин']);
 });

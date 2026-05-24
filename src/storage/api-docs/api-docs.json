@@ -15,7 +15,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "required": [
                                     "apartment_type_id",
@@ -53,6 +53,10 @@
                                             "sold"
                                         ],
                                         "example": "available"
+                                    },
+                                    "layout_image": {
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -100,6 +104,10 @@
                                                 "status": {
                                                     "type": "string",
                                                     "example": "available"
+                                                },
+                                                "layout_image": {
+                                                    "type": "string",
+                                                    "example": "apartments/image.png"
                                                 }
                                             },
                                             "type": "object"
@@ -253,6 +261,10 @@
                                                     "status": {
                                                         "type": "string",
                                                         "example": "available"
+                                                    },
+                                                    "layout_image": {
+                                                        "type": "string",
+                                                        "example": "apartments/image.png"
                                                     }
                                                 },
                                                 "type": "object"
@@ -293,14 +305,7 @@
                     "content": {
                         "multipart/form-data": {
                             "schema": {
-                                "required": [
-                                    "_method"
-                                ],
                                 "properties": {
-                                    "_method": {
-                                        "type": "string",
-                                        "example": "PUT"
-                                    },
                                     "apartment_type_id": {
                                         "type": "integer",
                                         "example": 1
@@ -324,6 +329,10 @@
                                     "status": {
                                         "type": "string",
                                         "example": "available"
+                                    },
+                                    "layout_image": {
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -359,6 +368,10 @@
                                                 "status": {
                                                     "type": "string",
                                                     "example": "available"
+                                                },
+                                                "layout_image": {
+                                                    "type": "string",
+                                                    "example": "apartments/image.png"
                                                 }
                                             },
                                             "type": "object"
@@ -421,7 +434,7 @@
                 "tags": [
                     "ApartmentTypes"
                 ],
-                "summary": "Получить типы квартир по зданию (только с доступными квартирами)",
+                "summary": "Получить типы квартир по зданию",
                 "operationId": "2a593bacdf070ffaf7946307c8cca8e4",
                 "parameters": [
                     {
@@ -464,14 +477,16 @@
                                                 "type": "integer",
                                                 "example": 2
                                             },
-                                            "layout_image": {
-                                                "type": "string",
-                                                "example": "layouts/image.png"
-                                            },
                                             "available_count": {
-                                                "description": "Количество доступных квартир",
                                                 "type": "integer",
                                                 "example": 5
+                                            },
+                                            "layouts": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string",
+                                                    "example": "/storage/layouts/plan1.png"
+                                                }
                                             }
                                         },
                                         "type": "object"
@@ -488,12 +503,12 @@
                 "tags": [
                     "ApartmentTypes"
                 ],
-                "summary": "Создать тип квартиры (только админ)",
+                "summary": "Создать тип квартиры",
                 "operationId": "22a3b9ce277490f7eaae804b1c238961",
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "multipart/form-data": {
+                        "application/json": {
                             "schema": {
                                 "required": [
                                     "building_id",
@@ -517,11 +532,6 @@
                                     "rooms": {
                                         "type": "integer",
                                         "example": 2
-                                    },
-                                    "layout_image": {
-                                        "description": "Планировка квартиры",
-                                        "type": "string",
-                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -531,46 +541,10 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Тип квартиры создан",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "building_id": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "area": {
-                                            "type": "integer",
-                                            "example": 45
-                                        },
-                                        "base_price": {
-                                            "type": "integer",
-                                            "example": 120000
-                                        },
-                                        "rooms": {
-                                            "type": "integer",
-                                            "example": 2
-                                        },
-                                        "layout_image": {
-                                            "type": "string",
-                                            "example": "layouts/image.png"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
+                        "description": "Тип квартиры создан"
                     },
                     "422": {
                         "description": "Ошибка валидации"
-                    },
-                    "401": {
-                        "description": "Не авторизован"
                     }
                 },
                 "security": [
@@ -585,7 +559,7 @@
                 "tags": [
                     "ApartmentTypes"
                 ],
-                "summary": "Обновить тип квартиры (только админ)",
+                "summary": "Обновить тип квартиры",
                 "operationId": "975196d020c60c47d3b981f6987124f8",
                 "parameters": [
                     {
@@ -600,16 +574,9 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "multipart/form-data": {
+                        "application/json": {
                             "schema": {
-                                "required": [
-                                    "_method"
-                                ],
                                 "properties": {
-                                    "_method": {
-                                        "type": "string",
-                                        "example": "PUT"
-                                    },
                                     "building_id": {
                                         "type": "integer",
                                         "example": 1
@@ -625,10 +592,6 @@
                                     "rooms": {
                                         "type": "integer",
                                         "example": 2
-                                    },
-                                    "layout_image": {
-                                        "type": "string",
-                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -654,7 +617,7 @@
                 "tags": [
                     "ApartmentTypes"
                 ],
-                "summary": "Удалить тип квартиры (только админ)",
+                "summary": "Удалить тип квартиры",
                 "operationId": "0049b76deaa400a7df912e79bc7fbf3b",
                 "parameters": [
                     {
@@ -679,6 +642,112 @@
                         "sanctum": []
                     }
                 ]
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Авторизация администратора",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "email@com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успешная авторизация",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "1|asdasdasdasd"
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Admin"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "admin@example.com"
+                                                },
+                                                "is_admin": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Неверный логин или пароль",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Неверный логин или пароль"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Нет доступа",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Нет доступа"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/api/contact": {
@@ -738,6 +807,117 @@
                     },
                     "422": {
                         "description": "Ошибка валидации"
+                    }
+                }
+            }
+        },
+        "/api/catalog": {
+            "get": {
+                "tags": [
+                    "Districts"
+                ],
+                "summary": "Получить районы с новостройками",
+                "operationId": "ddb67df8b53b2018b6627e3c6f062533",
+                "responses": {
+                    "200": {
+                        "description": "Список районов с новостройками",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Центральный"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "central"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Описание района"
+                                                    },
+                                                    "advantages": {
+                                                        "type": "string",
+                                                        "example": "Инфраструктура, транспорт"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "districts/image.png"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2026-04-10 12:00:00"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2026-04-10 12:00:00"
+                                                    },
+                                                    "new_buildings": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
+                                                                "title": {
+                                                                    "type": "string",
+                                                                    "example": "ЖК Парус"
+                                                                },
+                                                                "slug": {
+                                                                    "type": "string",
+                                                                    "example": "jk-parus"
+                                                                },
+                                                                "description": {
+                                                                    "type": "string",
+                                                                    "example": "Современный жилой комплекс"
+                                                                },
+                                                                "price_from": {
+                                                                    "type": "integer",
+                                                                    "example": 4500000
+                                                                },
+                                                                "image": {
+                                                                    "type": "string",
+                                                                    "example": "buildings/parus.png"
+                                                                },
+                                                                "district_id": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
+                                                                "created_at": {
+                                                                    "type": "string",
+                                                                    "example": "2026-04-10 12:00:00"
+                                                                },
+                                                                "updated_at": {
+                                                                    "type": "string",
+                                                                    "example": "2026-04-10 12:00:00"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -1358,6 +1538,196 @@
                     }
                 ]
             }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Получить список пользователей",
+                "operationId": "c457726701591d1183b53aa71fc13441",
+                "responses": {
+                    "200": {
+                        "description": "Список пользователей"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Создать пользователя",
+                "operationId": "592819a0265360b2014512d6dbfaf0e7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "is_admin": {
+                                        "type": "boolean"
+                                    },
+                                    "is_superAdmin": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Пользователь создан"
+                    },
+                    "422": {
+                        "description": "Ошибка валидации"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Получить пользователя по ID",
+                "operationId": "36a33ff774d5cba33c039dec2c3e0287",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Пользователь найден"
+                    },
+                    "404": {
+                        "description": "Не найден"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Обновить пользователя",
+                "operationId": "b9091397c8b25f12c6adb74be6ce3a5a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "is_admin": {
+                                        "type": "boolean"
+                                    },
+                                    "is_superAdmin": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Пользователь обновлён"
+                    },
+                    "403": {
+                        "description": "Нет доступа"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Удалить пользователя",
+                "operationId": "fa56cffde745d3f152f95cbacd936c0b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Удалён"
+                    },
+                    "403": {
+                        "description": "Нет доступа"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
         }
     },
     "tags": [
@@ -1370,6 +1740,10 @@
             "description": "ApartmentTypes"
         },
         {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
             "name": "Contact",
             "description": "Contact"
         },
@@ -1380,6 +1754,10 @@
         {
             "name": "NewBuildings",
             "description": "NewBuildings"
+        },
+        {
+            "name": "Users",
+            "description": "Users"
         }
     ]
 }

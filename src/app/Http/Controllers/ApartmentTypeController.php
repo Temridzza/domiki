@@ -6,13 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\ApartmentType;
 use Illuminate\Support\Facades\Storage;
 
-
 class ApartmentTypeController extends Controller
 {
     /**
      * @OA\Get(
      *     path="/api/buildings/{buildingId}/apartment-types",
-     *     summary="Получить типы квартир по зданию (только с доступными квартирами)",
+     *     summary="Получить типы квартир по зданию",
      *     tags={"ApartmentTypes"},
      *
      *     @OA\Parameter(
@@ -36,13 +35,17 @@ class ApartmentTypeController extends Controller
      *                 @OA\Property(property="area", type="integer", example=45),
      *                 @OA\Property(property="base_price", type="integer", example=120000),
      *                 @OA\Property(property="rooms", type="integer", example=2),
-     *                 @OA\Property(property="layout_image", type="string", example="layouts/image.png"),
      *
      *                 @OA\Property(
      *                     property="available_count",
      *                     type="integer",
-     *                     example=5,
-     *                     description="Количество доступных квартир"
+     *                     example=5
+     *                 ),
+     *
+     *                 @OA\Property(
+     *                     property="layouts",
+     *                     type="array",
+     *                     @OA\Items(type="string", example="/storage/layouts/plan1.png")
      *                 )
      *             )
      *         )
@@ -51,87 +54,87 @@ class ApartmentTypeController extends Controller
      */
     public function byBuilding($buildingId)
     {
-        return ApartmentType::where('building_id', $buildingId)
+        $types = ApartmentType::where('building_id', $buildingId)
             ->whereHas('apartments', function ($q) {
                 $q->where('status', 'available');
             })
+            ->with([
+                'apartments' => function ($q) {
+                    $q->where('status', 'available')
+                        ->select(
+                            'id',
+                            'apartment_type_id',
+                            'layout_image'
+                        );
+                }
+            ])
             ->withCount([
                 'apartments as available_count' => function ($q) {
                     $q->where('status', 'available');
                 }
             ])
             ->get();
+
+        $result = $types->map(function ($type) {
+            return [
+                'id' => $type->id,
+                'building_id' => $type->building_id,
+                'area' => $type->area,
+                'base_price' => $type->base_price,
+                'rooms' => $type->rooms,
+
+                'available_count' => $type->available_count,
+
+                // все уникальные планировки из apartments
+                'layouts' => $type->apartments
+                    ->pluck('layout_image')
+                    ->filter()
+                    ->unique()
+                    ->values(),
+            ];
+        });
+
+        return response()->json($result);
     }
 
     /**
      * @OA\Post(
      *     path="/api/apartment-types",
-     *     summary="Создать тип квартиры (только админ)",
+     *     summary="Создать тип квартиры",
      *     tags={"ApartmentTypes"},
      *     security={{"sanctum":{}}},
      *
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\MediaType(
-     *             mediaType="multipart/form-data",
-     *             @OA\Schema(
-     *                 required={"building_id","area","base_price","rooms"},
+     *         @OA\JsonContent(
+     *             required={"building_id","area","base_price","rooms"},
      *
-     *                 @OA\Property(property="building_id", type="integer", example=1),
-     *                 @OA\Property(property="area", type="integer", example=45),
-     *                 @OA\Property(property="base_price", type="integer", example=120000),
-     *                 @OA\Property(property="rooms", type="integer", example=2),
-     *
-     *                 @OA\Property(
-     *                     property="layout_image",
-     *                     type="string",
-     *                     format="binary",
-     *                     description="Планировка квартиры"
-     *                 )
-     *             )
+     *             @OA\Property(property="building_id", type="integer", example=1),
+     *             @OA\Property(property="area", type="integer", example=45),
+     *             @OA\Property(property="base_price", type="integer", example=120000),
+     *             @OA\Property(property="rooms", type="integer", example=2)
      *         )
      *     ),
      *
      *     @OA\Response(
      *         response=201,
-     *         description="Тип квартиры создан",
-     *         @OA\JsonContent(
-     *             type="object",
-     *             @OA\Property(property="id", type="integer", example=1),
-     *             @OA\Property(property="building_id", type="integer", example=1),
-     *             @OA\Property(property="area", type="integer", example=45),
-     *             @OA\Property(property="base_price", type="integer", example=120000),
-     *             @OA\Property(property="rooms", type="integer", example=2),
-     *             @OA\Property(property="layout_image", type="string", example="layouts/image.png")
-     *         )
+     *         description="Тип квартиры создан"
      *     ),
      *
      *     @OA\Response(
      *         response=422,
      *         description="Ошибка валидации"
-     *     ),
-     *
-     *     @OA\Response(
-     *         response=401,
-     *         description="Не авторизован"
      *     )
      * )
      */
     public function store(Request $request)
     {
         $data = $request->validate([
-            'building_id'   => 'required|exists:new_buildings,id',
-            'area'          => 'required|integer|min:1',
-            'base_price'    => 'required|integer|min:0',
-            'rooms'         => 'required|integer|min:1',
-            'layout_image'  => 'nullable|image|max:2048',
+            'building_id' => 'required|exists:new_buildings,id',
+            'area' => 'required|integer|min:1',
+            'base_price' => 'required|integer|min:0',
+            'rooms' => 'required|integer|min:1',
         ]);
-
-        // загрузка изображения
-        if ($request->hasFile('layout_image')) {
-            $data['layout_image'] = $request->file('layout_image')
-                ->store('apartmentType', 'public');
-        }
 
         $apartmentType = ApartmentType::create($data);
 
@@ -141,7 +144,7 @@ class ApartmentTypeController extends Controller
     /**
      * @OA\Post(
      *     path="/api/apartment-types/{id}",
-     *     summary="Обновить тип квартиры (только админ)",
+     *     summary="Обновить тип квартиры",
      *     tags={"ApartmentTypes"},
      *     security={{"sanctum":{}}},
      *
@@ -154,23 +157,11 @@ class ApartmentTypeController extends Controller
      *
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\MediaType(
-     *             mediaType="multipart/form-data",
-     *             @OA\Schema(
-     *                 required={"_method"},
-     *
-     *                 @OA\Property(property="_method", type="string", example="PUT"),
-     *                 @OA\Property(property="building_id", type="integer", example=1),
-     *                 @OA\Property(property="area", type="integer", example=45),
-     *                 @OA\Property(property="base_price", type="integer", example=5000000),
-     *                 @OA\Property(property="rooms", type="integer", example=2),
-     *
-     *                 @OA\Property(
-     *                     property="layout_image",
-     *                     type="string",
-     *                     format="binary"
-     *                 )
-     *             )
+     *         @OA\JsonContent(
+     *             @OA\Property(property="building_id", type="integer", example=1),
+     *             @OA\Property(property="area", type="integer", example=45),
+     *             @OA\Property(property="base_price", type="integer", example=5000000),
+     *             @OA\Property(property="rooms", type="integer", example=2)
      *         )
      *     ),
      *
@@ -187,20 +178,7 @@ class ApartmentTypeController extends Controller
             'area' => 'sometimes|integer|min:1',
             'base_price' => 'sometimes|integer|min:0',
             'rooms' => 'sometimes|integer|min:0',
-
-            'layout_image' => 'nullable|image|max:2048',
         ]);
-
-        // 🏠 Обновление планировки
-        if ($request->hasFile('layout_image')) {
-
-            if ($type->layout_image && $type->layout_image !== 'default.png') {
-                Storage::disk('public')->delete($type->layout_image);
-            }
-
-            $data['layout_image'] = $request->file('layout_image')
-                ->store('apartment-types', 'public');
-        }
 
         $type->update($data);
 
@@ -213,7 +191,7 @@ class ApartmentTypeController extends Controller
     /**
      * @OA\Delete(
      *     path="/api/apartment-types/{id}",
-     *     summary="Удалить тип квартиры (только админ)",
+     *     summary="Удалить тип квартиры",
      *     tags={"ApartmentTypes"},
      *     security={{"sanctum":{}}},
      *
@@ -231,11 +209,6 @@ class ApartmentTypeController extends Controller
     public function destroy($id)
     {
         $type = ApartmentType::findOrFail($id);
-
-        // удаляем планировку
-        if ($type->layout_image && $type->layout_image !== 'default.png') {
-            Storage::disk('public')->delete($type->layout_image);
-        }
 
         $type->delete();
 

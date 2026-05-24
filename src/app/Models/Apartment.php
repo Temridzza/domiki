@@ -16,6 +16,7 @@ class Apartment extends Model
         'number',
         'price',
         'status',
+        'layout_image',
     ];
 
     public function type()
