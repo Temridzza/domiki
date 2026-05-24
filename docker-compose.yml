@@ -1,10 +1,9 @@
-#docker-compose.yml
 version: "3.9"
 
 services:
   app:
     build: .
-    container_name: laravel_app
+    container_name: laravel_web
     ports:
       - "8080:80"
     volumes:
@@ -14,7 +13,7 @@ services:
 
   db:
     image: mysql:8.0
-    container_name: laravel_db
+    container_name: laravel_database
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpass

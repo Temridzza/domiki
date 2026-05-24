@@ -1,0 +1,190 @@
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+@use 'sass:color';
+
+/* ===== Блок login (оверлей) ===== */
+.login {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 26, 36, 0.85);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    @include flex-center;
+    @include fade-in;
+}
+
+.login__container {
+    width: 100%;
+    max-width: 480px;
+    padding: 20px;
+}
+
+.login__card {
+    background: $main-color-white;
+    border-radius: $border-radius-card;
+    padding: 40px 32px;
+    text-align: center;
+    box-shadow: $shadow-md;
+    transition: box-shadow $transition-normal;
+
+    &:hover {
+        transform: none;
+        box-shadow: $shadow-md;
+    }
+}
+
+.login__icon {
+    font-size: 56px;
+    color: $color-accent;
+    margin-bottom: 16px;
+
+    i {
+        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    }
+}
+
+.login__title {
+    font-size: 28px;
+    font-weight: 700;
+    color: $main-color-dark;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+}
+
+.login__description {
+    font-size: 15px;
+    color: $color-text-muted;
+    margin-bottom: 28px;
+    line-height: 1.4;
+}
+
+.login__input {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 16px;
+    font-family: inherit;
+    background-color: $main-color-yellow;
+    border: 1px solid $color-border-silvery;
+    border-radius: $border-radius-md;
+    transition: all $transition-fast;
+    margin-bottom: 20px;
+    cursor: text;
+
+    &:focus {
+        outline: none;
+        border-color: $color-accent;
+        box-shadow: 0 0 0 3px rgba($color-accent, 0.2);
+        cursor: text;
+    }
+
+    &::placeholder {
+        color: color.adjust($color-text-muted, $lightness: 20%);
+        font-weight: 400;
+    }
+}
+
+.login__error {
+    font-size: 14px;
+    color: $color-error;
+    background: rgba($color-error, 0.1);
+    padding: 10px 12px;
+    border-radius: $border-radius-md;
+    margin-bottom: 20px;
+    text-align: left;
+
+    &--hidden {
+        display: none;
+    }
+}
+
+.login__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 16px;
+    font-weight: $btn-font-weight;
+    letter-spacing: $btn-letter-spacing;
+    border: none;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    i {
+        font-size: 16px;
+    }
+
+    &--primary {
+        background: linear-gradient(135deg, $main-color-dark, color.adjust($main-color-dark, $lightness: -8%));
+        color: $color-text-light;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+            background: linear-gradient(135deg, color.adjust($main-color-dark, $lightness: -4%), color.adjust($main-color-dark, $lightness: -12%));
+            transform: none;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        &:active {
+            transform: translateY(1px);
+        }
+    }
+}
+
+/* Адаптивность */
+@include tablet {
+    .login__container {
+        max-width: 90%;
+        padding: 16px;
+    }
+
+    .login__card {
+        padding: 32px 24px;
+    }
+
+    .login__title {
+        font-size: 24px;
+    }
+
+    .login__description {
+        font-size: 14px;
+    }
+
+    .login__input,
+    .login__button {
+        padding: 12px 16px;
+    }
+}
+
+@include mobile-l {
+    .login__card {
+        padding: 28px 20px;
+    }
+
+    .login__title {
+        font-size: 22px;
+    }
+
+    .login__icon {
+        font-size: 48px;
+    }
+}
+
+@include mobile-s {
+    .login__container {
+        padding: 12px;
+    }
+
+    .login__card {
+        padding: 24px 16px;
+    }
+
+    .login__title {
+        font-size: 20px;
+    }
+}

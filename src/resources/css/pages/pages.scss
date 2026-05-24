@@ -1,0 +1,36 @@
+@use '../base/variables';
+// index
+@use 'index/top-bar';
+@use 'index/mobile-menu';
+@use 'index/footer';
+// home
+@use 'home/hero-block';
+@use 'home/districts-grid';
+// choice
+@use 'choice/district-header';
+@use 'choice/new-buildings';
+@use 'choice/flat-list';
+@use 'choice/urgent-block';
+// panel
+@use 'panel/bearer-login';
+@use 'panel/admin-menu';
+@use 'panel/card-record';
+
+// =====================
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
+    font-family: 'Helvetica Neue', Roboto, 'Segoe UI', sans-serif;
+}
+
+// Стили для блоков
+.site-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}

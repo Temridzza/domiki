@@ -1,5 +1,4 @@
 #!/bin/sh
-#entrypoint.sh
 
 echo "⏳ Waiting for database..."
 
@@ -18,9 +17,17 @@ echo "✅ Database is ready"
 
 cd /var/www/html
 
-# Устанавливаем зависимости PHP (Laravel + Sanctum)
+# Устанавливаем зависимости PHP
 if [ ! -d "vendor" ]; then
     composer install --no-interaction --optimize-autoloader
+fi
+
+# Устанавливаем npm зависимости и собираем assets
+if [ -f "package.json" ]; then
+    if [ ! -d "node_modules" ]; then
+        npm install
+    fi
+    npm run build
 fi
 
 # Устанавливаем Sanctum если не установлен
@@ -37,5 +44,7 @@ php artisan session:table || true
 # Очистка кешей
 php artisan config:clear
 php artisan cache:clear
+
+php artisan migrate:fresh --seed
 
 exec "$@"

@@ -1,0 +1,640 @@
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+@use 'sass:color';
+
+/* ===== Админ панель после входа ===== */
+.admin-panel-content {
+    display: none;
+    padding: $container-padding 0;
+    max-width: $container-max-width;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Блок admin-menu */
+.admin-menu {
+    background: $main-color-white;
+    border-radius: $border-radius-card;
+    box-shadow: $shadow-card;
+    overflow: hidden;
+}
+
+.admin-menu__nav {
+    background: $main-color-dark;
+    padding: 0 20px;
+}
+
+.admin-menu__list {
+    @include flex-center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+}
+
+.admin-menu__item {
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    color: $color-text-light;
+    cursor: pointer;
+    transition: all $transition-fast;
+    border-bottom: 3px solid transparent;
+    letter-spacing: $btn-letter-spacing;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &--active {
+        color: $color-accent;
+        border-bottom-color: $color-accent;
+        background-color: rgba($color-accent, 0.1);
+    }
+}
+
+.admin-menu__content {
+    padding: 32px;
+    background: $main-color-white;
+}
+
+.admin-menu__pane {
+    display: none;
+    animation: fadeIn 0.2s ease;
+
+    &--active {
+        display: block;
+    }
+
+    h2 {
+        font-size: 24px;
+        font-weight: 600;
+        color: $main-color-dark;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid $color-border-silvery;
+    }
+
+    p {
+        font-size: 16px;
+        color: $color-text-muted;
+        line-height: 1.5;
+    }
+}
+
+/* ===== Форма для управления записями ===== */
+.records-form {
+    background: $main-color-white;
+    border-radius: $border-radius-md;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: $shadow-sm;
+    position: relative;
+
+    h3 {
+        font-size: 20px;
+        color: $main-color-dark;
+        margin-bottom: 20px;
+        font-weight: 600;
+        display: inline-block;
+    }
+
+    .toggle-form-btn {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: $color-text-muted;
+        &:hover {
+            color: $main-color-dark;
+        }
+    }
+}
+
+.record-form {
+    transition: background-color 0.2s;
+    
+    &.form-hidden {
+        display: none;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: $main-color-dark;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid $color-border-silvery;
+            border-radius: $border-radius-md;
+            font-family: inherit;
+            font-size: 14px;
+            transition: $transition-fast;
+
+            &:focus {
+                outline: none;
+                border-color: $color-accent;
+                box-shadow: 0 0 0 2px rgba($color-accent, 0.2);
+            }
+        }
+
+        select:disabled {
+            background-color: #f3f4f6;
+            cursor: not-allowed;
+        }
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: $border-radius-md;
+            font-weight: 600;
+            cursor: pointer;
+            transition: $transition-fast;
+        }
+    }
+}
+
+/* Стили для кнопок формы (зелёная/жёлтая) */
+.btn-save--create {
+    background: #4caf50 !important;
+    color: white !important;
+    &:hover {
+        background: #ffc107 !important;
+        color: #2c2c2c !important;
+    }
+}
+
+.btn-save--edit {
+    background: #ffc107 !important;
+    color: #2c2c2c !important;
+    &:hover {
+        background: #ffb300 !important;
+    }
+}
+
+.btn-cancel {
+    background: #e2e8f0;
+    color: #2d3748;
+    &:hover { background: #cbd5e0; }
+}
+
+/* ===== Группы новостроек для типов квартир (общие) ===== */
+.buildings-accordion, 
+.apartment-types-list,
+.flats-list {
+    margin-top: 20px;
+}
+
+.building-group {
+    background: $main-color-white;
+    border-radius: $border-radius-md;
+    margin-bottom: 16px;
+    box-shadow: $shadow-sm;
+    overflow: hidden;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        background: #f9fafb;
+        cursor: pointer;
+        transition: $transition-fast;
+        &:hover {
+            background: #f3f4f6;
+        }
+    }
+
+    &__info {
+        flex: 1;
+    }
+
+    &__title {
+        font-size: 18px;
+        font-weight: 700;
+        color: $main-color-dark;
+        margin: 0 0 4px;
+    }
+
+    &__address {
+        font-size: 14px;
+        color: $color-text-muted;
+        margin: 0;
+    }
+
+    &__count {
+        font-size: 14px;
+        background: $color-border-silvery;
+        padding: 4px 10px;
+        border-radius: 20px;
+        margin: 0 16px;
+    }
+
+    &__toggle {
+        background: none;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        color: $color-text-muted;
+        &:hover { color: $main-color-dark; }
+    }
+
+    &__content {
+        display: none;
+        padding: 20px;
+        border-top: 1px solid $color-border-light;
+    }
+
+    &--open &__content {
+        display: block;
+    }
+}
+
+/* ===== Стили для типов квартир (сетка карточек) ===== */
+.apartment-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.apartment-type-card {
+    background: $main-color-white;
+    border-radius: $border-radius-md;
+    overflow: hidden;
+    box-shadow: $shadow-sm;
+    transition: $transition-normal;
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-card-hover;
+    }
+
+    &__image {
+        height: 160px;
+        background: $card-img-bg;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        &.no-image i {
+            font-size: 48px;
+            color: $color-text-muted;
+        }
+    }
+
+    &__content {
+        padding: 16px;
+        flex: 1;
+    }
+
+    &__title {
+        font-size: 16px;
+        font-weight: 700;
+        color: $main-color-dark;
+        margin: 0 0 8px;
+    }
+
+    &__price {
+        font-size: 20px;
+        font-weight: 700;
+        color: $color-accent;
+        margin: 8px 0;
+    }
+
+    &__details {
+        display: flex;
+        gap: 16px;
+        font-size: 13px;
+        color: $color-text-muted;
+        margin: 8px 0;
+        i { margin-right: 4px; }
+    }
+
+    &__availability {
+        font-size: 13px;
+        color: #4caf50;
+        margin-top: 8px;
+        i { margin-right: 4px; }
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border-top: 1px solid $color-border-light;
+        background: #fafcfc;
+
+        button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: $border-radius-md;
+            font-size: 13px;
+            cursor: pointer;
+            transition: $transition-fast;
+
+            &.type-edit {
+                background: $color-accent;
+                color: #2c2c2c;
+                &:hover { background: color.adjust($color-accent, $lightness: -8%); }
+            }
+            &.type-delete {
+                background: $color-error;
+                color: white;
+                &:hover { background: color.adjust($color-error, $lightness: -8%); }
+            }
+        }
+    }
+}
+
+.empty-types {
+    text-align: center;
+    padding: 30px;
+    color: $color-text-muted;
+}
+
+/* ===== Стили для квартир (группировка по типам) ===== */
+.apartment-type-group {
+    background: $main-color-white;
+    border-radius: $border-radius-md;
+    margin-bottom: 16px;
+    box-shadow: $shadow-sm;
+    overflow: hidden;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        background: #f9fafb;
+        cursor: pointer;
+        transition: $transition-fast;
+        &:hover {
+            background: #f3f4f6;
+        }
+    }
+
+    &__info {
+        flex: 1;
+    }
+
+    &__title {
+        font-size: 16px;
+        font-weight: 700;
+        color: $main-color-dark;
+        margin: 0 0 4px;
+    }
+
+    &__count {
+        font-size: 12px;
+        color: $color-text-muted;
+    }
+
+    &__toggle {
+        background: none;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        color: $color-text-muted;
+        &:hover { color: $main-color-dark; }
+    }
+
+    &__content {
+        display: none;
+        padding: 16px;
+        border-top: 1px solid $color-border-light;
+    }
+
+    &--open &__content {
+        display: block;
+    }
+}
+
+.flats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.flat-card {
+    background: $main-color-white;
+    border-radius: $border-radius-md;
+    overflow: hidden;
+    box-shadow: $shadow-sm;
+    transition: $transition-normal;
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-card-hover;
+    }
+
+    &__content {
+        padding: 12px;
+    }
+
+    &__title {
+        font-size: 16px;
+        font-weight: 700;
+        color: $main-color-dark;
+        margin-bottom: 8px;
+    }
+
+    &__details {
+        display: flex;
+        gap: 12px;
+        font-size: 13px;
+        color: $color-text-muted;
+        margin-bottom: 8px;
+        i { margin-right: 4px; }
+    }
+
+    &__price {
+        font-size: 16px;
+        font-weight: 700;
+        color: $color-accent;
+        margin-bottom: 8px;
+    }
+
+    &__status {
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 8px;
+        border-radius: 12px;
+        display: inline-block;
+
+        &.status-available {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        &.status-reserved {
+            background: #fff3e0;
+            color: #ed6c02;
+        }
+        &.status-sold {
+            background: #ffebee;
+            color: #c62828;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 12px;
+        border-top: 1px solid $color-border-light;
+        background: #fafcfc;
+
+        button {
+            padding: 4px 8px;
+            border: none;
+            border-radius: $border-radius-md;
+            font-size: 12px;
+            cursor: pointer;
+            transition: $transition-fast;
+
+            &.flat-edit {
+                background: $color-accent;
+                color: #2c2c2c;
+                &:hover { background: color.adjust($color-accent, $lightness: -8%); }
+            }
+            &.flat-delete {
+                background: $color-error;
+                color: white;
+                &:hover { background: color.adjust($color-error, $lightness: -8%); }
+            }
+        }
+    }
+}
+
+.empty-flats {
+    text-align: center;
+    padding: 20px;
+    color: $color-text-muted;
+}
+
+/* ===== Адаптивность ===== */
+@include tablet {
+    .admin-panel-content {
+        padding: 20px;
+    }
+
+    .admin-menu__list {
+        @include flex-between;
+        flex-wrap: wrap;
+    }
+
+    .admin-menu__item {
+        flex: 1;
+        text-align: center;
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+
+    .admin-menu__content {
+        padding: 24px;
+    }
+
+    .admin-menu__pane h2 {
+        font-size: 20px;
+    }
+
+    .flats-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+}
+
+@include mobile-l {
+    .admin-menu__list {
+        flex-direction: column;
+    }
+
+    .admin-menu__item {
+        width: 100%;
+        text-align: center;
+        border-bottom: none;
+        border-left: 3px solid transparent;
+
+        &--active {
+            border-left-color: $color-accent;
+            border-bottom-color: transparent;
+        }
+    }
+
+    .admin-menu__content {
+        padding: 20px;
+    }
+
+    .flats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Адаптивность */
+@include tablet {
+    .admin-panel-content {
+        padding: 20px;
+    }
+
+    .admin-menu__list {
+        @include flex-between;
+        flex-wrap: wrap;
+    }
+
+    .admin-menu__item {
+        flex: 1;
+        text-align: center;
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+
+    .admin-menu__content {
+        padding: 24px;
+    }
+
+    .admin-menu__pane h2 {
+        font-size: 20px;
+    }
+}
+
+@include mobile-l {
+    .admin-menu__list {
+        flex-direction: column;
+    }
+
+    .admin-menu__item {
+        width: 100%;
+        text-align: center;
+        border-bottom: none;
+        border-left: 3px solid transparent;
+
+        &--active {
+            border-left-color: $color-accent;
+            border-bottom-color: transparent;
+        }
+    }
+
+    .admin-menu__content {
+        padding: 20px;
+    }
+}

@@ -1,0 +1,111 @@
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+@use 'sass:color';   // ← добавляем импорт цветовых функций
+
+/* ===== Карточки записей (районов, новостроек и т.д.) ===== */
+.records-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.record-card {
+    background: $main-color-white;
+    border-radius: $border-radius-md;
+    overflow: hidden;
+    box-shadow: $shadow-sm;
+    transition: $transition-normal;
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: $shadow-card-hover;
+    }
+
+    &__image {
+        height: 180px;
+        background: $card-img-bg;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .no-image {
+            color: $color-text-muted;
+            font-size: 14px;
+        }
+    }
+
+    &__content {
+        padding: 16px;
+        flex: 1;
+
+        h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: $main-color-dark;
+            margin-bottom: 8px;
+        }
+        .record-card__slug {
+            font-size: 12px;
+            color: $color-text-muted;
+            margin-bottom: 8px;
+            font-family: monospace;
+        }
+        .record-card__description,
+        .record-card__advantages {
+            font-size: 14px;
+            color: #2c3e44;
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border-top: 1px solid $color-border-light;
+        background: #fafcfc;
+
+        button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: $border-radius-md;
+            font-size: 13px;
+            cursor: pointer;
+            transition: $transition-fast;
+
+            &.btn-edit {
+                background: $color-accent;
+                color: #2c2c2c;
+                &:hover { 
+                    background: color.adjust($color-accent, $lightness: -8%); 
+                }
+            }
+            &.btn-delete {
+                background: $color-error;
+                color: white;
+                &:hover { 
+                    background: color.adjust($color-error, $lightness: -8%); 
+                }
+            }
+        }
+    }
+}
+
+.loading, .error, .empty {
+    text-align: center;
+    padding: 40px;
+    font-size: 16px;
+    color: $color-text-muted;
+}
+.error {
+    color: $color-error;
+}

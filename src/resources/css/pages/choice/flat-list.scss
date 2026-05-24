@@ -1,0 +1,246 @@
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+@use 'sass:color';
+
+// ============================================
+// Блок: квартиры внутри карточки ЖК
+// ============================================
+
+.building-card__apartments {
+  margin: 0 30px 30px;
+  border-top: 1px solid $color-border-card;
+  padding-top: 24px;
+}
+
+.building-card__apartments-title {
+  font-weight: 800;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: $main-color-dark;
+  letter-spacing: -0.01em;
+}
+
+// Тип квартир (1-комнатная, 2-комнатная...)
+.building-card__type {
+  border-bottom: 1px solid $color-border-light;
+  margin-bottom: 16px;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.building-card__type-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  cursor: pointer;
+  transition: background $transition-fast;
+  border-radius: $border-radius-md;
+
+  &:hover {
+    background: rgba($main-color-dark, 0.02);
+  }
+}
+
+.building-card__type-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 16px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: $main-color-dark;
+}
+
+.building-card__type-meta {
+  font-weight: 400;
+  color: $color-text-muted;
+  font-size: 0.9rem;
+}
+
+.building-card__type-count {
+  background: $color-accent;
+  padding: 4px 12px;
+  border-radius: $border-radius-xl;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: $main-color-darker;
+}
+
+.building-card__type-toggle {
+  background: $color-border-light;
+  border: 1px solid $color-border-silvery;
+  padding: 6px 20px;
+  border-radius: $border-radius-xl;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: $transition-fast;
+  color: $main-color-dark;
+
+  &:hover {
+    background: color.scale($color-border-light, $lightness: -3%);
+    border-color: $color-accent;
+  }
+}
+
+.building-card__type-body {
+  padding: 8px 0 20px 0;
+  display: none; // открывается JS
+}
+
+// Список групп квартир
+.building-card__apartments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+// Группа квартир (этаж, цена, статус, кнопка)
+.building-card__apartment-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: $main-color-white;
+  padding: 12px 16px;
+  border-radius: $border-radius-md;
+  border: 1px solid $color-border-light;
+  transition: $transition-fast;
+
+  &:hover {
+    border-color: $color-accent;
+    box-shadow: $shadow-sm;
+  }
+}
+
+.apartment-floor,
+.apartment-price,
+.apartment-status {
+  font-size: 0.95rem;
+}
+
+.apartment-floor {
+  font-weight: 600;
+  color: $main-color-dark;
+}
+
+.apartment-price {
+  font-weight: 800;
+  color: $color-accent;
+}
+
+.apartment-status {
+  color: $color-text-muted;
+}
+
+// Кнопка заявки на квартиру (переопределяем .btn_sm)
+.building-card__request-apartment {
+  background: $main-color-dark;
+  color: $color-text-light;
+  padding: 6px 20px;
+  border-radius: $border-radius-xl;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition-fast;
+
+  &:hover {
+    background: $main-color-darker;
+    transform: translateY(-1px);
+  }
+}
+
+// ============================================
+// Адаптация для планшетов и мобильных
+// ============================================
+
+@include tablet {
+  .building-card__apartments {
+    margin: 0 20px 24px;
+    padding-top: 20px;
+  }
+
+  .building-card__apartments-title {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .building-card__type-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .building-card__type-title {
+    gap: 12px;
+    font-size: 1.1rem;
+  }
+
+  .building-card__type-toggle {
+    align-self: flex-start;
+  }
+}
+
+@include mobile-l {
+  .building-card__apartments {
+    margin: 0 16px 20px;
+    padding-top: 16px;
+  }
+
+  .building-card__apartments-title {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+
+  .building-card__type-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 1rem;
+  }
+
+  .building-card__type-meta,
+  .building-card__type-count {
+    font-size: 0.8rem;
+  }
+
+  .building-card__type-toggle {
+    padding: 4px 16px;
+    font-size: 0.8rem;
+  }
+
+  .building-card__apartment-group {
+    flex-direction: column;      // элементы в колонку
+    align-items: stretch;        // растягиваем по ширине
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .apartment-floor,
+  .apartment-price,
+  .apartment-status {
+    font-size: 0.9rem;
+  }
+
+  .building-card__request-apartment {
+    width: 100%;                 // кнопка на всю ширину
+    text-align: center;
+    padding: 8px;
+    margin-top: 4px;             // небольшой отступ сверху
+  }
+}
+
+@include mobile-m {
+  .building-card__apartments {
+    margin: 0 12px 16px;
+  }
+
+  .building-card__type-header {
+    padding: 12px 0;
+  }
+}

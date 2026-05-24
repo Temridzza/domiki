@@ -1,0 +1,134 @@
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+
+.urgent-block {
+  background: linear-gradient(115deg, $main-color-dark, $main-color-darker);
+  border-radius: $border-radius-card;
+  padding: 32px 40px;
+  margin: 48px 0 56px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  color: $color-text-light;
+  box-shadow: $shadow-md;
+  border: 1px solid rgba($color-accent, 0.3);
+  transition: $transition-fast;
+
+  &:hover {
+    box-shadow: $shadow-card-hover;
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 260px;
+  }
+
+  &__title {
+    font-size: 1.9rem;
+    font-weight: 900;
+    margin: 0 0 8px 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    line-height: 1.2;
+  }
+
+  &__subtitle {
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0.9;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  &__button {
+    background: $color-accent;
+    padding: 14px 36px;
+    border-radius: $border-radius-xl;
+    font-weight: 800;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: $transition-fast;
+    color: $main-color-darker;
+    box-shadow: $shadow-sm;
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    &:hover {
+      background: $color-link-hover;
+      transform: scale(1.02);
+      box-shadow: $shadow-md;
+    }
+
+    &:active {
+      transform: scale(0.98);
+      box-shadow: $shadow-sm;
+    }
+  }
+
+  // Адаптив
+  @include tablet {
+    padding: 28px 32px;
+    margin: 36px 0 44px;
+    gap: 20px;
+
+    &__title {
+      font-size: 1.6rem;
+    }
+
+    &__button {
+      padding: 12px 28px;
+      font-size: 0.95rem;
+    }
+  }
+
+  @include mobile-l {
+    padding: 24px 20px;
+    margin: 28px 0 36px;
+    border-radius: $border-radius-md;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+
+    &__content {
+      text-align: center;
+    }
+
+    &__title {
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+
+    &__subtitle {
+      font-size: 0.9rem;
+    }
+
+    &__button {
+      width: 100%;
+      text-align: center;
+      padding: 12px 24px;
+    }
+  }
+
+  @include mobile-m {
+    padding: 20px 16px;
+    border-radius: $border-radius-md;
+
+    &__title {
+      font-size: 1.25rem;
+    }
+
+    &__subtitle {
+      font-size: 0.85rem;
+    }
+  }
+
+  @include mobile-s {
+    padding: 16px 12px;
+
+    &__title {
+      font-size: 1.1rem;
+    }
+  }
+}

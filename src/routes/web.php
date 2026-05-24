@@ -1,18 +1,51 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
+| Здесь вы можете зарегистрировать веб-маршруты для своего приложения. Эти
+| маршруты загружаются RouteServiceProvider, и все они будут
+| отнесены к группе промежуточного программного обеспечения "web". 
+| Сделайте что-нибудь замечательное!
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+// Домашняя страница ===============
+Route::get('/', function () {
+    return view('index');
+})->name('home');
+
+Route::get('/home', function () {
+    return redirect()->route('home');
+});
+//==================================
+
+// Страница выбора =================
+Route::get('/choice/{slug}', function ($slug) {
+    // Передачя аргумента
+    return view('page.choice', [
+        'districtSlug' => $slug,
+    ]);
+})->name('choice');
+//==================================
+
+// Админ панель ====================
+Route::get('/panel', function () {
+    return view('page.panel');
+})->name('panel');
+//==================================
+
+// Вывод изображение================
+Route::get('/storage/{path}', function ($path) {
+    // Проверяем существование файла в storage/app/public
+    if (Storage::disk('public')->exists($path)) {
+        // Возвращаем файл с правильным MIME-типом
+        return response()->file(Storage::disk('public')->path($path));
+    }
+    
+    // Если файл не найден
+    return response()->file(public_path('images/default.png'));
+})->where('path', '.*');
+//==================================

@@ -1,0 +1,60 @@
+@use 'sass:color';
+@use '../../base/variables' as *;
+@use '../../base/mixins' as *;
+
+.hero__btn--primary {
+  background: $color-accent;
+  color: $main-color-dark;
+  
+  font-size: 1.65rem;
+  font-weight: $btn-font-weight;        
+  letter-spacing: $btn-letter-spacing;  
+  padding: 24px 54px;
+  border-radius: $border-radius-xl;     
+  transition: $transition-normal;       
+  box-shadow: 0 4px 15px rgba($color-accent, 0.3);
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: $color-link-hover;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+}
+
+// Адаптив для кнопки hero
+@include laptop {
+  .hero__btn--primary {
+    font-size: 1.4rem;
+    padding: 20px 45px;
+  }
+}
+
+@include tablet {
+  .hero__btn--primary {
+    font-size: 1.2rem;
+    padding: 16px 36px;
+  }
+}
+
+@include mobile-l {
+  .hero__btn--primary {
+    font-size: 1rem;
+    padding: 12px 28px;
+  }
+}
+
+@include mobile-m {
+  .hero__btn--primary {
+    font-size: 0.9rem;
+    padding: 10px 24px;
+  }
+}
+
+@include mobile-s {
+  .hero__btn--primary {
+    font-size: 0.85rem;
+    padding: 8px 20px;
+  }
+}

@@ -20,12 +20,23 @@ COPY src/ /var/www/html/
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
+# Установка Node.js и npm
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm
+
 # Установка Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # entrypoint
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+
+# Конвертируем и делаем исполняемым
+RUN apt-get update && apt-get install -y dos2unix \
+    && dos2unix /entrypoint.sh \
+    && chmod +x /entrypoint.sh \
+    && apt-get remove -y dos2unix \
+    && rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["apache2-foreground"]
