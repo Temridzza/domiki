@@ -28,6 +28,7 @@ return new class extends Migration
                 ->default('available');
 
             $table->timestamps();
+            $table->string('layout_image')->default('default.png'); // планировка
 
             // индексы для скорости
             $table->index(['apartment_type_id', 'status']);
