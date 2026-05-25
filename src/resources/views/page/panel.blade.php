@@ -14,9 +14,12 @@
                 <i class="fas fa-shield-alt"></i>
             </div>
             <h2 class="login__title">Вход в систему</h2>
-            <p class="login__description">Введите Bearer токен для доступа к панели управления</p>
-            <input type="password" id="bearerInput" class="login__input" placeholder="Bearer токен" autocomplete="off">
-            <div id="loginError" class="login__error login__error--hidden">Неверный токен. Попробуйте ещё раз.</div>
+            <p class="login__description">Введите email и пароль администратора</p>
+
+            <input type="email" id="loginEmail" class="login__input" placeholder="Email" autocomplete="email">
+            <input type="password" id="loginPassword" class="login__input" placeholder="Пароль" autocomplete="current-password">
+
+            <div id="loginError" class="login__error login__error--hidden">Неверный email или пароль</div>
             <button id="submitLoginBtn" class="login__button login__button--primary">
                 <i class="fas fa-key"></i> Войти
             </button>
