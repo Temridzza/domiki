@@ -32,7 +32,6 @@ Route::get('/choice/{slug}', function ($slug) {
         'districtSlug' => $district->slug,
         'districtName' => $district->name,
     ]);
-
 })->name('choice');
 //==================================
 
@@ -49,7 +48,6 @@ Route::get('/storage/{path}', function ($path) {
         // Возвращаем файл с правильным MIME-типом
         return response()->file(Storage::disk('public')->path($path));
     }
-    
     // Если файл не найден
     return response()->file(public_path('images/default.png'));
 })->where('path', '.*');
