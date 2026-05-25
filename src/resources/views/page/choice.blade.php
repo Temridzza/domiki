@@ -9,7 +9,7 @@
 @section('content')
 <div class="site-wrapper">
     <div class="header">
-        <h1 class="header__title">{{ $districtSlug }} Район</h1>
+        <h1 class="header__title">{{ $districtName }} Район</h1>
     </div>
 
     <div class="district-header-stats">
