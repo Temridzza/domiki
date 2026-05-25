@@ -1,6 +1,6 @@
 // Импортируем модули
 import { initMobileMenu } from './index/mobile-menu';
-import { renderDistrictsCards } from './home/districts-grid';
+import { initViewToggle } from './home/toggle-view';  // новый импорт
 import { initFormHandler } from './home/form';
 import { renderStocks } from './home/stocks';
 import { fetchAndUpdateTotalCount } from './choice/count';
@@ -11,15 +11,13 @@ import { FormManager } from './choice/form-manager';
 document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     // home
-    renderDistrictsCards();
+    initViewToggle();           
     initFormHandler();
     renderStocks();
     // choice
     if (window.districtSlug) {
         fetchAndUpdateTotalCount(window.districtSlug);
-        // Инициализация страницы выбора района
         if (document.querySelector('.complexes-container')) {
-            // Создаём менеджер заявок и делаем его глобальным
             window.formManager = new FormManager();
             initChoiceBuildings();
         }

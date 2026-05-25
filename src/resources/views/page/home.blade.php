@@ -25,8 +25,18 @@
 
 <div class="page-content">
     <section class="districts">
-        <h2 class="districts__title">Выберите район</h2>
-        <p class="districts__subtitle">Престижные локации с развитой инфраструктурой</p>
+        <div class="districts__header">
+            <h2 class="districts__title">Выберите </h2>
+            <div class="toggle-switch">
+                <input type="checkbox" id="viewToggle" class="toggle-switch__checkbox">
+                <label for="viewToggle" class="toggle-switch__label">
+                    <span class="toggle-switch__option" data-value="districts">Районы</span>
+                    <span class="toggle-switch__option" data-value="buildings">Новостройки</span>
+                    <span class="toggle-switch__slider"></span>
+                </label>
+            </div>
+        </div>
+        <p class="districts__subtitle" id="districtsSubtitle">Престижные локации с развитой инфраструктурой</p>
         <div class="districts__grid" id="districtsContainer"></div>        
     </section>
 
