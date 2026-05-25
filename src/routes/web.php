@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use App\Models\District;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,10 @@ Route::get('/choice/{slug}', function ($slug) {
     ]);
 
 })->name('choice');
+
+Route::get('/new-building/{id}', function ($id) {
+    return view('page.new-building', ['buildingId' => $id]);
+})->name('new-building.show');
 //==================================
 
 // Админ панель ====================
