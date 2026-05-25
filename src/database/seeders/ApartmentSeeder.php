@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Apartment;
 use App\Models\ApartmentType;
@@ -22,31 +21,41 @@ class ApartmentSeeder extends Seeder
 
             // настройки генерации
             $floors = 9;
-            $entrances = 3;
-            $apartmentsPerFloor = 2;
+            $apartmentsPerFloor = 6;
 
-            for ($entrance = 1; $entrance <= $entrances; $entrance++) {
-                for ($floor = 1; $floor <= $floors; $floor++) {
-                    for ($i = 1; $i <= $apartmentsPerFloor; $i++) {
+            for ($floor = 1; $floor <= $floors; $floor++) {
 
-                        // номер квартиры (пример: 2 подъезд, 5 этаж → 205, 206)
-                        $number = $entrance . $floor . $i;
+                for ($i = 1; $i <= $apartmentsPerFloor; $i++) {
 
-                        $apartments[] = [
-                            'apartment_type_id' => $type->id,
-                            'floor' => $floor,
-                            'entrance' => $entrance,
-                            'number' => $number,
-                            'price' => $type->base_price,
-                            'status' => 'available',
-                            'created_at' => now(),
-                            'updated_at' => now(),
-                        ];
-                    }
+                    $apartments[] = [
+                        'apartment_type_id' => $type->id,
+
+                        'floor' => $floor,
+
+                        // небольшое отклонение цены
+                        'price' => $type->base_price + rand(-5000, 15000),
+
+                        // часть квартир — горячие предложения
+                        'is_hot_offer' => rand(1, 100) <= 15,
+
+                        // случайный статус
+                        'status' => collect([
+                            'available',
+                            'available',
+                            'available',
+                            'reserved',
+                            'sold'
+                        ])->random(),
+
+                        'layout_image' => 'default.png',
+
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
                 }
             }
 
-            // массовая вставка (быстро)
+            // массовая вставка
             Apartment::insert($apartments);
         }
     }

@@ -25,6 +25,10 @@ Route::get('/catalog', [Controller::class, 'districtsWithBuildings']);
 
 // авторизация
 Route::post('/login', [AuthController::class, 'login']);
+
+// получение горячего предложения выбранное случайно
+Route::get('/apartments/hot-offer/random', [ApartmentController::class, 'randomHotOffer']);
+
 // создание записей под админом
 Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     Route::post('/districts', [DistrictController::class, 'store']); 
@@ -54,7 +58,7 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     Route::post('/contact', [ContactController::class, 'send']);
 });
 
-Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
+Route::middleware(['auth:sanctum', 'is_superAdmin'])->group(function () {
     Route::get('/users', [UserController::class, 'index']);
     Route::post('/users', [UserController::class, 'store']);
     Route::get('/users/{id}', [UserController::class, 'show']);
@@ -67,7 +71,6 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
 Route::middleware(['auth:sanctum', 'is_admin'])->post('/admin-test', function (Request $request) {
     return response()->json(['message' => 'вы админ']);
 });
-
 Route::middleware(['auth:sanctum', 'is_superAdmin'])->post('/superAdmin-test', function (Request $request) {
     return response()->json(['message' => 'вы superадмин']);
 });

@@ -19,9 +19,7 @@
                             "schema": {
                                 "required": [
                                     "apartment_type_id",
-                                    "floor",
-                                    "entrance",
-                                    "number"
+                                    "floor"
                                 ],
                                 "properties": {
                                     "apartment_type_id": {
@@ -32,18 +30,15 @@
                                         "type": "integer",
                                         "example": 5
                                     },
-                                    "entrance": {
-                                        "type": "integer",
-                                        "example": 2
-                                    },
-                                    "number": {
-                                        "type": "string",
-                                        "example": "45A"
-                                    },
                                     "price": {
                                         "type": "integer",
                                         "example": 120000,
                                         "nullable": true
+                                    },
+                                    "is_hot_offer": {
+                                        "description": "Горячее предложение",
+                                        "type": "boolean",
+                                        "example": true
                                     },
                                     "status": {
                                         "type": "string",
@@ -89,17 +84,13 @@
                                                     "type": "integer",
                                                     "example": 5
                                                 },
-                                                "entrance": {
-                                                    "type": "integer",
-                                                    "example": 2
-                                                },
-                                                "number": {
-                                                    "type": "string",
-                                                    "example": "45A"
-                                                },
                                                 "price": {
                                                     "type": "integer",
                                                     "example": 120000
+                                                },
+                                                "is_hot_offer": {
+                                                    "type": "boolean",
+                                                    "example": true
                                                 },
                                                 "status": {
                                                     "type": "string",
@@ -175,6 +166,16 @@
                         }
                     },
                     {
+                        "name": "is_hot_offer",
+                        "in": "query",
+                        "description": "Фильтр по горячим предложениям",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "example": true
+                        }
+                    },
+                    {
                         "name": "min_price",
                         "in": "query",
                         "description": "Минимальная цена",
@@ -246,17 +247,13 @@
                                                         "type": "integer",
                                                         "example": 5
                                                     },
-                                                    "entrance": {
-                                                        "type": "integer",
-                                                        "example": 2
-                                                    },
-                                                    "number": {
-                                                        "type": "string",
-                                                        "example": "45A"
-                                                    },
                                                     "price": {
                                                         "type": "integer",
                                                         "example": 120000
+                                                    },
+                                                    "is_hot_offer": {
+                                                        "type": "boolean",
+                                                        "example": true
                                                     },
                                                     "status": {
                                                         "type": "string",
@@ -314,17 +311,13 @@
                                         "type": "integer",
                                         "example": 5
                                     },
-                                    "entrance": {
-                                        "type": "integer",
-                                        "example": 2
-                                    },
-                                    "number": {
-                                        "type": "string",
-                                        "example": "45A"
-                                    },
                                     "price": {
                                         "type": "integer",
                                         "example": 5500000
+                                    },
+                                    "is_hot_offer": {
+                                        "type": "boolean",
+                                        "example": true
                                     },
                                     "status": {
                                         "type": "string",
@@ -364,6 +357,10 @@
                                                 "price": {
                                                     "type": "integer",
                                                     "example": 5500000
+                                                },
+                                                "is_hot_offer": {
+                                                    "type": "boolean",
+                                                    "example": true
                                                 },
                                                 "status": {
                                                     "type": "string",
@@ -427,6 +424,65 @@
                         "sanctum": []
                     }
                 ]
+            }
+        },
+        "/api/apartments/hot-offer/random": {
+            "get": {
+                "tags": [
+                    "Apartments"
+                ],
+                "summary": "Получить случайное горячее предложение",
+                "operationId": "fbc7e2718e2ece4cba1b51d642c1480a",
+                "responses": {
+                    "200": {
+                        "description": "Случайное горячее предложение",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "apartment_type_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "floor": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "price": {
+                                                    "type": "integer",
+                                                    "example": 120000
+                                                },
+                                                "is_hot_offer": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "available"
+                                                },
+                                                "layout_image": {
+                                                    "type": "string",
+                                                    "example": "apartments/image.png"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Горячие предложения не найдены"
+                    }
+                }
             }
         },
         "/api/buildings/{buildingId}/apartment-types": {
