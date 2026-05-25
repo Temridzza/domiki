@@ -1,6 +1,8 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use App\Models\District;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,10 +26,14 @@ Route::get('/home', function () {
 
 // Страница выбора =================
 Route::get('/choice/{slug}', function ($slug) {
-    // Передачя аргумента
+
+    $district = District::where('slug', $slug)->firstOrFail();
+
     return view('page.choice', [
-        'districtSlug' => $slug,
+        'districtSlug' => $district->slug,
+        'districtName' => $district->name,
     ]);
+
 })->name('choice');
 //==================================
 

@@ -12,8 +12,6 @@ class Apartment extends Model
     protected $fillable = [
         'apartment_type_id',
         'floor',
-        'entrance',
-        'number',
         'price',
         'status',
         'layout_image',

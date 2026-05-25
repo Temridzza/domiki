@@ -19,10 +19,11 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->integer('floor');       // этаж
-            $table->integer('entrance');    // подъезд
-            $table->string('number');       // номер
 
             $table->integer('price')->nullable(); // индивидуальная цена
+
+             $table->boolean('is_hot_offer')
+                ->default(false); // горячее предложение
 
             $table->enum('status', ['available', 'reserved', 'sold'])
                 ->default('available');

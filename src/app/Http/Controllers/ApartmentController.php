@@ -7,6 +7,7 @@ use App\Models\Apartment;
 use App\Models\ApartmentType;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
 
 class ApartmentController extends Controller
 {
@@ -22,13 +23,18 @@ class ApartmentController extends Controller
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
      *             @OA\Schema(
-     *                 required={"apartment_type_id","floor","entrance","number"},
+     *                 required={"apartment_type_id","floor"},
      *
      *                 @OA\Property(property="apartment_type_id", type="integer", example=1),
      *                 @OA\Property(property="floor", type="integer", example=5),
-     *                 @OA\Property(property="entrance", type="integer", example=2),
-     *                 @OA\Property(property="number", type="string", example="45A"),
      *                 @OA\Property(property="price", type="integer", example=120000, nullable=true),
+     *
+     *                 @OA\Property(
+     *                     property="is_hot_offer",
+     *                     type="boolean",
+     *                     example=true,
+     *                     description="Горячее предложение"
+     *                 ),
      *
      *                 @OA\Property(
      *                     property="status",
@@ -57,9 +63,8 @@ class ApartmentController extends Controller
      *                 @OA\Property(property="id", type="integer", example=1),
      *                 @OA\Property(property="apartment_type_id", type="integer", example=1),
      *                 @OA\Property(property="floor", type="integer", example=5),
-     *                 @OA\Property(property="entrance", type="integer", example=2),
-     *                 @OA\Property(property="number", type="string", example="45A"),
      *                 @OA\Property(property="price", type="integer", example=120000),
+     *                 @OA\Property(property="is_hot_offer", type="boolean", example=true),
      *                 @OA\Property(property="status", type="string", example="available"),
      *                 @OA\Property(property="layout_image", type="string", example="apartments/image.png")
      *             )
@@ -83,10 +88,10 @@ class ApartmentController extends Controller
             'apartment_type_id' => 'required|exists:apartment_types,id',
 
             'floor' => 'required|integer|min:1',
-            'entrance' => 'required|integer|min:1',
-            'number' => 'required|string|max:50',
 
             'price' => 'nullable|integer|min:0',
+
+            'is_hot_offer' => 'nullable|boolean',
 
             'status' => 'nullable|in:available,reserved,sold',
 
@@ -98,6 +103,8 @@ class ApartmentController extends Controller
         if (!isset($data['price'])) {
             $data['price'] = $apartmentType->base_price;
         }
+
+        $data['is_hot_offer'] = $data['is_hot_offer'] ?? false;
 
         if ($request->hasFile('layout_image')) {
             $data['layout_image'] = $request->file('layout_image')
@@ -140,6 +147,14 @@ class ApartmentController extends Controller
      *         required=false,
      *         description="Фильтр по этажу",
      *         @OA\Schema(type="integer", example=5)
+     *     ),
+     *
+     *     @OA\Parameter(
+     *         name="is_hot_offer",
+     *         in="query",
+     *         required=false,
+     *         description="Фильтр по горячим предложениям",
+     *         @OA\Schema(type="boolean", example=true)
      *     ),
      *
      *     @OA\Parameter(
@@ -189,9 +204,8 @@ class ApartmentController extends Controller
      *                     @OA\Property(property="id", type="integer", example=1),
      *                     @OA\Property(property="apartment_type_id", type="integer", example=1),
      *                     @OA\Property(property="floor", type="integer", example=5),
-     *                     @OA\Property(property="entrance", type="integer", example=2),
-     *                     @OA\Property(property="number", type="string", example="45A"),
      *                     @OA\Property(property="price", type="integer", example=120000),
+     *                     @OA\Property(property="is_hot_offer", type="boolean", example=true),
      *                     @OA\Property(property="status", type="string", example="available"),
      *                     @OA\Property(property="layout_image", type="string", example="apartments/image.png")
      *                 )
@@ -207,7 +221,7 @@ class ApartmentController extends Controller
      */
     public function indexByType(Request $request, int $apartmentTypeId)
     {
-        $type = ApartmentType::findOrFail($apartmentTypeId);
+        ApartmentType::findOrFail($apartmentTypeId);
 
         $query = Apartment::where('apartment_type_id', $apartmentTypeId);
 
@@ -217,6 +231,10 @@ class ApartmentController extends Controller
 
         if ($request->has('floor')) {
             $query->where('floor', $request->floor);
+        }
+
+        if ($request->has('is_hot_offer')) {
+            $query->where('is_hot_offer', filter_var($request->is_hot_offer, FILTER_VALIDATE_BOOLEAN));
         }
 
         if ($request->has('min_price')) {
@@ -261,9 +279,14 @@ class ApartmentController extends Controller
      *             @OA\Schema(
      *                 @OA\Property(property="apartment_type_id", type="integer", example=1),
      *                 @OA\Property(property="floor", type="integer", example=5),
-     *                 @OA\Property(property="entrance", type="integer", example=2),
-     *                 @OA\Property(property="number", type="string", example="45A"),
      *                 @OA\Property(property="price", type="integer", example=5500000),
+     *
+     *                 @OA\Property(
+     *                     property="is_hot_offer",
+     *                     type="boolean",
+     *                     example=true
+     *                 ),
+     *
      *                 @OA\Property(property="status", type="string", example="available"),
      *
      *                 @OA\Property(
@@ -286,6 +309,7 @@ class ApartmentController extends Controller
      *                 @OA\Property(property="id", type="integer", example=1),
      *                 @OA\Property(property="floor", type="integer", example=5),
      *                 @OA\Property(property="price", type="integer", example=5500000),
+     *                 @OA\Property(property="is_hot_offer", type="boolean", example=true),
      *                 @OA\Property(property="status", type="string", example="available"),
      *                 @OA\Property(property="layout_image", type="string", example="apartments/image.png")
      *             )
@@ -303,11 +327,12 @@ class ApartmentController extends Controller
 
         $data = $request->validate([
             'apartment_type_id' => 'sometimes|exists:apartment_types,id',
+
             'floor' => 'sometimes|integer|min:1',
-            'entrance' => 'sometimes|integer|min:1',
-            'number' => 'sometimes|string|max:50',
 
             'price' => 'nullable|integer|min:0',
+
+            'is_hot_offer' => 'sometimes|boolean',
 
             'status' => 'sometimes|in:available,reserved,sold',
 
@@ -362,6 +387,52 @@ class ApartmentController extends Controller
 
         return response()->json([
             'message' => 'Apartment deleted'
+        ]);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/apartments/hot-offer/random",
+     *     summary="Получить случайное горячее предложение",
+     *     tags={"Apartments"},
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="Случайное горячее предложение",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="apartment_type_id", type="integer", example=1),
+     *                 @OA\Property(property="floor", type="integer", example=5),
+     *                 @OA\Property(property="price", type="integer", example=120000),
+     *                 @OA\Property(property="is_hot_offer", type="boolean", example=true),
+     *                 @OA\Property(property="status", type="string", example="available"),
+     *                 @OA\Property(property="layout_image", type="string", example="apartments/image.png")
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=404,
+     *         description="Горячие предложения не найдены"
+     *     )
+     * )
+     */
+    public function randomHotOffer(): JsonResponse
+    {
+        $apartment = Apartment::where('is_hot_offer', true)
+            ->where('status', 'available')
+            ->inRandomOrder()
+            ->first();
+
+        if (!$apartment) {
+            return response()->json([
+                'message' => 'Hot offers not found'
+            ], 404);
+        }
+
+        return response()->json([
+            'data' => $apartment
         ]);
     }
 }
