@@ -1,6 +1,6 @@
 // resources/js/home/toggle-view.js
-import { renderDistrictsCards } from './districts-grid';
-import { renderNewBuildingsCards } from './new-buildings-grid';
+import { renderDistrictsCards } from './carousel/districts-grid';
+import { renderNewBuildingsCards } from './carousel/new-buildings-grid';
 
 export function initViewToggle() {
     const toggle = document.getElementById('viewToggle');
