@@ -6,10 +6,12 @@ import { renderStocks } from './home/stocks';
 import { fetchAndUpdateTotalCount } from './choice/count';
 import { initChoiceBuildings } from './choice/new-buildings';
 import { FormManager } from './choice/form-manager';
+import { initDistrictsToggle } from './home/districts-grid';
 
 // Инициализация после загрузки DOM
 document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
+    initDistrictsToggle();
     // home
     renderDistrictsCards();
     initFormHandler();
