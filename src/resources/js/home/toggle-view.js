@@ -27,6 +27,9 @@ export function initViewToggle() {
         }
     };
 
+    // Переключение по клику
     toggle.addEventListener('change', switchView);
-    renderDistrictsCards(); // начальный рендер
+    
+    // Первоначальный рендер
+    renderDistrictsCards();
 }

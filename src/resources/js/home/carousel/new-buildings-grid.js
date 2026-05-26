@@ -1,4 +1,6 @@
-// resources/js/home/new-buildings-grid.js
+// resources/js/home/carousel/new-buildings-grid.js
+import { createCarousel } from './carousel.js';
+
 export async function renderNewBuildingsCards() {
     const container = document.getElementById('districtsContainer');
     if (!container) return;
@@ -8,7 +10,6 @@ export async function renderNewBuildingsCards() {
     try {
         const response = await fetch('/api/new-buildings');
         if (!response.ok) throw new Error('Ошибка загрузки');
-
         const { data: buildings } = await response.json();
 
         if (!buildings.length) {
@@ -16,39 +17,51 @@ export async function renderNewBuildingsCards() {
             return;
         }
 
-        container.innerHTML = '';
-
-        buildings.forEach(building => {
+        const createBuildingCard = (building) => {
             const card = document.createElement('article');
-            card.className = 'district-card';
-            card.addEventListener('click', () => {
-                // Переход на страницу новостройки (если нужно)
-                // window.location.href = `/new-building/${building.id}`;
-                console.log('Клик по новостройке', building.id);
-            });
+            card.className = 'carousel-card';
+            card.setAttribute('data-building-id', building.id);
 
             const imageContainer = document.createElement('div');
-            imageContainer.className = 'district-card__image';
+            imageContainer.className = 'carousel-card__image';
             const imageUrl = building.image && building.image !== 'default.png'
                 ? `/storage/${building.image}`
                 : '/storage/default.png';
             imageContainer.style.backgroundImage = `url('${imageUrl}')`;
 
             const title = document.createElement('h3');
-            title.className = 'district-card__title';
+            title.className = 'carousel-card__title';
             title.textContent = building.name;
 
             const desc = document.createElement('p');
-            desc.className = 'district-card__description';
+            desc.className = 'carousel-card__description';
             desc.textContent = building.advantages || 'Нет информации о преимуществах';
 
             card.appendChild(imageContainer);
             card.appendChild(title);
             card.appendChild(desc);
-            container.appendChild(card);
-        });
+            return card;
+        };
+
+        const onCardClick = (building) => {
+            window.location.href = `/new-building/${building.id}`;
+        };
+
+        createCarousel(container, buildings, createBuildingCard, onCardClick);
+
     } catch (error) {
-        console.error('Ошибка загрузки новостроек:', error);
-        container.innerHTML = '<p class="districts__error">Не удалось загрузить новостройки. Попробуйте позже.</p>';
+        console.error(error);
+        container.innerHTML = '<p class="districts__error">Не удалось загрузить новостройки.</p>';
     }
 }
+
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    if (resizeTimeout) clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        const toggle = document.getElementById('viewToggle');
+        if (toggle && toggle.checked) {
+            renderNewBuildingsCards();
+        }
+    }, 250);
+});
