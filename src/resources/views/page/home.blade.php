@@ -40,6 +40,7 @@
         <div class="districts__grid" id="districtsContainer"></div>        
     </section>
 
+
     <div class="form-section form-section--hidden">
         <div class="form-section__wrapper">
             <h2 class="form-section__title">Оставьте заявку</h2>

@@ -17,7 +17,6 @@ export async function renderDistrictsCards() {
             return;
         }
 
-        // Функция создания карточки района
         const createDistrictCard = (district) => {
             const card = document.createElement('article');
             card.className = 'carousel-card';
@@ -56,7 +55,6 @@ export async function renderDistrictsCards() {
     }
 }
 
-// Обработчик изменения размера окна (пересоздаём карусель)
 let resizeTimeout;
 window.addEventListener('resize', () => {
     if (resizeTimeout) clearTimeout(resizeTimeout);
