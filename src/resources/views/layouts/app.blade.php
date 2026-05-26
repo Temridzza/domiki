@@ -36,6 +36,10 @@
                         </div>
                         <span class="logo__text">NORTHWIND</span>
                     </a>
+                    <nav class="nav-links">
+                        <a href="{{ route('company') }}" class="nav-link nav-link--about">О нас</a>
+                        <a href="{{ route('service') }}" class="nav-link nav-link--services">Услуги</a>
+                    </nav>
                     <button class="burger-btn" id="burgerBtn" aria-label="Меню">
                         <span class="burger-btn__line"></span>
                         <span class="burger-btn__line"></span>
