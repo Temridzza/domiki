@@ -1,10 +1,18 @@
 @use '../../base/variables' as *;
 @use '../../base/mixins' as *;
 
-// ===== КАРТОЧКИ АКЦИЙ (специфичные для home) =====
+// ===== КОНТЕЙНЕР ДЛЯ КАРТОЧЕК =====
+.stats__container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+// ===== КАРТОЧКИ АКЦИЙ =====
 .stats__card {
-  flex: 1;
-  min-width: 180px;
+  flex: 1 1 calc(25% - 20px); // 4 карточки в ряд на десктопе
+  min-width: 200px;
   text-align: center;
   background: $main-color-white;
   padding: 28px 16px;
@@ -48,8 +56,7 @@
 // ===== АДАПТИВ ДЛЯ КАРТОЧЕК =====
 @include laptop {
   .stats__card {
-    min-width: 160px;
-    padding: 24px 12px;
+    flex-basis: calc(33.333% - 20px); // 3 колонки на ноутбуках
   }
   .stats__number {
     font-size: 2.5rem;
@@ -64,7 +71,7 @@
 
 @include tablet {
   .stats__card {
-    flex: 0 1 calc(50% - 10px);
+    flex-basis: calc(50% - 20px); // 2 колонки на планшетах
     min-width: auto;
     padding: 20px 16px;
   }
@@ -78,7 +85,7 @@
 
 @include mobile-l {
   .stats__card {
-    flex: 0 1 calc(50% - 8px);
+    flex-basis: calc(50% - 20px); // 2 колонки для мобильных до 425px
     padding: 18px 12px;
   }
   .stats__number {
@@ -95,7 +102,7 @@
 
 @include mobile-m {
   .stats__card {
-    flex: 0 1 100%;
+    flex-basis: 100%; // 1 колонка для экранов ≤370px
     padding: 16px 12px;
   }
   .stats__number {
