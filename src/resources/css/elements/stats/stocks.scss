@@ -11,7 +11,7 @@
 
 // ===== КАРТОЧКИ АКЦИЙ =====
 .stats__card {
-  flex: 1 1 calc(25% - 20px); // 4 карточки в ряд на десктопе
+  flex: 1 1 calc(25% - 20px); 
   min-width: 200px;
   text-align: center;
   background: $main-color-white;
@@ -56,7 +56,7 @@
 // ===== АДАПТИВ ДЛЯ КАРТОЧЕК =====
 @include laptop {
   .stats__card {
-    flex-basis: calc(33.333% - 20px); // 3 колонки на ноутбуках
+    flex-basis: calc(33.333% - 20px); 
   }
   .stats__number {
     font-size: 2.5rem;
@@ -71,7 +71,7 @@
 
 @include tablet {
   .stats__card {
-    flex-basis: calc(50% - 20px); // 2 колонки на планшетах
+    flex-basis: calc(50% - 20px); 
     min-width: auto;
     padding: 20px 16px;
   }
@@ -85,7 +85,7 @@
 
 @include mobile-l {
   .stats__card {
-    flex-basis: calc(50% - 20px); // 2 колонки для мобильных до 425px
+    flex-basis: calc(50% - 20px); 
     padding: 18px 12px;
   }
   .stats__number {
@@ -102,7 +102,7 @@
 
 @include mobile-m {
   .stats__card {
-    flex-basis: 100%; // 1 колонка для экранов ≤370px
+    flex-basis: 100%; 
     padding: 16px 12px;
   }
   .stats__number {
