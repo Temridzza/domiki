@@ -1,12 +1,15 @@
 import { initRecordsDistricts } from './records/records-districts';
 import { initRecordsTypes } from './records/records-types';
 import { initRecordsBuildings } from './records/records-buildings';
-import { initRecordsFlats } from './records/records-flats';   // новый импорт
+import { initRecordsFlats } from './records/records-flats';
+import { initRecordsUsers } from './records/records-users';
 
 let adminToken = null;
+let isSuperAdmin = false;   
 
-export function initAdminPanel(token) {
+export function initAdminPanel(token, superAdminFlag = false) {
     adminToken = token;
+    isSuperAdmin = superAdminFlag;
 
     const loginOverlay = document.getElementById('loginOverlay');
     const adminContent = document.querySelector('.admin-panel-content');
@@ -16,6 +19,14 @@ export function initAdminPanel(token) {
 
     const menuItems = document.querySelectorAll('.admin-menu__item');
     const panes = document.querySelectorAll('.admin-menu__pane');
+
+    // Скрываем пункты, требующие прав супер-администратора
+    menuItems.forEach(item => {
+        const requiredRole = item.getAttribute('data-role');
+        if (requiredRole === 'super' && !isSuperAdmin) {
+            item.style.display = 'none';
+        }
+    });
 
     function switchTab(tabId) {
         panes.forEach(pane => pane.classList.remove('admin-menu__pane--active'));
@@ -38,7 +49,11 @@ export function initAdminPanel(token) {
         } else if (tabId === 'recordsBuildings') {
             initRecordsBuildings(adminToken);
         } else if (tabId === 'recordsFlats') {
+            // Обычный администратор работает с квартирами (без флага super)
             initRecordsFlats(adminToken);
+        } else if (tabId === 'recordsUsers') {
+            // Только супер-админ видит и использует этот модуль
+            initRecordsUsers(adminToken, isSuperAdmin);
         }
     }
 
