@@ -4,299 +4,314 @@
 
 /* ========= ОСНОВНЫЕ СТИЛИ БЛОКА ========= */
 .districts {
-  padding: $districts-padding;
-  text-align: center;
-  max-width: $container-max-width;
-  margin: 15px auto;
-  padding-left: 20px;
-  padding-right: 20px;
+    padding: $districts-padding;
+    text-align: center;
+    max-width: $container-max-width;
+    margin: 15px auto;
+    padding-left: 20px;
+    padding-right: 20px;
 
-  &__title {
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: $main-color-darker;
-    margin-bottom: 16px;
-  }
+    &__title {
+        font-size: 2.4rem;
+        font-weight: 700;
+        color: $main-color-darker;
+        margin-bottom: 16px;
+    }
 
-  &__subtitle {
-    color: $color-text-muted;
-    margin-bottom: 48px;
-    font-size: 1.1rem;
-  }
+    &__subtitle {
+        color: $color-text-muted;
+        margin-bottom: 48px;
+        font-size: 1.1rem;
+    }
 
-  &__loader,
-  &__error {
-    padding: 40px;
-    font-size: 1.2rem;
-    color: $color-text-muted;
-  }
+    &__loader,
+    &__error {
+        padding: 40px;
+        font-size: 1.2rem;
+        color: $color-text-muted;
+    }
 }
 
 /* ========= КАРУСЕЛЬ ========= */
 .carousel-root {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .carousel-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 16px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
 .carousel-track {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  gap: $grid-gap;
-  padding: 10px 0;
-  flex: 1;
-  scrollbar-width: thin;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: $grid-gap;
+    padding: 10px 0;
+    flex: 1;
+    scrollbar-width: thin;
 
-  &::-webkit-scrollbar {
-    height: 6px;
-  }
-  &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: $color-accent;
-    border-radius: 4px;
-  }
+    &::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $color-accent;
+        border-radius: 4px;
+    }
 }
 
 .carousel-card {
-  flex: 0 0 auto;
-  scroll-snap-align: start;
-  background: $main-color-white;
-  border-radius: $border-radius-card;
-  box-shadow: $shadow-card;
-  transition: $transition-normal;
-  cursor: pointer;
-  text-align: center;
-  padding-bottom: 24px;
-  overflow: hidden;
-
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: $shadow-card-hover;
-  }
-
-  &__image {
-    width: 100%;
-    height: 240px;
-    background-size: cover;
-    background-position: center;
-    background-color: $card-img-bg;
-  }
-
-  &__title {
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 20px 0 8px;
-    color: $main-color-dark;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    background: $main-color-white;
+    border-radius: $border-radius-card;
+    box-shadow: $shadow-card;
     transition: $transition-normal;
-  }
+    cursor: pointer;
+    text-align: center;
+    padding-bottom: 24px;
+    overflow: hidden;
 
-  &__description {
-    font-size: 0.9rem;
-    color: $color-text-muted;
-    padding: 0 16px;
-    margin: 0 5px;
-  }
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: $shadow-card-hover;
+    }
 
-  .carousel-card:hover &__title {
-    color: $color-link-hover;
-  }
+    &__image {
+        width: 100%;
+        height: 240px;
+        background-size: cover;
+        background-position: center;
+        background-color: $card-img-bg;
+    }
+
+    &__title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 20px 0 8px;
+        color: $main-color-dark;
+        transition: $transition-normal;
+    }
+
+    &__description {
+        font-size: 0.9rem;
+        color: $color-text-muted;
+        padding: 0 16px;
+        margin: 0 5px;
+    }
+
+    .carousel-card:hover &__title {
+        color: $color-link-hover;
+    }
 }
 
 /* Кнопки Prev/Next */
 .carousel-btn {
-  background: rgba($main-color-white, 0.9);
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $main-color-darker;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  transition: $transition-fast;
-  flex-shrink: 0;
-  z-index: 2;
+    background: rgba($main-color-white, 0.9);
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $main-color-darker;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: $transition-fast;
+    flex-shrink: 0;
+    z-index: 2;
 
-  &:hover {
-    background: $color-accent;
-    color: white;
-    transform: scale(1.05);
-  }
+    &:hover {
+        background: $color-accent;
+        color: white;
+        transform: scale(1.05);
+    }
 
-  &--prev {
-    margin-right: 8px;
-  }
-  &--next {
-    margin-left: 8px;
-  }
+    &--prev {
+        margin-right: 8px;
+    }
+
+    &--next {
+        margin-left: 8px;
+    }
 }
 
 /* ========= АДАПТИВ: КОЛИЧЕСТВО ВИДИМЫХ КАРТОЧЕК ========= */
 // Десктоп: 3 карточки
 @media (min-width: 1024px) {
-  .carousel-card {
-    width: calc(100% / 3 - (#{$grid-gap} * 2 / 3));
-  }
-  .carousel-track {
-    gap: $grid-gap;
-  }
+    .carousel-card {
+        width: calc(100% / 3 - (#{$grid-gap} * 2 / 3));
+    }
+
+    .carousel-track {
+        gap: $grid-gap;
+    }
 }
 
 // Планшет: 2 карточки
 @media (min-width: 768px) and (max-width: 1023px) {
-  .carousel-card {
-    width: calc(100% / 2 - #{$grid-gap} / 2);
-  }
-  .carousel-track {
-    gap: $grid-gap;
-  }
+    .carousel-card {
+        width: calc(100% / 2 - #{$grid-gap} / 2);
+    }
+
+    .carousel-track {
+        gap: $grid-gap;
+    }
 }
 
 // Мобильные: 1 карточка
 @media (max-width: 767px) {
-  .carousel-card {
-    width: 100%;
-  }
-  .carousel-track {
-    gap: 20px;
-  }
-  .carousel-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 1.4rem;
-  }
-  .carousel-wrapper {
-    gap: 8px;
-  }
+    .carousel-card {
+        width: 100%;
+    }
+
+    .carousel-track {
+        gap: 20px;
+    }
+
+    .carousel-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1.4rem;
+    }
+
+    .carousel-wrapper {
+        gap: 8px;
+    }
 }
 
 // Очень маленькие экраны
 @media (max-width: 480px) {
-  .carousel-btn {
-    width: 32px;
-    height: 32px;
-    font-size: 1.2rem;
-  }
+    .carousel-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 1.2rem;
+    }
 }
 
 /* ========= ПЕРЕКЛЮЧАТЕЛЬ РАЙОНЫ/НОВОСТРОЙКИ ========= */
 .districts__header {
-  @include flex-center;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-bottom: 16px;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 20px;
-  text-align: center;
+    @include flex-center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 16px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+    text-align: center;
 }
 
 .toggle-switch {
-  position: relative;
-  display: inline-block;
-
-  &__checkbox {
-    display: none;
-  }
-
-  &__label {
-    display: flex;
-    align-items: center;
-    background: rgba($main-color-white, 0.2);
-    border-radius: 60px;
-    padding: 6px;
-    cursor: pointer;
     position: relative;
-    min-width: 280px;
-    box-shadow: 0 0 0 2px $color-accent, inset 0 1px 2px rgba(0,0,0,0.05);
-    transition: $transition-fast;
-  }
+    display: inline-block;
 
-  &__option {
-    flex: 1;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 700;
-    padding: 12px 16px;
-    border-radius: 50px;
-    transition: $transition-fast;
-    z-index: 2;
-    color: $main-color-darker;
-  }
-
-  &__slider {
-    position: absolute;
-    top: 6px;
-    left: 6px;
-    width: calc(50% - 6px);
-    height: calc(100% - 12px);
-    background: $color-accent;
-    border-radius: 50px;
-    transition: transform 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-
-  &__checkbox:not(:checked) + &__label &__option:first-child {
-    color: $main-color-darker;
-    font-weight: 700;
-  }
-  &__checkbox:not(:checked) + &__label &__option:last-child {
-    color: rgba($main-color-darker, 0.5);
-    font-weight: 500;
-  }
-  &__checkbox:checked + &__label &__slider {
-    transform: translateX(100%);
-  }
-  &__checkbox:checked + &__label &__option:first-child {
-    color: rgba($main-color-darker, 0.5);
-    font-weight: 500;
-  }
-  &__checkbox:checked + &__label &__option:last-child {
-    color: $main-color-darker;
-    font-weight: 700;
-  }
-
-  &__label:hover {
-    box-shadow: 0 0 0 2px $color-link-hover, inset 0 1px 2px rgba(0,0,0,0.05);
-    & .toggle-switch__slider {
-      background: $color-link-hover;
+    &__checkbox {
+        display: none;
     }
-  }
+
+    &__label {
+        display: flex;
+        align-items: center;
+        background: rgba($main-color-white, 0.2);
+        border-radius: 60px;
+        padding: 6px;
+        cursor: pointer;
+        position: relative;
+        min-width: 280px;
+        box-shadow: 0 0 0 2px $color-accent, inset 0 1px 2px rgba(0,0,0,0.05);
+        transition: $transition-fast;
+    }
+
+    &__option {
+        flex: 1;
+        text-align: center;
+        font-size: 1rem;
+        font-weight: 700;
+        padding: 12px 16px;
+        border-radius: 50px;
+        transition: $transition-fast;
+        z-index: 2;
+        color: $main-color-darker;
+    }
+
+    &__slider {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: calc(50% - 6px);
+        height: calc(100% - 12px);
+        background: $color-accent;
+        border-radius: 50px;
+        transition: transform 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    &__checkbox:not(:checked) + &__label &__option:first-child {
+        color: $main-color-darker;
+        font-weight: 700;
+    }
+
+    &__checkbox:not(:checked) + &__label &__option:last-child {
+        color: rgba($main-color-darker, 0.5);
+        font-weight: 500;
+    }
+
+    &__checkbox:checked + &__label &__slider {
+        transform: translateX(100%);
+    }
+
+    &__checkbox:checked + &__label &__option:first-child {
+        color: rgba($main-color-darker, 0.5);
+        font-weight: 500;
+    }
+
+    &__checkbox:checked + &__label &__option:last-child {
+        color: $main-color-darker;
+        font-weight: 700;
+    }
+
+    &__label:hover {
+        box-shadow: 0 0 0 2px $color-link-hover, inset 0 1px 2px rgba(0,0,0,0.05);
+
+        & .toggle-switch__slider {
+            background: $color-link-hover;
+        }
+    }
 }
 
 /* Адаптив переключателя */
 @media (max-width: 767px) {
-  .toggle-switch {
-    &__label {
-      min-width: 240px;
-      padding: 4px;
+    .toggle-switch {
+        &__label {
+            min-width: 240px;
+            padding: 4px;
+        }
+
+        &__option {
+            font-size: 0.85rem;
+            padding: 8px 12px;
+        }
+
+        &__slider {
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+        }
     }
-    &__option {
-      font-size: 0.85rem;
-      padding: 8px 12px;
-    }
-    &__slider {
-      top: 4px;
-      left: 4px;
-      width: calc(50% - 4px);
-      height: calc(100% - 8px);
-    }
-  }
 }

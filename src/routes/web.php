@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use App\Models\District;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,23 @@ Route::get('/choice/{slug}', function ($slug) {
         'districtName' => $district->name,
     ]);
 })->name('choice');
+
+// Страница новостройки
+Route::get('/new-building/{id}', function ($id) {
+    return view('page.new-building', ['buildingId' => $id]);
+})->name('new-building.show');
+//==================================
+
+// Страница "О компании"
+Route::get('/company', function () {
+    return view('page.company');
+})->name('company');
+//=================================
+
+// Страница "Услуги"
+Route::get('/service', function () {
+    return view('page.service');
+})->name('service');
 //==================================
 
 // Админ панель ====================

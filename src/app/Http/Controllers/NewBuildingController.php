@@ -369,5 +369,21 @@ class NewBuildingController extends Controller
             'message' => 'New building deleted'
         ]);
     }
+    //????????????????????????????????????????????????????????????
+    public function show($id): JsonResponse
+    {
+        $building = NewBuilding::with(['district', 'apartmentTypes.apartments'])->find($id);
 
+        if (!$building) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Новостройка не найдена'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $building
+        ]);
+    }
 }

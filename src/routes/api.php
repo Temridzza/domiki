@@ -20,6 +20,7 @@ Route::get('/new-buildings', [NewBuildingController::class, 'index']);
 Route::get('/districts/{slug}/new-buildings', [NewBuildingController::class, 'byDistrict']);
 Route::get('/buildings/{buildingId}/apartment-types', [ApartmentTypeController::class, 'byBuilding']);
 Route::get('/apartment-types/{id}/apartments', [ApartmentController::class, 'indexByType']);
+Route::get('/new-buildings/{id}', [NewBuildingController::class, 'show']);//???????????????????????????????????????????????????????
 // все новостройки
 Route::get('/catalog', [Controller::class, 'districtsWithBuildings']);
 
