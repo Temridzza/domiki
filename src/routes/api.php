@@ -20,6 +20,7 @@ Route::get('/new-buildings', [NewBuildingController::class, 'index']);
 Route::get('/districts/{slug}/new-buildings', [NewBuildingController::class, 'byDistrict']);
 Route::get('/buildings/{buildingId}/apartment-types', [ApartmentTypeController::class, 'byBuilding']);
 Route::get('/apartment-types/{id}/apartments', [ApartmentController::class, 'indexByType']);
+
 // все новостройки
 Route::get('/catalog', [Controller::class, 'districtsWithBuildings']);
 
@@ -54,9 +55,8 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
 });
 
 // отправка на почту
-Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
-    Route::post('/contact', [ContactController::class, 'send']);
-});
+Route::post('/contact', [ContactController::class, 'send']);
+
 
 Route::middleware(['auth:sanctum', 'is_superAdmin'])->group(function () {
     Route::get('/users', [UserController::class, 'index']);
