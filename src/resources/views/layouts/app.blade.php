@@ -34,7 +34,7 @@
                                 </svg>
                             </div>
                         </div>
-                        <span class="logo__text">NORTHWIND</span>
+                        <span class="logo__text">Ed-Gar Управление недвижимостью</span>
                     </a>
                     <nav class="nav-links">
                         <a href="{{ route('company') }}" class="nav-link nav-link--about">О нас</a>
@@ -51,6 +51,19 @@
             <div id="mobileMenu" class="mobile-menu">
                 <div class="mobile-menu__container">
                     <nav class="mobile-menu__nav">
+                        <div class="mobile-menu__section">
+                            <h3 class="mobile-menu__title">Информация</h3>
+                            <ul class="mobile-menu__list">
+                                <li class="mobile-menu__item" data-url="{{ route('company') }}">
+                                    <span class="mobile-menu__item-name">О нас</span>
+                                    <span class="mobile-menu__item-desc">О компании Ed-Gar</span>
+                                </li>
+                                <li class="mobile-menu__item" data-url="{{ route('service') }}">
+                                    <span class="mobile-menu__item-name">Услуги</span>
+                                    <span class="mobile-menu__item-desc">Что мы предлагаем</span>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="mobile-menu__section">
                             <h3 class="mobile-menu__title">Районы</h3>
                             <ul id="districtsList" class="mobile-menu__list">
@@ -106,7 +119,7 @@
                 </div>
                 <div class="footer__copyright">
                     <div class="footer__copyright-text">
-                        © {{ date('Y') }} NORTHWIND. Все права защищены.
+                        © {{ date('Y') }} Ed-Gar Все права защищены.
                     </div>
                 </div>
             </footer>

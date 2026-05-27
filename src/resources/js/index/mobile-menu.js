@@ -50,12 +50,28 @@ export function initMobileMenu() {
             
             districtsList.innerHTML = itemsHtml;
             
-            document.querySelectorAll('.mobile-menu__item').forEach(item => {
+            /*document.querySelectorAll('.mobile-menu__item').forEach(item => {
                 item.addEventListener('click', () => {
                     const slug = item.dataset.slug;
                     if (slug) window.location.href = `/choice/${slug}`;
                 });
-            });
+            });*/
+
+            document.querySelectorAll('.mobile-menu__item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    // Обработка прямого URL (для "О нас", "Услуги")
+                    const url = item.getAttribute('data-url');
+                    if (url) {
+                        window.location.href = url;
+                        return;
+                    }
+                    // Обработка slug (для районов)
+                    const slug = item.getAttribute('data-slug');
+                    if (slug) {
+                        window.location.href = `/choice/${slug}`;
+                    }
+                });
+            }); 
             
             districtsLoaded = true;
         } catch (error) {

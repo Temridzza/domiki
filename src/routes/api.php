@@ -55,9 +55,11 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
 });
 
 // отправка на почту
-Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
-    Route::post('/contact', [ContactController::class, 'send']);
-});
+Route::post('/contact', [ContactController::class, 'send']);
+
+//Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
+//    Route::post('/contact', [ContactController::class, 'send']);
+//});
 
 Route::middleware(['auth:sanctum', 'is_superAdmin'])->group(function () {
     Route::get('/users', [UserController::class, 'index']);

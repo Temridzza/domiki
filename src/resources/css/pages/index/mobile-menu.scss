@@ -146,3 +146,19 @@
         font-size: 0.7rem;
     }
 }
+.mobile-menu__list {
+    list-style: none; /* убираем стандартные маркеры */
+    padding-left: 0; /* убираем отступ слева */
+    margin: 0;
+}
+
+.mobile-menu__item {
+    list-style: none;
+    position: relative;
+    padding-left: 16px; /* отступ, если нужен (раньше мог быть из-за маркера) */
+}
+
+    .mobile-menu__item::before {
+        content: none; /* отключаем любые кастомные точки через псевдоэлемент */
+        display: none;
+    }

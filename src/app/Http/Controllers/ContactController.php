@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -70,7 +69,7 @@ class ContactController extends Controller
         ]);
 
         // Отправка письма
-        Mail::to('krykikry@gmail.com')->send(
+        Mail::to('lisasasa144@gmail.com')->send(
             new ContactMail($data)
         );
 
