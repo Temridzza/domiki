@@ -63,13 +63,14 @@ class ContactController extends Controller
     {
         // Валидация
         $data = $request->validate([
+            'where'=> 'required|string|max:255',
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'message' => 'nullable|string|max:2000',
         ]);
 
         // Отправка письма
-        Mail::to('lisasasa144@gmail.com')->send(
+        Mail::to('kfqr.yfcdzpt@gmail.com')->send(
             new ContactMail($data)
         );
 

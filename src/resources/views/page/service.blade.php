@@ -178,19 +178,75 @@
 @section('scripts')
     @vite('resources/js/app.js')
     <script>
-        // Простая обработка отправки формы (можно реализовать через AJAX)
-        document.getElementById('serviceLeadForm')?.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const form = e.target;
-            const formData = new FormData(form);
-            try {
-                // Здесь отправка на ваш эндпоинт
-                // await fetch('/api/leads', { method: 'POST', body: formData });
-                alert('Спасибо! Мы свяжемся с вами в ближайшее время.');
-                form.reset();
-            } catch (err) {
-                alert('Ошибка отправки. Попробуйте позже.');
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('serviceLeadForm');
+            if (!form) return;
+
+            // Создаём блок для сообщений, если его нет
+            let messageBlock = form.querySelector('.form-message');
+            if (!messageBlock) {
+                messageBlock = document.createElement('div');
+                messageBlock.className = 'form-message';
+                form.appendChild(messageBlock);
             }
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Собираем данные и приводим к формату ContactController
+                const formData = new FormData(form);
+                let comment = formData.get('comment') || '';
+                const serviceType = formData.get('service_type');
+                if (serviceType && serviceType !== '') {
+                    comment = (comment ? comment + '\n' : '') + `Услуга: ${serviceType}`;
+                }
+
+                const data = {
+                    name:    formData.get('name'),
+                    phone:   formData.get('phone'),
+                    message: comment || null,
+                    where:   window.location.pathname,   // например, /service
+                };
+
+                // Очищаем предыдущие стили сообщения
+                messageBlock.classList.remove('form-section__message--success', 'form-section__message--error');
+                messageBlock.style.display = 'block';
+
+                try {
+                    const response = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest',
+                        },
+                        body: JSON.stringify(data),
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        messageBlock.textContent = '✅ Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.';
+                        messageBlock.classList.add('form-section__message--success');
+                        form.reset();
+                        setTimeout(() => {
+                            messageBlock.style.display = 'none';
+                        }, 5000);
+                    } else {
+                        const errorMsg = result.errors
+                            ? Object.values(result.errors).flat().join(', ')
+                            : (result.message || 'Ошибка отправки');
+                        throw new Error(errorMsg);
+                    }
+                } catch (error) {
+                    console.error('Ошибка:', error);
+                    messageBlock.textContent = `❌ ${error.message || 'Попробуйте позже.'}`;
+                    messageBlock.classList.add('form-section__message--error');
+                    setTimeout(() => {
+                        messageBlock.style.display = 'none';
+                    }, 5000);
+                }
+            });
         });
     </script>
 @endsection

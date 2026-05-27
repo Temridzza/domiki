@@ -148,7 +148,7 @@
             header.setAttribute('data-type-id', index);
 
             const title = document.createElement('h3');
-            title.innerText = `${type.name} (${type.rooms ?? '?'} комн.)`;
+            title.innerText = ` ${type.rooms ?? '?'} комнатные`;
 
             const toggleBtn = document.createElement('button');
             toggleBtn.className = 'toggle-table-btn';
