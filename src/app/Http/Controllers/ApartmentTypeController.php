@@ -34,7 +34,12 @@ class ApartmentTypeController extends Controller
      *                 @OA\Property(property="building_id", type="integer", example=1),
      *                 @OA\Property(property="area", type="integer", example=45),
      *                 @OA\Property(property="base_price", type="integer", example=120000),
-     *                 @OA\Property(property="rooms", type="integer", example=2),
+     *                 @OA\Property(
+     *                     property="rooms",
+     *                     type="integer",
+     *                     description="0 = студия, 1 = однокомнатная и т.д.",
+     *                     example=0
+     *                 ),
      *
      *                 @OA\Property(
      *                     property="available_count",
@@ -112,7 +117,12 @@ class ApartmentTypeController extends Controller
      *             @OA\Property(property="building_id", type="integer", example=1),
      *             @OA\Property(property="area", type="integer", example=45),
      *             @OA\Property(property="base_price", type="integer", example=120000),
-     *             @OA\Property(property="rooms", type="integer", example=2)
+     *             @OA\Property(
+     *                 property="rooms",
+     *                 type="integer",
+     *                 description="0 = студия, 1 = однокомнатная и т.д.",
+     *                 example=0
+     *             )
      *         )
      *     ),
      *
@@ -133,7 +143,7 @@ class ApartmentTypeController extends Controller
             'building_id' => 'required|exists:new_buildings,id',
             'area' => 'required|integer|min:1',
             'base_price' => 'required|integer|min:0',
-            'rooms' => 'required|integer|min:1',
+            'rooms' => 'required|integer|min:0',
         ]);
 
         $apartmentType = ApartmentType::create($data);
@@ -161,7 +171,12 @@ class ApartmentTypeController extends Controller
      *             @OA\Property(property="building_id", type="integer", example=1),
      *             @OA\Property(property="area", type="integer", example=45),
      *             @OA\Property(property="base_price", type="integer", example=5000000),
-     *             @OA\Property(property="rooms", type="integer", example=2)
+     *             @OA\Property(
+     *                 property="rooms",
+     *                 type="integer",
+     *                 description="0 = студия, 1 = однокомнатная и т.д.",
+     *                 example=0
+     *             )
      *         )
      *     ),
      *

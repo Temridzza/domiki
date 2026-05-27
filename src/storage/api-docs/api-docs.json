@@ -530,8 +530,9 @@
                                                 "example": 120000
                                             },
                                             "rooms": {
+                                                "description": "0 = студия, 1 = однокомнатная и т.д.",
                                                 "type": "integer",
-                                                "example": 2
+                                                "example": 0
                                             },
                                             "available_count": {
                                                 "type": "integer",
@@ -586,8 +587,9 @@
                                         "example": 120000
                                     },
                                     "rooms": {
+                                        "description": "0 = студия, 1 = однокомнатная и т.д.",
                                         "type": "integer",
-                                        "example": 2
+                                        "example": 0
                                     }
                                 },
                                 "type": "object"
@@ -646,8 +648,9 @@
                                         "example": 5000000
                                     },
                                     "rooms": {
+                                        "description": "0 = студия, 1 = однокомнатная и т.д.",
                                         "type": "integer",
-                                        "example": 2
+                                        "example": 0
                                     }
                                 },
                                 "type": "object"
