@@ -1,5 +1,4 @@
 // admin.js
-// import { testAdminBearer } from './panel/bearer-login'; // больше не нужно
 import { initAdminPanel } from './panel/admin-menu';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -29,12 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (response.ok && data.token) {
-                // Успешный вход: скрываем оверлей, показываем админку
+                const isSuperAdmin = data.user?.is_superAdmin === 1;
                 loginOverlay.style.display = 'none';
                 adminContent.style.display = 'block';
-                initAdminPanel(data.token);   // передаём Bearer токен
+                initAdminPanel(data.token, isSuperAdmin);
             } else {
-                // Ошибка: показать сообщение от сервера или общее
                 const errorMsg = data.message || 'Неверный email или пароль';
                 showError(errorMsg);
             }
@@ -53,13 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Скрываем ошибку при вводе в любое поле
     const clearError = () => loginError?.classList.add('login__error--hidden');
     emailInput?.addEventListener('input', clearError);
     passwordInput?.addEventListener('input', clearError);
     submitBtn?.addEventListener('click', handleLogin);
 
-    // Вход по Enter на любом поле
     const onKeyPress = (e) => { if (e.key === 'Enter') handleLogin(); };
     emailInput?.addEventListener('keypress', onKeyPress);
     passwordInput?.addEventListener('keypress', onKeyPress);

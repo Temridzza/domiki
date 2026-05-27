@@ -35,6 +35,7 @@
                 <li class="admin-menu__item" data-tab="recordsTypes">Типы новостроек</li>
                 <li class="admin-menu__item" data-tab="recordsBuildings">Новостройки</li>
                 <li class="admin-menu__item" data-tab="recordsFlats">Квартиры</li>
+                <li class="admin-menu__item" data-tab="recordsUsers" data-role="super">Пользователи</li>
             </ul>
         </nav>
         <div class="admin-menu__content">
@@ -42,6 +43,7 @@
             <div id="recordsTypes" class="admin-menu__pane"></div>
             <div id="recordsBuildings" class="admin-menu__pane"></div>
             <div id="recordsFlats" class="admin-menu__pane"></div>
+            <div id="recordsUsers" class="admin-menu__pane"></div>
         </div>
     </div>
 </div>
