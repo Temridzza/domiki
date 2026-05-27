@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'О компании – NORTHWIND')
+@section('title', 'О компании')
 
 @section('style')
     @vite('resources/css/app.css')
